@@ -1,2 +1,2 @@
 # GlobalGameJam2018Pipes
-Logistic Puyyle Game
+Logistic Puzzle Game

@@ -39,6 +39,7 @@ public class ItemSource : MonoBehaviour
             {
                 spawnPositionFree = false;
                 newItem = Instantiate(itemPrefabs[random.Next(0, itemPrefabs.Count)]);
+                newItem.transform.position = transform.position;
                 newItem.GetComponent<ItemBehaviour>().Row = Row;
                 newItem.GetComponent<ItemBehaviour>().Column = Column;
             }

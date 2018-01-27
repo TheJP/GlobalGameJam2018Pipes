@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
 {
-
     public int floatSpeed;
     public int Row { get; set; }
     public int Column { get; set; }
+    private LastStep lastStep;
     private PlayBoard playBoard;
 
     // Use this for initialization
     void Start()
     {
-        GameObject playBoardObject = GameObject.Find("PlayBoard");
+        GameObject playBoardObject = GameObject.Find("PlayBoard(Clone)");
         playBoard = playBoardObject.GetComponent<PlayBoard>();
-
-        Row = 0;
-        Column = 0;
 
         StartCoroutine(MoveItem());
     }
@@ -32,33 +29,60 @@ public class ItemBehaviour : MonoBehaviour
     {
         while (true)
         {
-            switch (playBoard.GetTileForPosition(Row, Column).FlowDirection)
+            FlowDirection nextDirection = FlowDirection.Stop;
+            switch (lastStep)
             {
-                case FlowDirection.ToTop:
-                    StepUp();
+                case LastStep.DOWN:
+                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromTop;
                     break;
-                case FlowDirection.ToDown:
-                    StepDown();
+                case LastStep.LEFT:
+                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromRight;
                     break;
-                case FlowDirection.ToLeft:
-                    StepLeft();
+                case LastStep.RIGHT:
+                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromLeft;
                     break;
-                case FlowDirection.ToRight:
-                    StepRight();
-                    break;
-                case FlowDirection.Stop:
-                    Debug.Log("Item stopping");
-                    break;
-                case FlowDirection.Trash:
-                    //TODO
-                    break;
-                case FlowDirection.Drop:
-                    //TODO
+                case LastStep.UP:
+                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromBottom;
                     break;
                 default:
-                    Debug.Log("No Direction to Move");
                     break;
             }
+
+            if(nextDirection != null)
+            {
+                switch (nextDirection)
+                {
+                    case FlowDirection.ToTop:
+                        lastStep = LastStep.UP;
+                        StepUp();
+                        break;
+                    case FlowDirection.ToDown:
+                        lastStep = LastStep.DOWN;
+                        StepDown();
+                        break;
+                    case FlowDirection.ToLeft:
+                        lastStep = LastStep.LEFT;
+                        StepLeft();
+                        break;
+                    case FlowDirection.ToRight:
+                        lastStep = LastStep.RIGHT;
+                        StepRight();
+                        break;
+                    case FlowDirection.Stop:
+                        Debug.Log("Item stopping");
+                        break;
+                    case FlowDirection.Trash:
+                        //TODO
+                        break;
+                    case FlowDirection.Drop:
+                        //TODO
+                        break;
+                    default:
+                        Debug.Log("No Direction to Move");
+                        break;
+                }
+            }
+            
             yield return new WaitForSecondsRealtime(floatSpeed);
         }
     }
@@ -82,4 +106,6 @@ public class ItemBehaviour : MonoBehaviour
     {
         transform.position = new Vector2(transform.position.x, transform.position.y - 10);
     }
+
+    private enum LastStep { LEFT, RIGHT, UP, DOWN }
 }

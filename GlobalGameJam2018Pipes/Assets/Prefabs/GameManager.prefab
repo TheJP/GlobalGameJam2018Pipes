@@ -51,5 +51,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3ce27e38919264d935cf2ad8c7fd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  inventoryPrefab: {fileID: 1821530696048058, guid: e9dab6528ec700944b287b3d80f29b8d,
+    type: 2}
+  cursorPrefab: {fileID: 1410817100366716, guid: 57f943798afa17c4986c77f952a89401,
+    type: 2}
+  cameraPrefab: {fileID: 1693224615242264, guid: b45f13cc209f6144fa3f223ae5a4f9a4,
+    type: 2}
+  playBoardPrefab: {fileID: 1112186620042806, guid: 6a7e01d3ee54e9b4e9a966c86cbf5847,
+    type: 2}
+  assetTablePrefab: {fileID: 1941770448855794, guid: 071dab39863585f49a9ceba5ec9c3771,
+    type: 2}
+  itemSourcePrefab: {fileID: 1409807368658336, guid: be567aecaf474f644942cd8fb7e22bcf,
+    type: 2}
+  itemSinkPrefab: {fileID: 1519788509197486, guid: d22286ca86e0bd942b45e147ff0be506,
+    type: 2}
   buildNext: 0

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayBoard : MonoBehaviour
 {
@@ -39,7 +40,15 @@ public class PlayBoard : MonoBehaviour
 
     public Tile GetTileForPosition(int row, int column)
     {
-        return tiles[row, column].GetComponent<Tile>();
+        try
+        {
+            return tiles[row, column].GetComponent<Tile>();
+        }
+        catch (IndexOutOfRangeException ioofException)
+        {
+            Debug.Log(ioofException.ToString());
+            return null;
+        }
     }
 
     private float GetXPosition(int column, int tileSize)

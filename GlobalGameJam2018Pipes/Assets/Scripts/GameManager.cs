@@ -2,14 +2,36 @@
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory;
+    public GameObject inventoryPrefab;
+    public GameObject cursorPrefab;
+    public GameObject cameraPrefab;
+    public GameObject playBoardPrefab;
+    public GameObject assetTablePrefab;
+    public GameObject itemSourcePrefab;
+    public GameObject itemSinkPrefab;
 
     [SerializeField] private PipeType buildNext;
-
-    [SerializeField] private Cursor cursor;
+    private Inventory inventory;
+    private Cursor cursor;
+    private ItemSource itemSource;
 
     // TODO previousBuildNext can be removed when we select pipes via the table
     private PipeType previousBuildNext;
+
+    private void Awake()
+    {
+        inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
+        cursor = Instantiate(cursorPrefab).GetComponent<Cursor>();
+        Instantiate(cameraPrefab);
+        Instantiate(playBoardPrefab);
+        GameObject table = Instantiate(assetTablePrefab);
+        table.transform.position = new Vector3(50, 0, 0);
+        //table.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+        GameObject itemSourceObject = Instantiate(itemSourcePrefab);
+        itemSourceObject.transform.position = new Vector3(-50, 0, 25);
+        itemSource = itemSourceObject.GetComponent<ItemSource>();
+    }
 
     public void Start()
     {
@@ -38,7 +60,7 @@ public class GameManager : MonoBehaviour
             SetBuildNext(buildNext);
         }
 
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -46,10 +68,10 @@ public class GameManager : MonoBehaviour
 
             Debug.DrawRay(transform.position, (Input.mousePosition), Color.green);
 
-            if(Physics.Raycast(ray, out hit, range))
+            if (Physics.Raycast(ray, out hit, range))
             {
                 GameObject target = hit.collider.gameObject;
-                if(target.name.Contains("Tile"))
+                if (target.name.Contains("Tile"))
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
 
@@ -65,10 +87,15 @@ public class GameManager : MonoBehaviour
                     hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 }
 
-                if(target.tag == "Pipe")
+                if (target.tag == "Pipe")
                 {
                     Debug.Log("Hit a Pipe");
                     target.GetComponent<DestroyPipe>().ReduceLifetime();
+                }
+
+                if (target.tag == "ItemSource")
+                {
+                    Debug.Log("ItemSource clicked");
                 }
 
             }

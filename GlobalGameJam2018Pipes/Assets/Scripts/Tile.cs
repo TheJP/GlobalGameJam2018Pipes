@@ -15,13 +15,6 @@ public class Tile : MonoBehaviour
 
     public Pipe pipe;
 
-    public FlowDirection FlowDirection { get; set; }
-
-    private void Start()
-    {
-        FlowDirection = FlowDirection.Drop;
-    }
-
     public bool BuildPipe(PipeType pipeType, int rotation)
     {
         if(pipe != null)

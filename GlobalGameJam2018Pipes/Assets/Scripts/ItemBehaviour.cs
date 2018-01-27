@@ -23,7 +23,7 @@ public class ItemBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(this.name.ToString() + ": LastStep " + lastStep + ", Row/Column " + Row + "/" + Column);
+
     }
 
     private IEnumerator MoveItem()

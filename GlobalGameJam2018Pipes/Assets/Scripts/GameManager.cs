@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using GlobalGameJam2018Networking;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static Multiplayer Multiplayer;
+
     public GameObject inventoryPrefab;
     public GameObject cursorPrefab;
     public GameObject cameraPrefab;
@@ -31,6 +34,26 @@ public class GameManager : MonoBehaviour
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
         itemSourceObject.transform.position = new Vector3(-45, 0, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
+
+        if (Multiplayer != null)
+        {
+            var levelConfig = LevelConfig.Builder("Main")
+                .AddPipe(PipeDirection.ToAlchemist, 1)
+                .AddPipe(PipeDirection.ToAlchemist, 2)
+                .AddPipe(PipeDirection.ToPipes, 3)
+                .Create();
+
+            Multiplayer.Network.ReceivedMoneyMaker += (maker, pipe) => { inventory.Gold += maker.GoldValue; };
+
+            // Exit or continue game:
+            //Multiplayer.Network.AlchemistDisconnected
+            //Multiplayer.Network.GameOver
+
+            // Display chat message:
+            //Multiplayer.Network.ReceivedMessage
+
+            Multiplayer.Network.StartLevel(levelConfig);
+        }
     }
 
     public void Start()

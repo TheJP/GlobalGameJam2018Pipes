@@ -1,11 +1,31 @@
 fileFormatVersion: 2
-guid: 06e933fffa8acf248bbd5e485f344a9d
-timeCreated: 1517032471
+guid: 2a0364e818a1bef4391f122a9dd74111
+timeCreated: 1517035289
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
-  externalObjects: {}
+  fileIDToRecycleName:
+    100000: Circle
+    100002: //RootNode
+    100004: Plane
+    400000: Circle
+    400002: //RootNode
+    400004: Plane
+    2100000: Material_001__Bildli2_png
+    2300000: Circle
+    2300002: Plane
+    3300000: Circle
+    3300002: Plane
+    4300000: Plane
+    4300002: Circle
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001__Bildli2_png
+    second: {fileID: 2100000, guid: d203a2e2940b9284fbf6762832890b63, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

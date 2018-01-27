@@ -22,11 +22,17 @@ public class GameCamera : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, range))
             {
-
-                if (hit.collider.gameObject.name.Contains("Tile"))
+                GameObject target = hit.collider.gameObject;
+                if (target.name.Contains("Tile"))
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
                     hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                }
+
+                if (target.tag == "Pipe")
+                {
+                    Debug.Log("Hit a Pipe");
+                    target.GetComponent<DestroyPipe>().ReduceLifetime();
                 }
 
             }

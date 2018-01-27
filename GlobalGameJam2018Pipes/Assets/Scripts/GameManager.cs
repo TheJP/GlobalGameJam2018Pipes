@@ -44,6 +44,12 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                if (target.name.Contains("Asset"))
+                {
+                    Debug.Log("Hit: " + hit.collider.gameObject.name);
+                    hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                }
+
                 if(target.tag == "Pipe")
                 {
                     Debug.Log("Hit a Pipe");

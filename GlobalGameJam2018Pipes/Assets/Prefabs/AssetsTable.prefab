@@ -9,19 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1327364979308418}
+  m_RootGameObject: {fileID: 1941770448855794}
   m_IsPrefabParent: 1
---- !u!1 &1327364979308418
+--- !u!1 &1125985119524914
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4387532377719654}
-  - component: {fileID: 33934010860224280}
-  - component: {fileID: 23615413264094098}
-  - component: {fileID: 95515363744694418}
+  - component: {fileID: 4335544045159660}
+  - component: {fileID: 33052129493486280}
+  - component: {fileID: 23001240150505912}
+  - component: {fileID: 95500659428148110}
   m_Layer: 0
   m_Name: Table_rough_1
   m_TagString: Untagged
@@ -29,25 +29,55 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4387532377719654
+--- !u!1 &1941770448855794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4764414116707032}
+  - component: {fileID: 114132759219401890}
+  m_Layer: 0
+  m_Name: AssetsTable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4335544045159660
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327364979308418}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 47.6, y: 9.35, z: 0}
-  m_LocalScale: {x: 0.049100388, y: 0.023651533, z: 0.020107025}
+  m_GameObject: {fileID: 1125985119524914}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.049100447, y: 0.023651533, z: 0.02010704}
   m_Children: []
+  m_Father: {fileID: 4764414116707032}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4764414116707032
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941770448855794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4335544045159660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!23 &23615413264094098
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23001240150505912
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327364979308418}
+  m_GameObject: {fileID: 1125985119524914}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -76,20 +106,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33934010860224280
+--- !u!33 &33052129493486280
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327364979308418}
+  m_GameObject: {fileID: 1125985119524914}
   m_Mesh: {fileID: 4300000, guid: ea3070f363a93db4c9b15863753250e2, type: 3}
---- !u!95 &95515363744694418
+--- !u!95 &95500659428148110
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327364979308418}
+  m_GameObject: {fileID: 1125985119524914}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ea3070f363a93db4c9b15863753250e2, type: 3}
   m_Controller: {fileID: 0}
@@ -100,3 +130,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114132759219401890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941770448855794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fd3767e75f457499bbbc078e3af8d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tableSizeRows: 8
+  tableSizeCols: 2
+  assetPrefab: {fileID: 1963797125112138, guid: 6c05f5e323e701e418dd38583b106dad,
+    type: 2}
+  table: {fileID: 1125985119524914}
+  tableThickness: 0.4

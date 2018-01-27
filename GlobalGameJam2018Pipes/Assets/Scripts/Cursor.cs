@@ -13,6 +13,7 @@ public class Cursor
     private GameObject currrentDisplay;
     private PipeType currentPipeType;
     private Plane cursorPlane;
+    public int currentRotation;
 
     public void SetPipeDisplay(PipeType pipeType)
     {
@@ -70,6 +71,8 @@ public class Cursor
         if(Input.GetMouseButtonUp(1) && currrentDisplay != null)
         {
             currrentDisplay.transform.Rotate(Vector3.up, 90);
+            ++currentRotation;
+            currentRotation %= 4;
         }
 
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -89,7 +92,7 @@ public class Cursor
             {
                 var tile = target.GetComponentInParent<Tile>();
 
-                if (!tile.hasPipe)
+                if (tile.pipe == null)
                 {
                     var targetPos = tile.transform.position;
                     transform.position = targetPos;

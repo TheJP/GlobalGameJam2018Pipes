@@ -32,6 +32,16 @@ public class PlayBoard : MonoBehaviour
         }
     }
 
+    public int GetStepSize()
+    {
+        return tiles[0, 0].GetComponent<Tile>().tileSize;
+    }
+
+    public Tile GetTileForPosition(int row, int column)
+    {
+        return tiles[row, column].GetComponent<Tile>();
+    }
+
     private float GetXPosition(int column, int tileSize)
     {
         return tileSize * column - ((boardSize - 1) * tileSize / 2);

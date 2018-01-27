@@ -54,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4670477381238964}
   - component: {fileID: 95561652490626154}
+  - component: {fileID: 114401790212338456}
   m_Layer: 0
   m_Name: Item_Liquid_2
   m_TagString: Untagged
@@ -273,3 +274,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114401790212338456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652779453712004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25331253cea2a2643b18f20b1e96c2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatSpeed: 5

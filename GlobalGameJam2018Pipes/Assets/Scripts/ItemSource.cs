@@ -6,9 +6,12 @@ public class ItemSource : MonoBehaviour
 {
     public int spawnTime;
     public List<GameObject> itemPrefabs;
+    public int Column = -1;
+    public int Row;
 
+    private GameObject newItem;
     private System.Random random;
-    private bool spawnPositionFree = true;
+    [SerializeField] private bool spawnPositionFree = true;
 
     // Use this for initialization
     void Start()
@@ -22,13 +25,22 @@ public class ItemSource : MonoBehaviour
     {
     }
 
+    public void ReleasItem()
+    {
+        spawnPositionFree = true;
+        newItem.GetComponent<ItemBehaviour>().StepRight();
+    }
+
     private IEnumerator SpawnItem()
     {
         while (true)
         {
             if (spawnPositionFree)
             {
-                Instantiate(itemPrefabs[random.Next(0, itemPrefabs.Count)]);
+                spawnPositionFree = false;
+                newItem = Instantiate(itemPrefabs[random.Next(0, itemPrefabs.Count)]);
+                newItem.GetComponent<ItemBehaviour>().Row = Row;
+                newItem.GetComponent<ItemBehaviour>().Column = Column;
             }
             yield return new WaitForSecondsRealtime(spawnTime);
         }

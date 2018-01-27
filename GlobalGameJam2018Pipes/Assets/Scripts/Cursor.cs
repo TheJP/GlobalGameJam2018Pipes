@@ -67,6 +67,11 @@ public class Cursor
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonUp(1) && currrentDisplay != null)
+        {
+            currrentDisplay.transform.Rotate(Vector3.up, 90);
+        }
+
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float distance;

@@ -1,24 +1,20 @@
 fileFormatVersion: 2
-guid: 56cdc74967271e043b8ba1e23e6d7cc2
-timeCreated: 1517059380
+guid: a1aac77e096c39f4d9c5afa69f82b302
+timeCreated: 1517059381
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Pipe_X2
-    400000: //RootNode
-    400002: Pipe_X2
-    2100000: lambert1
-    2100002: MAT_Pipe1
+    100000: Pipe_L3
+    100002: //RootNode
+    400000: Pipe_L3
+    400002: //RootNode
+    2100000: MAT_Pipe1
+    2100002: MAT_Pipe_Details
     2100004: MAT_Pipe_Glass
-    2100006: MAT_Pipe_Details
-    2300000: //RootNode
-    2300002: Pipe_X2
-    3300000: //RootNode
-    3300002: Pipe_X2
-    4300000: Pipe_X_2
-    4300002: Pipe_X2
+    2300000: Pipe_L3
+    3300000: Pipe_L3
+    4300000: Pipe_L3
     9500000: //RootNode
   externalObjects: {}
   materials:

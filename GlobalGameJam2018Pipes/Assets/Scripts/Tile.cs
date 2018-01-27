@@ -1,19 +1,54 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
 {
     public int Row;
     public int Column;
-    public int tileSize;
 
-    private List<GameObject> pipes = new List<GameObject>(2);
+    public GameObject pipeStraight;
+    public GameObject pipeTurn;
+    public GameObject pipeLeftRight;
+    public GameObject pipeOverUnder;
+    public GameObject pipeXIntersection;
+    public GameObject pipeTIntersection;
 
-    // Use this for initialization
-    void Start()
+    public bool hasPipe;
+    
+    public bool BuildPipe(PipeType pipeType)
     {
-        gameObject.transform.localScale = new Vector3(tileSize, 1, tileSize);
+        if(hasPipe)
+        {
+            return false;
+        }
+
+        switch(pipeType)
+        {
+        case PipeType.Straight:
+            Instantiate(pipeStraight, transform);
+            return hasPipe = true;
+        case PipeType.Turn:
+            Instantiate(pipeTurn, transform);
+            return hasPipe = true;
+        case PipeType.LeftRight:
+            Instantiate(pipeLeftRight, transform);
+            return hasPipe = true;
+        case PipeType.UnderOver:
+            Instantiate(pipeOverUnder, transform);
+            return hasPipe = true;
+        case PipeType.TIntersection:
+            Instantiate(pipeTIntersection, transform);
+            return hasPipe = true;
+        case PipeType.XIntersection:
+            Instantiate(pipeXIntersection, transform);
+            return hasPipe = true;
+        default:
+            return false;
+        }
+    }
+
+    public void RemovePipe()
+    {
+        hasPipe = false;
     }
 
     public void Test()

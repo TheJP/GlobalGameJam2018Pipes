@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
         Instantiate(cameraPrefab);
         Instantiate(playBoardPrefab);
         GameObject table = Instantiate(assetTablePrefab);
+        table.transform.rotation = Quaternion.Euler(0, 90, 0);
         table.transform.position = new Vector3(50, 0, 0);
-        //table.transform.rotation = Quaternion.Euler(0, 90, 0);
 
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
         itemSourceObject.transform.position = new Vector3(-45, 0, 25);

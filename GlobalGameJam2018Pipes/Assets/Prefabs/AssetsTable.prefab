@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fd3767e75f457499bbbc078e3af8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tableSizeRows: 8
-  tableSizeCols: 2
+  tableSizeRows: 2
+  tableSizeCols: 8
   assetPrefab: {fileID: 1963797125112138, guid: 6c05f5e323e701e418dd38583b106dad,
     type: 2}
   table: {fileID: 1125985119524914}

@@ -12,6 +12,7 @@ public class ItemSource : MonoBehaviour
     private GameObject newItem;
     private System.Random random;
     [SerializeField] private bool spawnPositionFree = true;
+    private bool itemReleased = false;
 
     // Use this for initialization
     void Start()
@@ -27,8 +28,12 @@ public class ItemSource : MonoBehaviour
 
     public void ReleasItem()
     {
-        spawnPositionFree = true;
-        newItem.GetComponent<ItemBehaviour>().StepRight();
+        if (!itemReleased)
+        {
+            itemReleased = true;
+            spawnPositionFree = true;
+            newItem.GetComponent<ItemBehaviour>().StepRight();
+        }
     }
 
     private IEnumerator SpawnItem()
@@ -39,6 +44,7 @@ public class ItemSource : MonoBehaviour
             {
                 spawnPositionFree = false;
                 newItem = Instantiate(itemPrefabs[random.Next(0, itemPrefabs.Count)]);
+                itemReleased = false;
                 newItem.transform.position = transform.position;
                 newItem.GetComponent<ItemBehaviour>().Row = Row;
                 newItem.GetComponent<ItemBehaviour>().Column = Column;

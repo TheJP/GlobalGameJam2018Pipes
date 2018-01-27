@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         //table.transform.rotation = Quaternion.Euler(0, 90, 0);
 
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
-        itemSourceObject.transform.position = new Vector3(-50, 0, 25);
+        itemSourceObject.transform.position = new Vector3(-45, 0, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
     }
 
@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, range))
             {
                 GameObject target = hit.collider.gameObject;
+
+                if (target.tag == "Pipe")
+                {
+                    Debug.Log("Hit a Pipe");
+                    target.GetComponent<DestroyPipe>().ReduceLifetime();
+                }
+
                 if (target.name.Contains("Tile"))
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
@@ -87,15 +94,10 @@ public class GameManager : MonoBehaviour
                     hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 }
 
-                if (target.tag == "Pipe")
-                {
-                    Debug.Log("Hit a Pipe");
-                    target.GetComponent<DestroyPipe>().ReduceLifetime();
-                }
-
                 if (target.tag == "ItemSource")
                 {
                     Debug.Log("ItemSource clicked");
+                    itemSource.ReleasItem();
                 }
 
             }

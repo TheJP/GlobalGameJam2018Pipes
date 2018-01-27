@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 4881634361242136}
   - component: {fileID: 33216222096880310}
   - component: {fileID: 23118934716955932}
+  - component: {fileID: 65405131317948836}
+  - component: {fileID: 114368200563245210}
   m_Layer: 0
   m_Name: Pipe_X_round
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,7 +41,7 @@ GameObject:
   - component: {fileID: 95209957395221028}
   m_Layer: 0
   m_Name: Pipe_X_round
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +146,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545323422073678}
   m_Mesh: {fileID: 4300000, guid: cd7acc9f0a4005d42abc34f709b51ab2, type: 3}
+--- !u!65 &65405131317948836
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545323422073678}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 199.99718, y: 200.00005, z: 55.06236}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95209957395221028
 Animator:
   serializedVersion: 3
@@ -161,6 +175,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114368200563245210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545323422073678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5c714253192394689ff2547339c1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 3
 --- !u!114 &114969545204477128
 MonoBehaviour:
   m_ObjectHideFlags: 1

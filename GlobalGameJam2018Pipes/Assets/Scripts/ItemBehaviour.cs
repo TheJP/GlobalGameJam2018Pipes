@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemBehaviour : MonoBehaviour
 {
     public int floatSpeed;
-    public int Row { get; set; }
-    public int Column { get; set; }
+    [SerializeField] public int Row;
+    [SerializeField] public int Column;
     private LastStep lastStep;
     private PlayBoard playBoard;
 
@@ -22,7 +22,7 @@ public class ItemBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(this.name.ToString() + ": LastStep " + lastStep + ", Row/Column " + Row + "/" + Column);
     }
 
     private IEnumerator MoveItem()
@@ -30,25 +30,31 @@ public class ItemBehaviour : MonoBehaviour
         while (true)
         {
             FlowDirection nextDirection = FlowDirection.Stop;
-            switch (lastStep)
+            Tile nextTile = playBoard.GetTileForPosition(Column, Row);
+            Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
+            if (nextTile != null)
             {
-                case LastStep.DOWN:
-                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromTop;
-                    break;
-                case LastStep.LEFT:
-                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromRight;
-                    break;
-                case LastStep.RIGHT:
-                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromLeft;
-                    break;
-                case LastStep.UP:
-                    nextDirection = playBoard.GetTileForPosition(Row, Column).pipe.FromBottom;
-                    break;
-                default:
-                    break;
+                switch (lastStep)
+                {
+                    case LastStep.DOWN:
+                        nextDirection = nextTile.pipe.FromTop;
+                        break;
+                    case LastStep.LEFT:
+                        nextDirection = nextTile.pipe.FromRight;
+                        break;
+                    case LastStep.RIGHT:
+                        nextDirection = nextTile.pipe.FromLeft;
+                        break;
+                    case LastStep.UP:
+                        nextDirection = nextTile.pipe.FromBottom;
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            if(nextDirection != null)
+            Debug.Log(this.name.ToString() + ": Next Direction " + nextDirection);
+            if (nextDirection != null)
             {
                 switch (nextDirection)
                 {
@@ -82,29 +88,32 @@ public class ItemBehaviour : MonoBehaviour
                         break;
                 }
             }
-            
             yield return new WaitForSecondsRealtime(floatSpeed);
         }
     }
 
     public void StepRight()
     {
-        transform.position = new Vector2(transform.position.x + 10, transform.position.y);
+        transform.position = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z);
+        Column++;
     }
 
     public void StepLeft()
     {
-        transform.position = new Vector2(transform.position.x - 10, transform.position.y);
+        transform.position = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z);
+        Column--;
     }
 
     public void StepUp()
     {
-        transform.position = new Vector2(transform.position.x, transform.position.y + 10);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+        Row++;
     }
 
     public void StepDown()
     {
-        transform.position = new Vector2(transform.position.x, transform.position.y - 10);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
+        Row--;
     }
 
     private enum LastStep { LEFT, RIGHT, UP, DOWN }

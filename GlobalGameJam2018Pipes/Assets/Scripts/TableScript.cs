@@ -45,6 +45,7 @@ public class TableScript : MonoBehaviour
         Debug.Log("table center: " + tableCenter);
 
         assets = new GameObject[tableSizeCols, tableSizeRows];
+
         for (int row = 0; row < tableSizeRows; row++) {
             for (int column = 0; column < tableSizeCols; column++) {
                 GameObject newAsset = Instantiate (assetPrefab, this.transform);

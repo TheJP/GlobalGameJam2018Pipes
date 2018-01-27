@@ -1,0 +1,52 @@
+@startuml
+' View at http://www.plantuml.com/plantuml/
+
+enum PipeType {
+Straight,
+Turn,
+LeftRight,
+UnderOver,
+XIntersection,
+TIntersection
+}
+
+class Pipe {
+- pipeDisplay : GameObject
++ ReduceLifetime() : bool
+}
+
+class Tile {
+- pipe : Pipe
++ BuildPipe(type : PipeType) : bool
+}
+
+class Playboard {
+- tiles : Tile*
+- inventory : Inventory
+}
+
+class Inventory {
+- pipeStraightCount : int
+- pipeTurnCount : int
+- pipeLeftRightCount : int
+- pipeUnderOverCount : int
+- pipeXIntersectionCount : int
+- pipeTIntersectionCount : int
+}
+
+class GameManager {
+- inventory : Inventory
+- buildNext : PipeType
+- Update() : void
++ SetBuildNext(type : PipeType) : bool
+}
+
+note bottom of GameManager
+In Update, wenn Mouse down, Raycast either hit pipe or tile, either build or destroy
+GameManage stores what the user will build next
+end note
+
+Playboard -> Tile
+Tile -> Pipe
+Playboard -down-> Inventory
+@enduml

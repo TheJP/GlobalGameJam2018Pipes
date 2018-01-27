@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[Serializable]
 public class ColoredMaterial
 {
-
     [SerializeField] private Material mat;
 
     [SerializeField] private MaterialColor col;

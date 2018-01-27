@@ -1,43 +1,16 @@
 fileFormatVersion: 2
-guid: e7f912a15b997a04bbe0cda8bf70d74b
-timeCreated: 1517006158
+guid: ea3070f363a93db4c9b15863753250e2
+timeCreated: 1517011080
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Pipe_L1
-    100002: Pipe_L2
-    100004: Pipe_Straight
-    100006: Pipe_T1
-    100008: Pipe_T2
-    100010: Pipe_X
-    100012: //RootNode
-    400000: Pipe_L1
-    400002: Pipe_L2
-    400004: Pipe_Straight
-    400006: Pipe_T1
-    400008: Pipe_T2
-    400010: Pipe_X
-    400012: //RootNode
+    100000: //RootNode
+    400000: //RootNode
     2100000: lambert1
-    2300000: Pipe_L1
-    2300002: Pipe_L2
-    2300004: Pipe_Straight
-    2300006: Pipe_T1
-    2300008: Pipe_T2
-    2300010: Pipe_X
-    3300000: Pipe_L1
-    3300002: Pipe_L2
-    3300004: Pipe_Straight
-    3300006: Pipe_T1
-    3300008: Pipe_T2
-    3300010: Pipe_X
-    4300000: Pipe_X
-    4300002: Pipe_T1
-    4300004: Pipe_T2
-    4300006: Pipe_Straight
-    4300008: Pipe_L2
-    4300010: Pipe_L1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: MeterCube2
     9500000: //RootNode
   externalObjects: {}
   materials:

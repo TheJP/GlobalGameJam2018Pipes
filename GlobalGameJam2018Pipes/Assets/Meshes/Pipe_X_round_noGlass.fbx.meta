@@ -1,18 +1,19 @@
 fileFormatVersion: 2
-guid: fcf7e390c6792b346ab66dab6411d30b
-timeCreated: 1517059546
+guid: 0a45838d8ca28b64685e396ff828020a
+timeCreated: 1517059380
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Pipe_L_round1
+    100000: Pipe_X_round_noGlass
     100002: //RootNode
-    400000: Pipe_L_round1
+    400000: Pipe_X_round_noGlass
     400002: //RootNode
-    2100000: lambert1
-    2300000: Pipe_L_round1
-    3300000: Pipe_L_round1
-    4300000: Pipe_L_round1
+    2100000: MAT_Pipe1
+    2100002: MAT_Pipe_Details
+    2300000: Pipe_X_round_noGlass
+    3300000: Pipe_X_round_noGlass
+    4300000: Pipe_X_round_noGlass
     9500000: //RootNode
   externalObjects: {}
   materials:

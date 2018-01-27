@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 7600c700fe494db438d69efcce886779
-timeCreated: 1517006158
+guid: c23316d9075be9d4e85386633a924faa
+timeCreated: 1517059381
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Pipe_Straight
+    100000: Pipe_L_round
+    100002: //RootNode
+    400000: Pipe_L_round
+    400002: //RootNode
+    2100000: MAT_Pipe1
+    2100002: MAT_Pipe_Details
+    2300000: Pipe_L_round
+    3300000: Pipe_L_round
+    4300000: Pipe_L_round
     9500000: //RootNode
   externalObjects: {}
   materials:

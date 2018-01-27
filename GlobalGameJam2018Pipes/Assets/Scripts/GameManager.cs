@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     private Inventory inventory;
     private Cursor cursor;
     private ItemSource itemSource;
+    private bool deletingPipe = false;
+    private float coolDownDeletingPipe = 0;
+    private float thresholdDeletingPipe = 0;
 
     // TODO previousBuildNext can be removed when we select pipes via the table
     private PipeType previousBuildNext;
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour
             SetBuildNext(buildNext);
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -94,22 +97,6 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, range))
             {
                 GameObject target = hit.collider.gameObject;
-
-                if (target.tag == "Pipe")
-                {
-                    Debug.Log("Hit a Pipe");
-                    target.GetComponent<DestroyPipe>().ReduceLifetime();
-                }
-
-                if (target.name.Contains("Tile"))
-                {
-                    Debug.Log("Hit: " + hit.collider.gameObject.name);
-
-                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext, cursor.currentRotation))
-                    {
-                        inventory.Reduce(buildNext);
-                    }
-                }
 
                 if (target.name.Contains("Asset"))
                 {
@@ -124,6 +111,46 @@ public class GameManager : MonoBehaviour
                 }
 
             }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            float range = 1000.0F;
+
+            Debug.DrawRay(transform.position, (Input.mousePosition), Color.green);
+
+            if (Physics.Raycast(ray, out hit, range))
+            {
+                GameObject target = hit.collider.gameObject;
+
+                if (target.tag == "Pipe")
+                {
+                    Debug.Log("Hit a Pipe");
+
+                    thresholdDeletingPipe++;
+                    if (thresholdDeletingPipe >= 50)
+                    {
+                        deletingPipe = true;
+                    }
+                    target.GetComponent<DestroyPipe>().ReduceLifetime();
+                }
+
+                if (target.name.Contains("Tile") && !deletingPipe)
+                {
+                    Debug.Log("Hit: " + hit.collider.gameObject.name);
+
+                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext, cursor.currentRotation))
+                    {
+                        inventory.Reduce(buildNext);
+                    }
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            deletingPipe = false;
+            thresholdDeletingPipe = 0;
         }
     }
 }

@@ -73,11 +73,28 @@ public class Cursor
         }
 
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+        
         float distance;
         if(cursorPlane.Raycast(ray, out distance))
         {
             transform.position = ray.GetPoint(distance);
+        }
+
+        RaycastHit hit;
+        var range = 1000.0f;
+        if (Physics.Raycast(ray, out hit, range))
+        {
+            GameObject target = hit.collider.gameObject;
+            if(target.name.Contains("Tile"))
+            {
+                var tile = target.GetComponentInParent<Tile>();
+
+                if (!tile.hasPipe)
+                {
+                    var targetPos = tile.transform.position;
+                    transform.position = targetPos;
+                }
+            }
         }
     }
 }

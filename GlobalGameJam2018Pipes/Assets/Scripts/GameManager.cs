@@ -133,7 +133,11 @@ public class GameManager : MonoBehaviour
                     {
                         deletingPipe = true;
                     }
-                    target.GetComponent<DestroyPipe>().ReduceLifetime();
+
+                    if (target.GetComponent<DestroyPipe>().ReduceLifetime())
+                    {
+                        inventory.Increase(target.GetComponentInParent<Pipe>().Type);
+                    }
                 }
 
                 if (target.name.Contains("Tile") && !deletingPipe)

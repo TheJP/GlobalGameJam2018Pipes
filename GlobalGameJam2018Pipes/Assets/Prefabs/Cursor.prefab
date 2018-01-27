@@ -9,51 +9,56 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1821530696048058}
+  m_RootGameObject: {fileID: 1410817100366716}
   m_IsPrefabParent: 1
---- !u!1 &1821530696048058
+--- !u!1 &1410817100366716
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4308848122890306}
-  - component: {fileID: 114645118944646980}
+  - component: {fileID: 4207981985444214}
+  - component: {fileID: 114265219505963866}
   m_Layer: 0
-  m_Name: Inventory
+  m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4308848122890306
+--- !u!4 &4207981985444214
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821530696048058}
+  m_GameObject: {fileID: 1410817100366716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114645118944646980
+--- !u!114 &114265219505963866
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821530696048058}
+  m_GameObject: {fileID: 1410817100366716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af815b96ae0a664f9e8b9054811db94, type: 3}
+  m_Script: {fileID: 11500000, guid: 03a610f481727d74282ecec70bc60bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeStraigthCount: 10
-  pipeTurnCount: 10
-  pipeLeftRightCount: 10
-  pipeOverUnderCount: 5
-  pipeTIntersectionCount: 5
-  pipeXIntersectionCount: 5
+  pipeStraight: {fileID: 1923880245688550, guid: e8947d4a883f0e94d8167adaeee8063a,
+    type: 2}
+  pipeTurn: {fileID: 1296095285299598, guid: a92e1771f0a1aa5438249eb863be7b31, type: 2}
+  pipeLeftRight: {fileID: 1487973823693822, guid: b69947d30bd1f224983c2f4e0beb7a05,
+    type: 2}
+  pipeOverUnder: {fileID: 1234578968156356, guid: d87f9e78c0e7c6d46904c623672afb50,
+    type: 2}
+  pipeXIntersection: {fileID: 1053443370095392, guid: 83b8cb56d2edae444929e7434786fbfe,
+    type: 2}
+  pipeTIntersection: {fileID: 1960932135089248, guid: e80eb4e71d2950945b07f0c2214ca8ea,
+    type: 2}

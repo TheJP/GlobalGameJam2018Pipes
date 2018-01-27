@@ -6,12 +6,20 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PipeType buildNext;
 
+    [SerializeField] private Cursor cursor;
+
+    // TODO previousBuildNext can be removed when we select pipes via the table
+    private PipeType previousBuildNext;
+
     public void Start()
     {
+        SetBuildNext(PipeType.Straight);
     }
 
     public bool SetBuildNext(PipeType pipeType)
     {
+        cursor.SetPipeDisplay(pipeType);
+
         if (inventory.HasInventory(pipeType))
         {
             buildNext = pipeType;
@@ -23,6 +31,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // TODO This entire if block can be removed later, when we can select the pipe on the table
+        if (buildNext != previousBuildNext)
+        {
+            previousBuildNext = buildNext;
+            SetBuildNext(buildNext);
+        }
+
         if(Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,10 +53,16 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
 
-                    if (target.GetComponentInParent<Tile>().BuildPipe(buildNext))
+                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext))
                     {
                         inventory.Reduce(buildNext);
                     }
+                }
+
+                if (target.name.Contains("Asset"))
+                {
+                    Debug.Log("Hit: " + hit.collider.gameObject.name);
+                    hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 }
 
                 if(target.tag == "Pipe")

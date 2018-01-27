@@ -1,18 +1,27 @@
-﻿public class ColoredMaterial {
+﻿using UnityEngine;
 
-    //[SerializeField] private Material mat;
+public class ColoredMaterial
+{
 
-    //[SerializeField] private MaterialColor col;
+    [SerializeField] private Material mat;
 
-    //public Material material
-    //{
-    //    get { return mat; }
-    //    set { mat = value; }
-    //}
+    [SerializeField] private MaterialColor col;
 
-    //public MaterialColor color
-    //{
-    //    get { return col; }
-    //    set { col = value; }
-    //}
+    public ColoredMaterial(Material mat, MaterialColor col)
+    {
+        this.mat = mat;
+        this.col = col;
+    }
+
+    public Material Material
+    {
+        get { return mat; }
+        set { mat = value; }
+    }
+
+    public MaterialColor Color
+    {
+        get { return col; }
+        set { col = value; }
+    }
 }

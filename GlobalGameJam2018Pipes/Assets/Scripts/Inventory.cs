@@ -2,6 +2,8 @@
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private int gold;
+
     [SerializeField] private int pipeStraigthCount;
 
     [SerializeField] private int pipeTurnCount;
@@ -13,6 +15,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int pipeTIntersectionCount;
 
     [SerializeField] private int pipeXIntersectionCount;
+    
+    public int Gold
+    {
+        get { return gold; }
+        set { gold = value; }
+    }
 
     public int PipeStraightCount
     {

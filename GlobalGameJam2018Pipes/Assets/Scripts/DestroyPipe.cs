@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class DestroyPipe : MonoBehaviour
 {
-
     public float timeToDestroy;
     private float timeSpentToDestroy;
+
+    private Tile tile;
 
     // Use this for initialization
     void Start()
     {
-
+        tile = GetComponentInParent<Tile>();
     }
 
     // Update is called once per frame
@@ -26,6 +27,7 @@ public class DestroyPipe : MonoBehaviour
 
         if (timeSpentToDestroy >= timeToDestroy)
         {
+            tile.RemovePipe();
             Destroy(this.transform.parent.gameObject);
         }
     }

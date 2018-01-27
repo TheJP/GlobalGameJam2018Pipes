@@ -18,7 +18,7 @@ public class PlayBoard : MonoBehaviour
             {
                 GameObject newTile = Instantiate(tilePrefab, this.transform);
                 newTile.name = "Tile (" + column + ", " + row + ")";
-                int tileSize = newTile.GetComponent<Tile>().tileSize;
+                int tileSize = newTile.GetComponentInChildren<TileDisplay>().tileSize;
 
                 newTile.GetComponent<Tile>().Row = row;
                 newTile.GetComponent<Tile>().Column = column;

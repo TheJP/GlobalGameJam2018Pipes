@@ -3,11 +3,36 @@ using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
 {
+    private static Color ConvertMaterialColor(MaterialColor materialColor)
+    {
+        switch (materialColor)
+        {
+        case MaterialColor.Red:
+            return new Color(1, 0, 0);
+        case MaterialColor.Yellow:
+            return new Color(0, 1, 1);
+        case MaterialColor.Blue:
+            return new Color(0, 0, 1);
+        case MaterialColor.Green:
+            return new Color(0, 1, 0);
+        case MaterialColor.Orange:
+            return new Color(1, 0xa0 / 255.0f, 0);
+        case MaterialColor.Violet:
+            return new Color(1, 0, 1);
+        case MaterialColor.Black:
+            return Color.black;
+        default:
+            return Color.magenta;
+        }
+    }
+
     public int floatSpeed;
     [SerializeField] public int Row;
     [SerializeField] public int Column;
     private LastStep lastStep;
     private PlayBoard playBoard;
+
+    public ColoredMaterial material;
 
     // Use this for initialization
     void Start()
@@ -16,6 +41,9 @@ public class ItemBehaviour : MonoBehaviour
         playBoard = playBoardObject.GetComponent<PlayBoard>();
 
         lastStep = LastStep.RIGHT;
+
+        var meshRenderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer.material.color = ConvertMaterialColor(material.Color);
 
         StartCoroutine(MoveItem());
     }

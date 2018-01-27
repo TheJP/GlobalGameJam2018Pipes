@@ -166,10 +166,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTime: 5
-  itemPrefabs:
-  - {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97, type: 2}
-  - {fileID: 1020772559892884, guid: 8c67e2f5d7a61104b9dbd86d536f913c, type: 2}
-  - {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea, type: 2}
+  fluidContainerPrefab: {fileID: 1020772559892884, guid: 8c67e2f5d7a61104b9dbd86d536f913c,
+    type: 2}
+  vaporContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
+    type: 2}
+  powderContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
+    type: 2}
+  herbsContainerPrefab: {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97,
+    type: 2}
+  pasteContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
+    type: 2}
   Column: -1
   Row: 6
   spawnPositionFree: 1
+  availableMaterials: 00000000010000000200000003000000
+  availableColors: 000000000200000004000000

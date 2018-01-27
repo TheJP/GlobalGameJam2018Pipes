@@ -191,6 +191,7 @@ MonoBehaviour:
   fromRight: 4
   fromBottom: 6
   rotation: 0
+  pipeType: 5
 --- !u!114 &114645614948056412
 MonoBehaviour:
   m_ObjectHideFlags: 1

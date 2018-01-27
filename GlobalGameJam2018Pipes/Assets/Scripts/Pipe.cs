@@ -40,11 +40,15 @@ public class Pipe : MonoBehaviour
 
     [SerializeField] private int rotation;
 
+    [SerializeField] private PipeType pipeType;
+
     public int Rotation
     {
         get { return rotation; }
         set { rotation = value % 4; }
     }
+
+    public PipeType Type => pipeType;
 
     public FlowDirection FromLeft => GetRotatedFlowDirection(fromLeft, fromBottom, fromRight, fromBottom);
 

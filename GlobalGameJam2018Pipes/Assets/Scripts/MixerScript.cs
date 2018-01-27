@@ -7,26 +7,26 @@ public class MixerScript : MonoBehaviour {
     public ColoredMaterial Mix (ColoredMaterial mat1, ColoredMaterial mat2) {
 
         // if one of the materials is herbs, the other color is ignored
-        MaterialColor newColor = null;
-        if (mat1.material == Material.Herbs) {
-            newColor = mat1.color; 
+        MaterialColor newColor = MaterialColor.Black;
+        if (mat1.Material == Material.Herbs) {
+            newColor = mat1.Color; 
         }
-        else if (mat2.material == Material.Herbs) {
-            newColor = mat2.color;
+        else if (mat2.Material == Material.Herbs) {
+            newColor = mat2.Color;
         }
-        else (mat1.material == Material.Herbs || mat2.material == Material.Herbs) {
+        else if (mat1.Material == Material.Herbs || mat2.Material == Material.Herbs) {
             // in all other cases, colors are mixed
-            newColor = mixColor (mat1.color, mat2.color);
+            newColor = MixColor (mat1.Color, mat2.Color);
         }
 
-        // mix materials
-        Material newMaterial = mixMaterial (mat1.material, mat2.material);
+        // mix Materials
+        Material newMaterial = MixMaterial (mat1.Material, mat2.Material);
 
-        return new ColoredMaterial (newColor, newMaterial);
+        return new ColoredMaterial (newMaterial, newColor);
     }
 
 
-    private MaterialColor mixColor (MaterialColor color1, MaterialColor color2) {
+    private MaterialColor MixColor (MaterialColor color1, MaterialColor color2) {
 
         // if the two colors are same, the mix stays same
         if (color1 == color2)  
@@ -34,8 +34,8 @@ public class MixerScript : MonoBehaviour {
 
         // otherwise depends if primary color or not
 
-        bool isPrimaryColor1 = isPrimaryColor (color1);
-        bool isPrimaryColor2 = isPrimaryColor (color2);
+        bool isPrimaryColor1 = IsPrimaryColor (color1);
+        bool isPrimaryColor2 = IsPrimaryColor (color2);
 
         // if both colors are not primary (but not same), we get the magic color
         if (!isPrimaryColor1 && !isPrimaryColor2)
@@ -51,21 +51,18 @@ public class MixerScript : MonoBehaviour {
                 if (color2 == MaterialColor.Blue)
                     return MaterialColor.Violet;
                 return MaterialColor.Black; 
-                break;
             case MaterialColor.Yellow:
                 if (color2 == MaterialColor.Red)
                     return MaterialColor.Orange;
                 if (color2 == MaterialColor.Blue)
                     return MaterialColor.Green;
                 return MaterialColor.Black; 
-                break;
             case MaterialColor.Blue:
                 if (color2 == MaterialColor.Red)
                     return MaterialColor.Violet;
                 if (color2 == MaterialColor.Yellow)
                     return MaterialColor.Green;
                 return MaterialColor.Black; 
-                break;
             default:
                 return MaterialColor.Black;
             }
@@ -79,9 +76,9 @@ public class MixerScript : MonoBehaviour {
     }
 
 
-    private Material mixMaterial (Material mat1, Material mat2) {
+    private Material MixMaterial (Material mat1, Material mat2) {
 
-        // if both materials are same, the mix stays the same
+        // if both Materials are same, the mix stays the same
         if (mat1 == mat2)
             return mat1;
 
@@ -100,27 +97,26 @@ public class MixerScript : MonoBehaviour {
                 return Material.Paste;
             else 
                 return Material.Powder; // should not occur, just to be sure
-            break;
 
         case(Material.Fluid):
             if (mat2 == Material.Powder)
                 return Material.Paste;
             else
                 return Material.Fluid;
-            break;
 
         case(Material.Vapor):
             return Material.Fluid;
-            break;
 
         case(Material.Paste):
             return Material.Paste;
-            break;
+
+        default:
+            return Material.Paste;
         }
     }
 
 
-    private bool isPrimaryColor(MaterialColor color) {
+    private bool IsPrimaryColor(MaterialColor color) {
 
         if (color == MaterialColor.Red)
             return true;

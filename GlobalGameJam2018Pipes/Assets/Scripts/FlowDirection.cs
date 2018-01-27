@@ -4,5 +4,8 @@ public enum FlowDirection
     ToLeft,
     ToDown,
     ToRight,
-    ToTop
+    ToTop,
+    Stop,
+    Trash,
+    Drop
 }

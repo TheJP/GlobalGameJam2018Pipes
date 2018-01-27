@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public event Action InventoryChanged;
+
     [SerializeField] private int gold;
 
     [SerializeField] private int pipeStraigthCount;
@@ -19,43 +22,57 @@ public class Inventory : MonoBehaviour
     public int Gold
     {
         get { return gold; }
-        set { gold = value; }
+        set { gold = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeStraightCount
     {
         get { return pipeStraigthCount; }
-        set { pipeStraigthCount = value; }
+        set { pipeStraigthCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeTurnCount
     {
         get { return pipeTurnCount; }
-        set { pipeTurnCount = value; }
+        set { pipeTurnCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeLeftRightCount
     {
         get { return pipeLeftRightCount; }
-        set { pipeLeftRightCount = value; }
+        set { pipeLeftRightCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeOverUnderCount
     {
         get { return pipeOverUnderCount; }
-        set { pipeOverUnderCount = value; }
+        set { pipeOverUnderCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeTIntersectionCount
     {
         get { return pipeTIntersectionCount; }
-        set { pipeTIntersectionCount = value; }
+        set { pipeTIntersectionCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public int PipeXIntersectionCount
     {
         get { return pipeXIntersectionCount; }
-        set { pipeXIntersectionCount = value; }
+        set { pipeXIntersectionCount = value;
+            InventoryChanged?.Invoke();
+        }
     }
 
     public bool HasInventory(PipeType pipeType)
@@ -78,6 +95,28 @@ public class Inventory : MonoBehaviour
             return false;
         }
     }
+
+    public int getNumber(PipeType pipeType)
+    {
+        switch (pipeType)
+        {
+            case PipeType.Straight:
+                return pipeStraigthCount;
+            case PipeType.Turn:
+                return pipeTurnCount;
+            case PipeType.LeftRight:
+                return pipeLeftRightCount;
+            case PipeType.UnderOver:
+                return pipeOverUnderCount;
+            case PipeType.TIntersection:
+                return pipeTIntersectionCount;
+            case PipeType.XIntersection:
+                return pipeXIntersectionCount;
+            default:
+                return 0;
+        }
+    }
+
 
     public void Reduce(PipeType pipeType)
     {

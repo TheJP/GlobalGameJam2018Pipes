@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class GameManager : MonoBehaviour
     private Inventory inventory;
     private Cursor cursor;
     private ItemSource itemSource;
+    private TableScript tableScript;
+
+    public int numGold;
+    public int numPipeStraight;
+    public int numPipeCurves;
 
     // TODO previousBuildNext can be removed when we select pipes via the table
     private PipeType previousBuildNext;
@@ -31,12 +37,32 @@ public class GameManager : MonoBehaviour
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
         itemSourceObject.transform.position = new Vector3(-45, 0, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
+
+        tableScript = table.GetComponent<TableScript>();
+        tableScript.SetInventory(inventory);
+
     }
 
     public void Start()
     {
         SetBuildNext(PipeType.Straight);
+        
+        //tableScript.InitInventoryPlaces();
     }
+
+
+    // TODO just for testing, needs different implementation
+    private void InitInventory()
+    {
+        Debug.Log("in initInventory");
+
+        //inventory.Gold = this.numGold;
+        //inventory.PipeStraightCount = this.numPipeStraight;
+        //inventory.PipeTurnCount = this.numPipeCurves;
+
+        // Zuteilung welcher Typ wo dargestellt wird, ist in TableScript.InitInventoryPlaces
+    }
+
 
     public bool SetBuildNext(PipeType pipeType)
     {
@@ -103,4 +129,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 }

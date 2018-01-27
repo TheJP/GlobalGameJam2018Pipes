@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4819394482164226}
+  - component: {fileID: 114957170218427764}
   m_Layer: 0
   m_Name: PipeStraight
   m_TagString: Untagged
@@ -160,3 +161,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114957170218427764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224884062038194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdcb72aa6d7f2448a7601c53a278bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fromLeft: 6
+  fromTop: 1
+  fromRight: 6
+  fromBottom: 3
+  rotation: 0

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
@@ -16,13 +15,15 @@ public class ItemBehaviour : MonoBehaviour
         GameObject playBoardObject = GameObject.Find("PlayBoard(Clone)");
         playBoard = playBoardObject.GetComponent<PlayBoard>();
 
+        lastStep = LastStep.RIGHT;
+
         StartCoroutine(MoveItem());
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(this.name.ToString() + ": LastStep " + lastStep + ", Row/Column " + Row + "/" + Column);
+        //Debug.Log(this.name.ToString() + ": LastStep " + lastStep + ", Row/Column " + Row + "/" + Column);
     }
 
     private IEnumerator MoveItem()
@@ -59,19 +60,15 @@ public class ItemBehaviour : MonoBehaviour
                 switch (nextDirection)
                 {
                     case FlowDirection.ToTop:
-                        lastStep = LastStep.UP;
                         StepUp();
                         break;
                     case FlowDirection.ToDown:
-                        lastStep = LastStep.DOWN;
                         StepDown();
                         break;
                     case FlowDirection.ToLeft:
-                        lastStep = LastStep.LEFT;
                         StepLeft();
                         break;
                     case FlowDirection.ToRight:
-                        lastStep = LastStep.RIGHT;
                         StepRight();
                         break;
                     case FlowDirection.Stop:
@@ -96,24 +93,28 @@ public class ItemBehaviour : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z);
         Column++;
+        lastStep = LastStep.RIGHT;
     }
 
     public void StepLeft()
     {
         transform.position = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z);
         Column--;
+        lastStep = LastStep.LEFT;
     }
 
     public void StepUp()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
         Row++;
+        lastStep = LastStep.UP;
     }
 
     public void StepDown()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
         Row--;
+        lastStep = LastStep.DOWN;
     }
 
     private enum LastStep { LEFT, RIGHT, UP, DOWN }

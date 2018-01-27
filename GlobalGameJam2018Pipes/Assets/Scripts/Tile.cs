@@ -52,6 +52,4 @@ public class Tile : MonoBehaviour
     {
         hasPipe = false;
     }
-
-    public enum FlowDirection { ToLEFT, ToDOWN, ToRIGHT, ToTOP }
 }

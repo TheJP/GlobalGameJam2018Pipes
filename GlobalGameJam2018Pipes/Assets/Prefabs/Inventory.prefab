@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af815b96ae0a664f9e8b9054811db94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeStraigthCount: 0
-  pipeTurnCount: 0
-  pipeLeftRightCount: 0
-  pipeOverUnderCount: 0
-  pipeTIntersectionCount: 0
-  pipeXIntersectionCount: 0
+  pipeStraigthCount: 10
+  pipeTurnCount: 10
+  pipeLeftRightCount: 10
+  pipeOverUnderCount: 5
+  pipeTIntersectionCount: 5
+  pipeXIntersectionCount: 5

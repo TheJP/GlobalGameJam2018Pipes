@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
 
-                    if (target.GetComponentInParent<Tile>().BuildPipe(buildNext))
+                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext))
                     {
                         inventory.Reduce(buildNext);
                     }

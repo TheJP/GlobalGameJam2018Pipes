@@ -4,6 +4,7 @@ public class Tile : MonoBehaviour
 {
     public int Row;
     public int Column;
+    public int tileSize;
 
     public GameObject pipeStraight;
     public GameObject pipeTurn;
@@ -15,6 +16,11 @@ public class Tile : MonoBehaviour
     public bool hasPipe;
 
     public FlowDirection FlowDirection { get; set; }
+
+    private void Start()
+    {
+        FlowDirection = FlowDirection.Drop;
+    }
 
     public bool BuildPipe(PipeType pipeType)
     {

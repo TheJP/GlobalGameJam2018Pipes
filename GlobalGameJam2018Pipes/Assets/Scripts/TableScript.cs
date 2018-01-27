@@ -68,7 +68,6 @@ public class TableScript : MonoBehaviour
         }
         InitInventoryPlaces();
 
-        Debug.Log("TableScript.Start beendet");
     }
 
     private void OnEnable()
@@ -85,14 +84,15 @@ public class TableScript : MonoBehaviour
     // ------ hardcoded where is which pipe type
     public void InitInventoryPlaces()
     {
+        int fromTop = tableSizeCols - 1;
         assetLocations = new Dictionary<PipeType, Asset>
         {
-            [PipeType.Straight] = assets[0, 0].GetComponent<Asset>(),
-            [PipeType.Turn] = assets[1, 0].GetComponent<Asset>(),
-            [PipeType.TIntersection] = assets[0, 1].GetComponent<Asset>(),
-            [PipeType.LeftRight] = assets[0, 2].GetComponent<Asset>(),
-            [PipeType.UnderOver] = assets[1, 2].GetComponent<Asset>(),
-            [PipeType.XIntersection] = assets[0, 3].GetComponent<Asset>()
+            [PipeType.Straight] = assets[fromTop - 0, 0].GetComponent<Asset>(),
+            [PipeType.Turn] = assets[fromTop - 0, 1].GetComponent<Asset>(),
+            [PipeType.TIntersection] = assets[fromTop - 1, 0].GetComponent<Asset>(),
+            [PipeType.LeftRight] = assets[fromTop - 2, 0].GetComponent<Asset>(),
+            [PipeType.UnderOver] = assets[fromTop - 2, 1].GetComponent<Asset>(),
+            [PipeType.XIntersection] = assets[fromTop - 3, 0].GetComponent<Asset>()
         };
         
         OnInventoryUpdate();

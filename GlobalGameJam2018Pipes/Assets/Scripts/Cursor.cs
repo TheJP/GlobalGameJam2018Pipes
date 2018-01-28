@@ -7,7 +7,6 @@ public class Cursor
     public GameObject pipeTurn;
     public GameObject pipeLeftRight;
     public GameObject pipeOverUnder;
-    public GameObject pipeXIntersection;
     public GameObject pipeTIntersection;
 
     private GameObject currrentDisplay;
@@ -40,9 +39,6 @@ public class Cursor
             break;
         case PipeType.Mixer:
             currrentDisplay = Instantiate(pipeTIntersection, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.XIntersection:
-            currrentDisplay = Instantiate(pipeXIntersection, transform.position, pipeRotation, transform);
             break;
         default:
             currrentDisplay = null;

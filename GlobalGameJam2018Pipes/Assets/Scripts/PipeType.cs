@@ -5,6 +5,5 @@
 	Turn,
 	LeftRight,
 	UnderOver,
-	XIntersection,
 	Mixer
 }

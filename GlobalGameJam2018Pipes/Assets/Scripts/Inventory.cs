@@ -16,8 +16,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int pipeOverUnderCount;
 
     [SerializeField] private int pipeMixerCount;
-
-    [SerializeField] private int pipeXIntersectionCount;
     
     public int Gold
     {
@@ -67,14 +65,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public int PipeXIntersectionCount
-    {
-        get { return pipeXIntersectionCount; }
-        set { pipeXIntersectionCount = value;
-            InventoryChanged?.Invoke();
-        }
-    }
-
     public bool HasInventory(PipeType pipeType)
     {
         switch(pipeType)
@@ -89,8 +79,6 @@ public class Inventory : MonoBehaviour
             return pipeOverUnderCount > 0;
         case PipeType.Mixer:
             return pipeMixerCount > 0;
-        case PipeType.XIntersection:
-            return pipeXIntersectionCount > 0;
         default:
             return false;
         }
@@ -110,8 +98,6 @@ public class Inventory : MonoBehaviour
                 return pipeOverUnderCount;
             case PipeType.Mixer:
                 return pipeMixerCount;
-            case PipeType.XIntersection:
-                return pipeXIntersectionCount;
             default:
                 return 0;
         }
@@ -137,9 +123,6 @@ public class Inventory : MonoBehaviour
         case PipeType.Mixer:
             --pipeMixerCount;
             break;
-        case PipeType.XIntersection:
-            --pipeXIntersectionCount;
-            break;
         }
 
         InventoryChanged?.Invoke();
@@ -163,9 +146,6 @@ public class Inventory : MonoBehaviour
             break;
         case PipeType.Mixer:
             ++pipeMixerCount;
-            break;
-        case PipeType.XIntersection:
-            ++pipeXIntersectionCount;
             break;
         }
 

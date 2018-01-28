@@ -15,7 +15,6 @@ public class Asset : MonoBehaviour
     public GameObject pipeTurn;
     public GameObject pipeLeftRight;
     public GameObject pipeOverUnder;
-    public GameObject pipeXIntersection;
     public GameObject pipeMixer;
     public GameObject goldPrefab;
 
@@ -128,9 +127,6 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
                 break;
             case PipeType.Mixer:
                 pipeGameObject = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
-                break;
-            case PipeType.XIntersection:
-                pipeGameObject = Instantiate(pipeXIntersection, transform.position, pipeRotation, transform);
                 break;
             default:
                 pipeGameObject = null;

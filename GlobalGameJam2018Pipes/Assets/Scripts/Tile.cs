@@ -10,7 +10,6 @@ public class Tile : MonoBehaviour
     public GameObject pipeTurn;
     public GameObject pipeLeftRight;
     public GameObject pipeOverUnder;
-    public GameObject pipeXIntersection;
     public GameObject pipeMixer;
 
     public Pipe pipe;
@@ -41,9 +40,6 @@ public class Tile : MonoBehaviour
             break;
         case PipeType.Mixer:
             pipeGameObject = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.XIntersection:
-            pipeGameObject = Instantiate(pipeXIntersection, transform.position, pipeRotation, transform);
             break;
         default:
             pipeGameObject = null;

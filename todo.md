@@ -1,7 +1,7 @@
 # TODO
 
 * Trash
-* Mixing items seems kind of strange
+* Mixing items seems kind of strange (result seems wrong and look&feel is as well)
 * Remove X Intersection
 * Item dropping, should block tile for some time and then disappear
 * Improve click on item source

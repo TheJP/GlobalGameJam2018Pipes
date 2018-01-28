@@ -16,6 +16,13 @@ public class GameManager : MonoBehaviour
     public GameObject itemSinkPrefab;
 
     [SerializeField] private PipeType buildNext;
+
+    public int priceStraightPipe;
+    public int priceTurnPipe;
+    public int priceLeftRightPipe;
+    public int priceOverUnderPipe;
+    public int priceMixerPipe;
+
     private Inventory inventory;
     private Cursor cursor;
     private ItemSource itemSource;
@@ -24,11 +31,7 @@ public class GameManager : MonoBehaviour
     private float thresholdDeletingPipe = 0;
 
     private TableScript tableScript;
-
-    public int numGold;
-    public int numPipeStraight;
-    public int numPipeCurves;
-
+    
     private void Awake()
     {
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
@@ -146,8 +149,14 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
                     tableScript.ResetSelectionColors();
-                    SetBuildNext(target.GetComponent<Asset>().pipeType);
+                    var pipeType = target.GetComponent<Asset>().pipeType;
+                    SetBuildNext(pipeType);
                     target.GetComponent<Renderer>().material.color = Color.blue;
+
+                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    {
+                        BuyPipe(pipeType);
+                    }
                 }
 
                 if (target.tag == "ItemSource")
@@ -213,6 +222,37 @@ public class GameManager : MonoBehaviour
         if (GameManager.Multiplayer != null)
         {
             GameManager.Multiplayer.DispatchEvents();
+        }
+    }
+
+    private void BuyPipe(PipeType pipeType)
+    {
+        int price;
+        switch (pipeType)
+        {
+        case PipeType.Straight:
+            price = priceStraightPipe;
+            break;
+        case PipeType.Turn:
+            price = priceTurnPipe;
+            break;
+        case PipeType.LeftRight:
+            price = priceLeftRightPipe;
+            break;
+        case PipeType.UnderOver:
+            price = priceOverUnderPipe;
+            break;
+        case PipeType.Mixer:
+            price = priceMixerPipe;
+            break;
+        default:
+            return;
+        }
+
+        if (inventory.Gold >= price)
+        {
+            inventory.Gold -= price;
+            inventory.Increase(pipeType);
         }
     }
 

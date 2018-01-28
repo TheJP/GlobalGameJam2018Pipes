@@ -66,6 +66,8 @@ MonoBehaviour:
   itemSinkPrefab: {fileID: 1519788509197486, guid: d22286ca86e0bd942b45e147ff0be506,
     type: 2}
   buildNext: 0
-  numGold: 10
-  numPipeStraight: 10
-  numPipeCurves: 5
+  priceStraightPipe: 1
+  priceTurnPipe: 2
+  priceLeftRightPipe: 5
+  priceOverUnderPipe: 10
+  priceMixerPipe: 20

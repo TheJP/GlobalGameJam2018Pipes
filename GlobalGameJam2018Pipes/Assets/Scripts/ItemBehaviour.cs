@@ -52,15 +52,24 @@ public class ItemBehaviour : MonoBehaviour
 
         lastStep = LastStep.RIGHT;
 
-        var meshRenderer = GetComponentInChildren<MeshRenderer>();
-        meshRenderer.material.color = ConvertMaterialColor(material.Color);
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            var main = particleSystem.main;
+            main.startColor = ConvertMaterialColor(material.Color);
+        }
+        else
+        {
+            var meshRenderer = GetComponentInChildren<MeshRenderer>();
+            meshRenderer.material.color = ConvertMaterialColor(material.Color);
+        }
 
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0.2f;        
-}
+    }
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
 
     }

@@ -85,7 +85,7 @@ public class ItemSource : MonoBehaviour
     public ItemBehaviour CreateItem(ColoredMaterial coloredMaterial, Vector3 position, int row, int column)
     {
         var item = CreateContainer(coloredMaterial.Material);
-        item.transform.position = position;
+        item.transform.position = new Vector3(position.x, 5, position.z);
         var itemBehaviour = item.GetComponent<ItemBehaviour>();
         itemBehaviour.Row = row;
         itemBehaviour.Column = column;

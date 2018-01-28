@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdcb72aa6d7f2448a7601c53a278bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAffectedByRotation: 1
   fromLeft: 6
   fromTop: 6
   fromRight: 1

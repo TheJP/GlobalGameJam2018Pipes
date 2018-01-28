@@ -30,6 +30,8 @@ public class Pipe : MonoBehaviour
         return direction;
     }
 
+    [SerializeField] private bool isAffectedByRotation;
+
     [SerializeField] private FlowDirection fromLeft;
 
     [SerializeField] private FlowDirection fromTop;
@@ -64,6 +66,11 @@ public class Pipe : MonoBehaviour
         FlowDirection three,
         FlowDirection four)
     {
+        if (!isAffectedByRotation)
+        {
+            return one;
+        }
+
         switch (rotation)
         {
         default:

@@ -65,6 +65,7 @@ MonoBehaviour:
     type: 2}
   itemSinkPrefab: {fileID: 1519788509197486, guid: d22286ca86e0bd942b45e147ff0be506,
     type: 2}
+  roomPrefab: {fileID: 1640616986697562, guid: 000cff3a042b2a347abde297aca570b0, type: 2}
   buildNext: 0
   priceStraightPipe: 1
   priceTurnPipe: 2

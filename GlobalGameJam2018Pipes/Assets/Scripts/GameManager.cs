@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject assetTablePrefab;
     public GameObject itemSourcePrefab;
     public GameObject itemSinkPrefab;
+    public GameObject roomPrefab;
 
     [SerializeField] private PipeType buildNext;
 
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Instantiate(roomPrefab);
+
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
         cursor = Instantiate(cursorPrefab).GetComponent<Cursor>();
         Instantiate(cameraPrefab);
@@ -230,26 +233,26 @@ public class GameManager : MonoBehaviour
         int price;
         switch (pipeType)
         {
-        case PipeType.Straight:
-            price = priceStraightPipe;
-            break;
-        case PipeType.Turn:
-            price = priceTurnPipe;
-            break;
-        case PipeType.LeftRight:
-            price = priceLeftRightPipe;
-            break;
-        case PipeType.UnderOver:
-            price = priceOverUnderPipe;
-            break;
-        case PipeType.Mixer:
-            price = priceMixerPipe;
-            break;
-        case PipeType.Trash:
-            price = priceTrashPipe;
-            break;
-        default:
-            return;
+            case PipeType.Straight:
+                price = priceStraightPipe;
+                break;
+            case PipeType.Turn:
+                price = priceTurnPipe;
+                break;
+            case PipeType.LeftRight:
+                price = priceLeftRightPipe;
+                break;
+            case PipeType.UnderOver:
+                price = priceOverUnderPipe;
+                break;
+            case PipeType.Mixer:
+                price = priceMixerPipe;
+                break;
+            case PipeType.Trash:
+                price = priceTrashPipe;
+                break;
+            default:
+                return;
         }
 
         if (inventory.Gold >= price)

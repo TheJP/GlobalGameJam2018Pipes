@@ -52,7 +52,7 @@ public class ItemBehaviour : MonoBehaviour
         meshRenderer.material.color = ConvertMaterialColor(material.Color);
 
         audioSource = GetComponent<AudioSource>();
-        //Debug.Log("have audioSource: " + audioSource);
+        audioSource.volume = 0.2f;
     }
 
     // Update is called once per frame

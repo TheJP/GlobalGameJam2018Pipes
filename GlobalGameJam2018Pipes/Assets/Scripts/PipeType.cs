@@ -5,5 +5,6 @@
 	Turn,
 	LeftRight,
 	UnderOver,
-	Mixer
+	Mixer,
+    Trash
 }

@@ -121,8 +121,8 @@ public class ItemBehaviour : MonoBehaviour
                         }
                         break;
                     case FlowDirection.Trash:
-                        //TODO
-                        break;
+                        Destroy(gameObject);
+                        yield break;
                     case FlowDirection.Drop:
                         //TODO
                         //Debug.Log("Item dropped");

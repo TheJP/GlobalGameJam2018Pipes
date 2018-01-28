@@ -71,3 +71,4 @@ MonoBehaviour:
   priceLeftRightPipe: 5
   priceOverUnderPipe: 10
   priceMixerPipe: 20
+  priceTrashPipe: 20

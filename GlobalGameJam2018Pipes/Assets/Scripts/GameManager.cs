@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int priceLeftRightPipe;
     public int priceOverUnderPipe;
     public int priceMixerPipe;
+    public int priceTrashPipe;
 
     private Inventory inventory;
     private Cursor cursor;
@@ -243,6 +244,9 @@ public class GameManager : MonoBehaviour
             break;
         case PipeType.Mixer:
             price = priceMixerPipe;
+            break;
+        case PipeType.Trash:
+            price = priceTrashPipe;
             break;
         default:
             return;

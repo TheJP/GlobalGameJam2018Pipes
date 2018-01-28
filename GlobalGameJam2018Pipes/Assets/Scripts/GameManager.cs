@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour
     public int numPipeStraight;
     public int numPipeCurves;
 
-    // TODO previousBuildNext can be removed when we select pipes via the table
-    private PipeType previousBuildNext;
-
     private void Awake()
     {
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
@@ -133,13 +130,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // TODO This entire if block can be removed later, when we can select the pipe on the table
-        if (buildNext != previousBuildNext)
-        {
-            previousBuildNext = buildNext;
-            SetBuildNext(buildNext);
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -156,6 +146,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
                     tableScript.ResetSelectionColors();
+                    cursor.SetPipeDisplay(target.GetComponent<Asset>().pipeType);
                     target.GetComponent<Renderer>().material.color = Color.blue;
                 }
 

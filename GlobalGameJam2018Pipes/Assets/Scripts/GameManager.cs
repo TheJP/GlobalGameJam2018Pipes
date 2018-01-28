@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         var playBoard = Instantiate(playBoardPrefab).GetComponent<PlayBoard>();
         GameObject table = Instantiate(assetTablePrefab);
         table.transform.rotation = Quaternion.Euler(0, 90, 0);
-        table.transform.position = new Vector3(50, 0, 0);
+        table.transform.position = new Vector3(50, 6, 0);
 
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
         itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25);

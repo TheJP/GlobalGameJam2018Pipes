@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ea3070f363a93db4c9b15863753250e2, type: 3}
+  - {fileID: 2100000, guid: 0f0a90a3786fc1545a2f66bebd555482, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,3 +147,4 @@ MonoBehaviour:
     type: 2}
   table: {fileID: 1125985119524914}
   tableThickness: 0.4
+  goldLocation: {fileID: 0}

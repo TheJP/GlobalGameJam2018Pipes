@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     private float thresholdDeletingPipe = 0;
 
     private TableScript tableScript;
-    
+
     private void Awake()
     {
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         table.transform.position = new Vector3(50, 0, 0);
 
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
-        itemSourceObject.transform.position = new Vector3(-45, 0, 25);
+        itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
 
         var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;
@@ -229,23 +229,23 @@ public class GameManager : MonoBehaviour
         int price;
         switch (pipeType)
         {
-        case PipeType.Straight:
-            price = priceStraightPipe;
-            break;
-        case PipeType.Turn:
-            price = priceTurnPipe;
-            break;
-        case PipeType.LeftRight:
-            price = priceLeftRightPipe;
-            break;
-        case PipeType.UnderOver:
-            price = priceOverUnderPipe;
-            break;
-        case PipeType.Mixer:
-            price = priceMixerPipe;
-            break;
-        default:
-            return;
+            case PipeType.Straight:
+                price = priceStraightPipe;
+                break;
+            case PipeType.Turn:
+                price = priceTurnPipe;
+                break;
+            case PipeType.LeftRight:
+                price = priceLeftRightPipe;
+                break;
+            case PipeType.UnderOver:
+                price = priceOverUnderPipe;
+                break;
+            case PipeType.Mixer:
+                price = priceMixerPipe;
+                break;
+            default:
+                return;
         }
 
         if (inventory.Gold >= price)

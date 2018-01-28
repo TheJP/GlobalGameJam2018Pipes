@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private float thresholdDeletingPipe = 0;
 
     private TableScript tableScript;
-    
+
     private void Awake()
     {
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         table.transform.position = new Vector3(50, 0, 0);
 
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
-        itemSourceObject.transform.position = new Vector3(-45, 0, 25);
+        itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
 
         var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;

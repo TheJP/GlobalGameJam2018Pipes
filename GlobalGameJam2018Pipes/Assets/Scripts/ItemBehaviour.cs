@@ -52,7 +52,7 @@ public class ItemBehaviour : MonoBehaviour
         meshRenderer.material.color = ConvertMaterialColor(material.Color);
 
         audioSource = GetComponent<AudioSource>();
-        Debug.Log("have audioSource: " + audioSource);
+        //Debug.Log("have audioSource: " + audioSource);
     }
 
     // Update is called once per frame
@@ -67,18 +67,18 @@ public class ItemBehaviour : MonoBehaviour
         {
             if (!isMoving)
             {
-                // we start moving - start to play sound
-                Debug.Log("start sound");
-                audioSource.Play();
+                // we stop moving - stop playing sound
+                Debug.Log("stop sound");
+                audioSource.Pause();
             }
         }
         else
         {
             if (isMoving)
             {
-                // we stop moving - stop playing sound
-                Debug.Log("stop sound");
-                audioSource.Pause();
+                // we start moving - start to play sound
+                Debug.Log("start sound");
+                audioSource.Play();
             }
         }
         this.isMoving = isMoving;

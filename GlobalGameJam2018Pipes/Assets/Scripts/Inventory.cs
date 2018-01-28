@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private int pipeOverUnderCount;
 
-    [SerializeField] private int pipeTIntersectionCount;
+    [SerializeField] private int pipeMixerCount;
 
     [SerializeField] private int pipeXIntersectionCount;
     
@@ -59,10 +59,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public int PipeTIntersectionCount
+    public int PipeMixerCount
     {
-        get { return pipeTIntersectionCount; }
-        set { pipeTIntersectionCount = value;
+        get { return pipeMixerCount; }
+        set { pipeMixerCount = value;
             InventoryChanged?.Invoke();
         }
     }
@@ -87,8 +87,8 @@ public class Inventory : MonoBehaviour
             return pipeLeftRightCount > 0;
         case PipeType.UnderOver:
             return pipeOverUnderCount > 0;
-        case PipeType.TIntersection:
-            return pipeTIntersectionCount > 0;
+        case PipeType.Mixer:
+            return pipeMixerCount > 0;
         case PipeType.XIntersection:
             return pipeXIntersectionCount > 0;
         default:
@@ -108,8 +108,8 @@ public class Inventory : MonoBehaviour
                 return pipeLeftRightCount;
             case PipeType.UnderOver:
                 return pipeOverUnderCount;
-            case PipeType.TIntersection:
-                return pipeTIntersectionCount;
+            case PipeType.Mixer:
+                return pipeMixerCount;
             case PipeType.XIntersection:
                 return pipeXIntersectionCount;
             default:
@@ -134,8 +134,8 @@ public class Inventory : MonoBehaviour
         case PipeType.UnderOver:
             --pipeOverUnderCount;
             break;
-        case PipeType.TIntersection:
-            --pipeTIntersectionCount;
+        case PipeType.Mixer:
+            --pipeMixerCount;
             break;
         case PipeType.XIntersection:
             --pipeXIntersectionCount;
@@ -161,8 +161,8 @@ public class Inventory : MonoBehaviour
         case PipeType.UnderOver:
             ++pipeOverUnderCount;
             break;
-        case PipeType.TIntersection:
-            ++pipeTIntersectionCount;
+        case PipeType.Mixer:
+            ++pipeMixerCount;
             break;
         case PipeType.XIntersection:
             ++pipeXIntersectionCount;

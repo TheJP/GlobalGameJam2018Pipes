@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Row: 0
   Column: 0
+  tileSize: 0
   pipeStraight: {fileID: 1224884062038194, guid: e8947d4a883f0e94d8167adaeee8063a,
     type: 2}
   pipeTurn: {fileID: 1459775235348368, guid: a92e1771f0a1aa5438249eb863be7b31, type: 2}
@@ -148,9 +149,8 @@ MonoBehaviour:
     type: 2}
   pipeXIntersection: {fileID: 1076857146321048, guid: 83b8cb56d2edae444929e7434786fbfe,
     type: 2}
-  pipeTIntersection: {fileID: 1073480752831910, guid: e80eb4e71d2950945b07f0c2214ca8ea,
-    type: 2}
-  hasPipe: 0
+  pipeMixer: {fileID: 1632119735782784, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
+  pipe: {fileID: 0}
 --- !u!114 &114926674141565028
 MonoBehaviour:
   m_ObjectHideFlags: 1

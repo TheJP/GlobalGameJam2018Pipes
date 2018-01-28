@@ -99,7 +99,7 @@ public class TableScript : MonoBehaviour
         {
             [PipeType.Straight] = assets[fromTop - 0, 0].GetComponent<Asset>(),
             [PipeType.Turn] = assets[fromTop - 0, 1].GetComponent<Asset>(),
-            [PipeType.TIntersection] = assets[fromTop - 1, 0].GetComponent<Asset>(),
+            [PipeType.Mixer] = assets[fromTop - 1, 0].GetComponent<Asset>(),
             [PipeType.LeftRight] = assets[fromTop - 2, 0].GetComponent<Asset>(),
             [PipeType.UnderOver] = assets[fromTop - 2, 1].GetComponent<Asset>(),
             [PipeType.XIntersection] = assets[fromTop - 3, 0].GetComponent<Asset>()

@@ -16,7 +16,7 @@ public class Asset : MonoBehaviour
     public GameObject pipeLeftRight;
     public GameObject pipeOverUnder;
     public GameObject pipeXIntersection;
-    public GameObject pipeTIntersection;
+    public GameObject pipeMixer;
 
 
     private GameObject assetObj;
@@ -109,8 +109,8 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
             case PipeType.UnderOver:
                 pipeGameObject = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
                 break;
-            case PipeType.TIntersection:
-                pipeGameObject = Instantiate(pipeTIntersection, transform.position, pipeRotation, transform);
+            case PipeType.Mixer:
+                pipeGameObject = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
                 break;
             case PipeType.XIntersection:
                 pipeGameObject = Instantiate(pipeXIntersection, transform.position, pipeRotation, transform);

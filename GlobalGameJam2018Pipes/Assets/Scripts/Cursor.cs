@@ -38,7 +38,7 @@ public class Cursor
         case PipeType.UnderOver:
             currrentDisplay = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
             break;
-        case PipeType.TIntersection:
+        case PipeType.Mixer:
             currrentDisplay = Instantiate(pipeTIntersection, transform.position, pipeRotation, transform);
             break;
         case PipeType.XIntersection:

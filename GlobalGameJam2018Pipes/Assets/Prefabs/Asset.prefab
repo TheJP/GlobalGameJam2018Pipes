@@ -189,9 +189,9 @@ MonoBehaviour:
     type: 2}
   pipeXIntersection: {fileID: 1076857146321048, guid: 83b8cb56d2edae444929e7434786fbfe,
     type: 2}
-  pipeTIntersection: {fileID: 1073480752831910, guid: e80eb4e71d2950945b07f0c2214ca8ea,
-    type: 2}
+  pipeMixer: {fileID: 1632119735782784, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
   pipeCount: 5
+  pipeType: 0
 --- !u!114 &114777324681826710
 MonoBehaviour:
   m_ObjectHideFlags: 1

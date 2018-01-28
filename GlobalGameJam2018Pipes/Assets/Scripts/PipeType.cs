@@ -6,5 +6,5 @@
 	LeftRight,
 	UnderOver,
 	XIntersection,
-	TIntersection
+	Mixer
 }

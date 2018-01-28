@@ -17,14 +17,16 @@ public class Asset : MonoBehaviour
     public GameObject pipeOverUnder;
     public GameObject pipeXIntersection;
     public GameObject pipeMixer;
+    public GameObject goldPrefab;
 
 
     private GameObject assetObj;
     private Inventory inventory;
         
     /*[HideInInspector]*/
-    public int pipeCount;  // number of assets stored here
+    public int itemCount;  // number of assets stored here
     public PipeType pipeType;
+    public bool displaysGold;
 
     private Text textObj;
 
@@ -39,7 +41,7 @@ public class Asset : MonoBehaviour
         inventory = GetComponentInParent<Inventory>();
 
         // TODO only display text if there is something on this field
-        if (pipeType != PipeType.None)
+        if (pipeType != PipeType.None || displaysGold)
             UpdateText();
         
     }
@@ -48,30 +50,45 @@ public class Asset : MonoBehaviour
     {
         Debug.Log("setPipeType");
         pipeType = type;
-        UpdatePipeDisplay();     // pipeDisplay is an instance of the pipe type, to display on asset-tile
+        UpdateItemDisplay();     // pipeDisplay is an instance of the pipe type, to display on asset-tile
+    }
+
+    public void SetGoldDisplay()
+    {
+        displaysGold = true;
+        SetPipeType(PipeType.None);
     }
 
 
     public void SetCount (int count)
     {
-        this.pipeCount = count;
+        this.itemCount = count;
         UpdateText();
     }
     private void UpdateText()
     {
         if (textObj != null)
         {
-            textObj.text = pipeCount + "x";
+            textObj.text = itemCount + "x";
         }
     }
 
-    private void UpdatePipeDisplay()
+    private void UpdateItemDisplay()
     {
+        if (assetObj != null)
+        {
+            Destroy(assetObj);
+        }
+
         if (this.pipeType != PipeType.None)
         {
             assetObj = CreatePipe(this.pipeType);
         }
-        Debug.Log("in UpdatePipeDisplay end");
+        else if (displaysGold)
+        {
+            assetObj = CreateGold();
+        }
+        Debug.Log("in UpdateItemDisplay end");
     }
 
 
@@ -143,6 +160,16 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
         //    pipe.Rotation = rotation;
         //    return true;
         //}
+    }
+
+    public GameObject CreateGold()
+    {
+        var goldObject = Instantiate(goldPrefab, transform.position, Quaternion.identity, transform);
+
+        goldObject.transform.localScale = new Vector3(0.1f, 1.5f, 0.1f);
+        goldObject.transform.Translate(new Vector3(0.0f, 1.0f, 0.15f));
+
+        return goldObject;
     }
 
 

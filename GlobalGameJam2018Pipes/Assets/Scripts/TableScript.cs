@@ -21,6 +21,7 @@ public class TableScript : MonoBehaviour
     private Vector3 tableCenter;
 
     public Dictionary<PipeType, Asset> assetLocations;     // which asset stores which pipe type, hardcoded InitInventoryPlaces
+    public Asset goldLocation;
 
     //    private Vector3 localTableDirection;
 
@@ -104,6 +105,8 @@ public class TableScript : MonoBehaviour
             [PipeType.UnderOver] = assets[fromTop - 2, 1].GetComponent<Asset>(),
             [PipeType.XIntersection] = assets[fromTop - 3, 0].GetComponent<Asset>()
         };
+
+        goldLocation = assets[0, 1].GetComponent<Asset>();
         
         OnInventoryUpdate();
     }
@@ -126,6 +129,11 @@ public class TableScript : MonoBehaviour
             }
         }
 
+        if (goldLocation != null)
+        {
+            goldLocation.SetGoldDisplay();
+            goldLocation.SetCount(inventory.Gold);
+        }
     }
 
 

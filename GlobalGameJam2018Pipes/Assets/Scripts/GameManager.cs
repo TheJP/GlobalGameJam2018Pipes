@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
                     tableScript.ResetSelectionColors();
-                    cursor.SetPipeDisplay(target.GetComponent<Asset>().pipeType);
+                    SetBuildNext(target.GetComponent<Asset>().pipeType);
                     target.GetComponent<Renderer>().material.color = Color.blue;
                 }
 

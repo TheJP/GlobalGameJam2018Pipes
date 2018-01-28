@@ -9,4 +9,5 @@
 * Improve click on item source
 * Additional item sources?
 * Add specialised item graphics
+* Help site
 * Improve look&feel

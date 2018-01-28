@@ -147,9 +147,7 @@ MonoBehaviour:
     type: 2}
   pipeOverUnder: {fileID: 1272856773240770, guid: d87f9e78c0e7c6d46904c623672afb50,
     type: 2}
-  pipeXIntersection: {fileID: 1076857146321048, guid: 83b8cb56d2edae444929e7434786fbfe,
-    type: 2}
-  pipeMixer: {fileID: 1632119735782784, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
+  pipeMixer: {fileID: 1366269202607948, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
   pipe: {fileID: 0}
 --- !u!114 &114926674141565028
 MonoBehaviour:

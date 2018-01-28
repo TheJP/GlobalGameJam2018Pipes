@@ -28,7 +28,7 @@ public class DestroyPipe : MonoBehaviour
         if (timeSpentToDestroy >= timeToDestroy)
         {
             tile.RemovePipe();
-            Destroy(this.transform.parent.gameObject);
+            Destroy(GetComponentInParent<Pipe>().gameObject);
             return true;
         }
 

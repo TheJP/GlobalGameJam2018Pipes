@@ -186,7 +186,6 @@ public class GameManager : MonoBehaviour
                     if (mixerPipe != null)
                     {
                         mixerPipe.ReleaseItem();
-                        return;
                     }
 
                     thresholdDeletingPipe++;

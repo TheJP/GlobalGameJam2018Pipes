@@ -23,16 +23,23 @@ namespace Assets.Scripts
         float shiftAdd = 250.0f; //multiplied by how long shift is held.  Basically running
         float maxShift = 1000.0f; //Maximum speed when holdin gshift
         float camSens = 0.25f; //How sensitive it with mouse
-        private Vector3 lastMouse = new Vector3(255, 255, 255); //kind of in the middle of the screen, rather than at the top (play)
+        //private Vector3 lastMouse = new Vector3(255, 255, 255); //kind of in the middle of the screen, rather than at the top (play)
         private float totalRun = 1.0f;
+        private float yPosition = 60; //Zoom
 
         void Update()
         {
-            lastMouse = Input.mousePosition - lastMouse;
-            lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
-            lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
-            transform.eulerAngles = lastMouse;
-            lastMouse = Input.mousePosition;
+
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll != 0)
+            {
+                yPosition += scroll * -10;
+            }
+            //lastMouse = Input.mousePosition - lastMouse;
+            //lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
+            //lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
+            //transform.eulerAngles = lastMouse;
+            //lastMouse = Input.mousePosition;
             //Mouse  camera angle done.  
 
             //Keyboard commands
@@ -54,17 +61,18 @@ namespace Assets.Scripts
 
             p = p * Time.deltaTime;
             Vector3 newPosition = transform.position;
-            if (Input.GetKey(KeyCode.Space))
-            { //If player wants to move on X and Z axis only
-                transform.Translate(p);
-                newPosition.x = transform.position.x;
-                newPosition.z = transform.position.z;
-                transform.position = newPosition;
-            }
-            else
-            {
-                transform.Translate(p);
-            }
+            //if (Input.GetKey(KeyCode.Space))
+            //{ //If player wants to move on X and Z axis only
+            transform.Translate(p);
+            newPosition.x = transform.position.x;
+            newPosition.z = transform.position.z;
+            newPosition.y = yPosition;
+            transform.position = newPosition;
+            //}
+            //else
+            //{
+            //    transform.Translate(p);
+            //}
 
         }
 

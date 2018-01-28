@@ -52,7 +52,7 @@ public class Pipe : MonoBehaviour
 
     public PipeType Type => pipeType;
 
-    public FlowDirection FromLeft => GetRotatedFlowDirection(fromLeft, fromBottom, fromRight, fromBottom);
+    public FlowDirection FromLeft => GetRotatedFlowDirection(fromLeft, fromBottom, fromRight, fromTop);
 
     public FlowDirection FromTop => GetRotatedFlowDirection(fromTop, fromLeft, fromBottom, fromRight);
 

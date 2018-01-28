@@ -10,7 +10,7 @@
         else if (mat2.Material == Material.Herbs) {
             newColor = mat2.Color;
         }
-        else if (mat1.Material == Material.Herbs || mat2.Material == Material.Herbs) {
+        else /*if (mat1.Material != Material.Herbs && mat2.Material != Material.Herbs)*/ {
             // in all other cases, colors are mixed
             newColor = MixColor (mat1.Color, mat2.Color);
         }

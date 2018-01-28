@@ -13,6 +13,7 @@ public class Cursor
     private GameObject currrentDisplay;
     private PipeType currentPipeType;
     private Plane cursorPlane;
+    public int currentRotation;
 
     public void SetPipeDisplay(PipeType pipeType)
     {
@@ -21,25 +22,27 @@ public class Cursor
             Destroy(currrentDisplay);
         }
 
+        var pipeRotation = Quaternion.AngleAxis(90 * (currentRotation % 4), Vector3.up);
+
         switch(pipeType)
         {
         case PipeType.Straight:
-            currrentDisplay = Instantiate(pipeStraight, transform);
+            currrentDisplay = Instantiate(pipeStraight, transform.position, pipeRotation, transform);
             break;
         case PipeType.Turn:
-            currrentDisplay = Instantiate(pipeTurn, transform);
+            currrentDisplay = Instantiate(pipeTurn, transform.position, pipeRotation, transform);
             break;
         case PipeType.LeftRight:
-            currrentDisplay = Instantiate(pipeLeftRight, transform);
+            currrentDisplay = Instantiate(pipeLeftRight, transform.position, pipeRotation, transform);
             break;
         case PipeType.UnderOver:
-            currrentDisplay = Instantiate(pipeOverUnder, transform);
+            currrentDisplay = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
             break;
         case PipeType.TIntersection:
-            currrentDisplay = Instantiate(pipeTIntersection, transform);
+            currrentDisplay = Instantiate(pipeTIntersection, transform.position, pipeRotation, transform);
             break;
         case PipeType.XIntersection:
-            currrentDisplay = Instantiate(pipeXIntersection, transform);
+            currrentDisplay = Instantiate(pipeXIntersection, transform.position, pipeRotation, transform);
             break;
         default:
             currrentDisplay = null;
@@ -70,6 +73,8 @@ public class Cursor
         if(Input.GetMouseButtonUp(1) && currrentDisplay != null)
         {
             currrentDisplay.transform.Rotate(Vector3.up, 90);
+            ++currentRotation;
+            currentRotation %= 4;
         }
 
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -89,7 +94,7 @@ public class Cursor
             {
                 var tile = target.GetComponentInParent<Tile>();
 
-                if (!tile.hasPipe)
+                if (tile.pipe == null)
                 {
                     var targetPos = tile.transform.position;
                     transform.position = targetPos;

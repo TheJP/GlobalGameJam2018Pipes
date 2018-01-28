@@ -52,4 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardSize: 8
-  tilePrefab: {fileID: 1806908093494690, guid: f5de0b5404abae049b760c2b4488b932, type: 2}
+  tilePrefab: {fileID: 1108349032880120, guid: f5de0b5404abae049b760c2b4488b932, type: 2}

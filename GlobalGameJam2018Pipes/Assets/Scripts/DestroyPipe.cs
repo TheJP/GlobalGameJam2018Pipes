@@ -20,7 +20,7 @@ public class DestroyPipe : MonoBehaviour
     {
     }
 
-    public void ReduceLifetime()
+    public bool ReduceLifetime()
     {
         Debug.Log("Reduce Lifetime called");
         timeSpentToDestroy += Time.deltaTime;
@@ -29,6 +29,9 @@ public class DestroyPipe : MonoBehaviour
         {
             tile.RemovePipe();
             Destroy(this.transform.parent.gameObject);
+            return true;
         }
+
+        return false;
     }
 }

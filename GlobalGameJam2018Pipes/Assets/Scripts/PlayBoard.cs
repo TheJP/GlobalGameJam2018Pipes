@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayBoard : MonoBehaviour
 {
@@ -29,6 +30,24 @@ public class PlayBoard : MonoBehaviour
 
                 tiles[column, row] = newTile;
             }
+        }
+    }
+
+    public int GetStepSize()
+    {
+        return tiles[0, 0].GetComponent<Tile>().tileSize;
+    }
+
+    public Tile GetTileForPosition(int row, int column)
+    {
+        try
+        {
+            return tiles[row, column].GetComponent<Tile>();
+        }
+        catch (IndexOutOfRangeException ioofException)
+        {
+            Debug.Log(ioofException.ToString());
+            return null;
         }
     }
 

@@ -60,7 +60,7 @@ public class ItemBehaviour : MonoBehaviour
         {
             FlowDirection nextDirection = FlowDirection.Stop;
             Tile nextTile = playBoard.GetTileForPosition(Column, Row);
-            Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
+            //Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
             if (nextTile != null)
             {
                 if (nextTile.pipe == null)
@@ -89,22 +89,23 @@ public class ItemBehaviour : MonoBehaviour
                 }
             }
 
-            Debug.Log(this.name.ToString() + ": Next Direction " + nextDirection);
+            //Debug.Log(this.name.ToString() + ": Next Direction " + nextDirection);
             if (nextDirection != null)
             {
+                var foundSink = false;
                 switch (nextDirection)
                 {
                     case FlowDirection.ToTop:
-                        StepUp();
+                        foundSink = StepUp();
                         break;
                     case FlowDirection.ToDown:
-                        StepDown();
+                        foundSink = StepDown();
                         break;
                     case FlowDirection.ToLeft:
-                        StepLeft();
+                        foundSink = StepLeft();
                         break;
                     case FlowDirection.ToRight:
-                        StepRight();
+                        foundSink = StepRight();
                         break;
                     case FlowDirection.Stop:
                         //Debug.Log("Item stopping");
@@ -114,43 +115,67 @@ public class ItemBehaviour : MonoBehaviour
                         break;
                     case FlowDirection.Drop:
                         //TODO
-                        Debug.Log("Item dropped");
+                        //Debug.Log("Item dropped");
                         break;
                     default:
                         Debug.Log("No Direction to Move");
                         break;
                 }
+
+                if (foundSink)
+                {
+                    yield break;
+                }
             }
+
             yield return new WaitForSecondsRealtime(floatSpeed);
         }
     }
 
-    public void StepRight()
+    public bool StepRight()
     {
         transform.position = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z);
         Column++;
         lastStep = LastStep.RIGHT;
+        return FindSink();
     }
 
-    public void StepLeft()
+    public bool StepLeft()
     {
         transform.position = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z);
         Column--;
         lastStep = LastStep.LEFT;
+        return FindSink();
     }
 
-    public void StepUp()
+    public bool StepUp()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
         Row++;
         lastStep = LastStep.UP;
+        return FindSink();
     }
 
-    public void StepDown()
+    public bool StepDown()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
         Row--;
         lastStep = LastStep.DOWN;
+        return FindSink();
+    }
+
+    private bool FindSink()
+    {
+        foreach (var itemSink in playBoard.itemSinks)
+        {
+            if (itemSink.row == Row && itemSink.column == Column)
+            {
+                itemSink.ProcessSinkItem(this);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private enum LastStep { LEFT, RIGHT, UP, DOWN }

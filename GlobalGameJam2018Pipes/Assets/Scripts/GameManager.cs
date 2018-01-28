@@ -1,6 +1,7 @@
 using GlobalGameJam2018Networking;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
         cursor = Instantiate(cursorPrefab).GetComponent<Cursor>();
         Instantiate(cameraPrefab);
-        Instantiate(playBoardPrefab);
+        var playBoard = Instantiate(playBoardPrefab).GetComponent<PlayBoard>();
         GameObject table = Instantiate(assetTablePrefab);
         table.transform.rotation = Quaternion.Euler(0, 90, 0);
         table.transform.position = new Vector3(50, 0, 0);
@@ -45,19 +46,45 @@ public class GameManager : MonoBehaviour
         itemSourceObject.transform.position = new Vector3(-45, 0, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
 
+        var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;
+        var sinkX = playBoard.GetXPosition(playBoard.boardSize, tileSize);
+        var sinkTopZ = playBoard.GetZPosition(0, tileSize);
+        var sinkBottomZ = playBoard.GetZPosition(playBoard.boardSize - 1, tileSize);
+
+        playBoard.itemSinks = new List<ItemSink>()
+        {
+            Instantiate(itemSinkPrefab, new Vector3(sinkX, 0, sinkTopZ), Quaternion.identity).GetComponent<ItemSink>(),
+            Instantiate(itemSinkPrefab, new Vector3(sinkX, 0, sinkBottomZ), Quaternion.identity).GetComponent<ItemSink>()
+        };
+
+        playBoard.itemSinks[0].row = 0;
+        playBoard.itemSinks[0].column = playBoard.boardSize;
+        playBoard.itemSinks[1].row = playBoard.boardSize - 1;
+        playBoard.itemSinks[1].column = playBoard.boardSize;
+
         if (Multiplayer != null)
         {
             var levelConfig = LevelConfig.Builder("Main")
+                .AddPipe(PipeDirection.ToAlchemist, 0)
                 .AddPipe(PipeDirection.ToAlchemist, 1)
-                .AddPipe(PipeDirection.ToAlchemist, 2)
-                .AddPipe(PipeDirection.ToPipes, 3)
+                .AddPipe(PipeDirection.ToPipes, 200)
                 .Create();
+
+            foreach (var remotePipe in levelConfig.Pipes)
+            {
+                if (remotePipe.Direction == PipeDirection.ToAlchemist)
+                {
+                    var sink = playBoard.itemSinks[remotePipe.Order];
+                    sink.remotePipe = remotePipe;
+                    sink.pipesNetwork = GameManager.Multiplayer.Network;
+                }
+            }
 
             Multiplayer.Network.ReceivedMoneyMaker += (maker, pipe) => { inventory.Gold += maker.GoldValue; };
 
             // Exit or continue game:
-            //Multiplayer.Network.AlchemistDisconnected
-            //Multiplayer.Network.GameOver
+            Multiplayer.Network.AlchemistDisconnected += this.OnAlchemistDisconnected;
+            Multiplayer.Network.GameOver += this.OnGameOver;
 
             // Display chat message:
             //Multiplayer.Network.ReceivedMessage
@@ -73,7 +100,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         SetBuildNext(PipeType.Straight);
-        
+
         //tableScript.InitInventoryPlaces();
     }
 
@@ -171,7 +198,8 @@ public class GameManager : MonoBehaviour
                 {
                     //Debug.Log("Hit: " + hit.collider.gameObject.name);
 
-                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext, cursor.currentRotation))
+                    if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>()
+                            .BuildPipe(buildNext, cursor.currentRotation))
                     {
                         inventory.Reduce(buildNext);
                     }
@@ -183,5 +211,26 @@ public class GameManager : MonoBehaviour
             deletingPipe = false;
             thresholdDeletingPipe = 0;
         }
+    }
+
+    private void OnAlchemistDisconnected()
+    {
+        OnGameOver(false);
+    }
+
+    private void OnGameOver(bool success)
+    {
+        if (GameManager.Multiplayer == null)
+        {
+            return;
+        }
+
+        Multiplayer.Network.AlchemistDisconnected -= this.OnAlchemistDisconnected;
+        Multiplayer.Network.GameOver -= this.OnGameOver;
+        Multiplayer.Network.Stop();
+
+        Multiplayer = null;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

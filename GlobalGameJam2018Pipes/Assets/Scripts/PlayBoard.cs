@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayBoard : MonoBehaviour
 {
     public int boardSize;
     public GameObject tilePrefab;
+    public List<ItemSink> itemSinks;
 
     private GameObject[,] tiles;
 
@@ -44,19 +46,19 @@ public class PlayBoard : MonoBehaviour
         {
             return tiles[row, column].GetComponent<Tile>();
         }
-        catch (IndexOutOfRangeException ioofException)
+        catch (IndexOutOfRangeException/* ioofException*/)
         {
-            Debug.Log(ioofException.ToString());
+            //Debug.Log(ioofException.ToString());
             return null;
         }
     }
 
-    private float GetXPosition(int column, int tileSize)
+    public float GetXPosition(int column, int tileSize)
     {
         return tileSize * column - ((boardSize - 1) * tileSize / 2);
     }
 
-    private float GetZPosition(int row, int tileSize)
+    public float GetZPosition(int row, int tileSize)
     {
         return tileSize * row - ((boardSize - 1) * tileSize / 2);
     }

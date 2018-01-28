@@ -161,8 +161,8 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
         if(pipeGameObject != null)
         {
             // make smaller to display on table
-            pipeGameObject.transform.localScale = new Vector3(0.05f, 0.05f * 8, 0.05f);     // parent is scaled 8 in x and z, but only 1 in y, that's why * 8 ...
-            pipeGameObject.transform.Translate(new Vector3(0, .35f, 0));
+            pipeGameObject.transform.localScale = new Vector3(0.07f, 0.07f * 10, 0.07f);     // parent is scaled 8 in x and z, but only 1 in y, that's why * 8 ...
+            pipeGameObject.transform.Translate(new Vector3(0, .4f, 0));
 
             var boxCollider = pipeGameObject.GetComponentInChildren<BoxCollider>();
             if(boxCollider != null)
@@ -197,8 +197,8 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
     {
         var hammerObject = Instantiate(hammerPrefab, transform.position, Quaternion.identity, transform);
 
-        hammerObject.transform.localScale = new Vector3(0.05f, 0.3f, 0.05f);
-        hammerObject.transform.Translate(new Vector3(-0.05f, 0, 0));
+        hammerObject.transform.localScale = new Vector3(0.08f, 0.4f, 0.08f);
+        hammerObject.transform.Translate(new Vector3(-0.07f, 0, 0));
 
         return hammerObject;
     }

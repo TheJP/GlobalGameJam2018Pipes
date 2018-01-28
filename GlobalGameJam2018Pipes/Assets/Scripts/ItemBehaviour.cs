@@ -63,22 +63,29 @@ public class ItemBehaviour : MonoBehaviour
             Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
             if (nextTile != null)
             {
-                switch (lastStep)
+                if (nextTile.pipe == null)
                 {
-                    case LastStep.DOWN:
-                        nextDirection = nextTile.pipe.FromTop;
-                        break;
-                    case LastStep.LEFT:
-                        nextDirection = nextTile.pipe.FromRight;
-                        break;
-                    case LastStep.RIGHT:
-                        nextDirection = nextTile.pipe.FromLeft;
-                        break;
-                    case LastStep.UP:
-                        nextDirection = nextTile.pipe.FromBottom;
-                        break;
-                    default:
-                        break;
+                    nextDirection = FlowDirection.Drop;
+                }
+                else
+                {
+                    switch (lastStep)
+                    {
+                        case LastStep.DOWN:
+                            nextDirection = nextTile.pipe.FromTop;
+                            break;
+                        case LastStep.LEFT:
+                            nextDirection = nextTile.pipe.FromRight;
+                            break;
+                        case LastStep.RIGHT:
+                            nextDirection = nextTile.pipe.FromLeft;
+                            break;
+                        case LastStep.UP:
+                            nextDirection = nextTile.pipe.FromBottom;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -107,6 +114,7 @@ public class ItemBehaviour : MonoBehaviour
                         break;
                     case FlowDirection.Drop:
                         //TODO
+                        Debug.Log("Item dropped");
                         break;
                     default:
                         Debug.Log("No Direction to Move");

@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4771544670420416}
   - component: {fileID: 114799996458889804}
+  - component: {fileID: 114612476678669462}
   m_Layer: 0
   m_Name: PipeMixer
   m_TagString: Untagged
@@ -175,6 +176,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114612476678669462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1632119735782784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94bb06e6a779d3245a780a9321657f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSourcePrefab: {fileID: 114283869722668954, guid: be567aecaf474f644942cd8fb7e22bcf,
+    type: 2}
+  row: 0
+  column: 0
 --- !u!114 &114799996458889804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,7 +208,7 @@ MonoBehaviour:
   fromRight: 4
   fromBottom: 6
   rotation: 0
-  pipeType: 5
+  pipeType: 6
 --- !u!114 &114936402082752182
 MonoBehaviour:
   m_ObjectHideFlags: 1

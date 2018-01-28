@@ -204,4 +204,4 @@ MonoBehaviour:
   fromRight: 1
   fromBottom: 2
   rotation: 0
-  pipeType: 2
+  pipeType: 3

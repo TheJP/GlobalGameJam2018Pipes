@@ -198,9 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdcb72aa6d7f2448a7601c53a278bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAffectedByRotation: 0
   fromLeft: 2
   fromTop: 1
   fromRight: 0
   fromBottom: 3
   rotation: 0
-  pipeType: 3
+  pipeType: 4

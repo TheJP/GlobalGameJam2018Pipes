@@ -1,7 +1,6 @@
 # TODO
 
 * Display gold
-* Buy with gold
 * Trash
 * Mixing items seems kind of strange
 * Remove X Intersection

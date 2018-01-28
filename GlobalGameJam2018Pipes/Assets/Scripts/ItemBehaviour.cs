@@ -38,6 +38,8 @@ public class ItemBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        isMoving = false;
+
         GameObject playBoardObject = GameObject.Find("PlayBoard(Clone)");
         playBoard = playBoardObject.GetComponent<PlayBoard>();
 
@@ -114,6 +116,7 @@ public class ItemBehaviour : MonoBehaviour
                         if (mixerPipe != null)
                         {
                             mixerPipe.ProcessItem(this);
+                            isMoving = false;
                             yield break;
                         }
                         break;
@@ -131,6 +134,7 @@ public class ItemBehaviour : MonoBehaviour
 
                 if (foundSink)
                 {
+                    isMoving = false;
                     yield break;
                 }
             }
@@ -145,13 +149,7 @@ public class ItemBehaviour : MonoBehaviour
         Column++;
         lastStep = LastStep.RIGHT;
 
-        if (isMoving)
-        {
-            return FindSink();
-        }
-
-        StartCoroutine(MoveItem());
-        return false;
+        return ContinueMoving();
     }
 
     public bool StepLeft()
@@ -160,13 +158,7 @@ public class ItemBehaviour : MonoBehaviour
         Column--;
         lastStep = LastStep.LEFT;
 
-        if(isMoving)
-        {
-            return FindSink();
-        }
-
-        StartCoroutine(MoveItem());
-        return false;
+        return ContinueMoving();
     }
 
     public bool StepUp()
@@ -174,14 +166,8 @@ public class ItemBehaviour : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
         Row++;
         lastStep = LastStep.UP;
-
-        if(isMoving)
-        {
-            return FindSink();
-        }
-
-        StartCoroutine(MoveItem());
-        return false;
+        
+        return ContinueMoving();
     }
 
     public bool StepDown()
@@ -190,13 +176,28 @@ public class ItemBehaviour : MonoBehaviour
         Row--;
         lastStep = LastStep.DOWN;
 
-        if(isMoving)
+        return ContinueMoving();
+    }
+
+    private bool ContinueMoving()
+    {
+        if (isMoving)
         {
             return FindSink();
         }
 
-        StartCoroutine(MoveItem());
-        return false;
+        if (!FindSink())
+        {
+            if (!isMoving)
+            {
+                isMoving = true;
+                StartCoroutine(MoveItem());
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     private bool FindSink()

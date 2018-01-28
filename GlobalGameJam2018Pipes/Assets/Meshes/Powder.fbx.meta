@@ -1,19 +1,30 @@
 fileFormatVersion: 2
-guid: fcf7e390c6792b346ab66dab6411d30b
-timeCreated: 1517059546
+guid: 477e062d42fb5774d99b3cacc2a4b8e3
+timeCreated: 1517132547
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Pipe_L_round1
-    100002: //RootNode
-    400000: Pipe_L_round1
-    400002: //RootNode
-    2100000: lambert1
-    2300000: Pipe_L_round1
-    3300000: Pipe_L_round1
-    4300000: Pipe_L_round1
-    9500000: //RootNode
+    100000: Camera
+    100002: Circle
+    100004: Cube
+    100006: Lamp
+    100008: //RootNode
+    400000: Camera
+    400002: Circle
+    400004: Cube
+    400006: Lamp
+    400008: //RootNode
+    2000000: Camera
+    2100000: Teller
+    2100002: Powder
+    2300000: Circle
+    2300002: Cube
+    3300000: Circle
+    3300002: Cube
+    4300000: Circle
+    4300002: Cube
+    10800000: Lamp
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -88,7 +99,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

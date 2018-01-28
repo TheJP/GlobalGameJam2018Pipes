@@ -7,18 +7,32 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: Pipe_T1
+    100004: Camera
+    100006: Cube
+    100008: Lamp
+    100010: Pipes
     400000: //RootNode
     400002: Pipe_T1
+    400004: Camera
+    400006: Cube
+    400008: Lamp
+    400010: Pipes
+    2000000: Camera
     2100000: lambert1
     2100002: MAT_Pipe1
     2100004: MAT_Pipe_Details
     2100006: MAT_Pipe_Glass
+    2100008: No Name
     2300000: //RootNode
     2300002: Pipe_T1
+    2300004: Cube
     3300000: //RootNode
     3300002: Pipe_T1
+    3300004: Cube
     4300000: Pipe_T1
+    4300002: Cube
     9500000: //RootNode
+    10800000: Lamp
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -22,7 +22,7 @@ public class DestroyPipe : MonoBehaviour
 
     public bool ReduceLifetime()
     {
-        Debug.Log("Reduce Lifetime called");
+        //Debug.Log("Reduce Lifetime called");
         timeSpentToDestroy += Time.deltaTime;
 
         if (timeSpentToDestroy >= timeToDestroy)

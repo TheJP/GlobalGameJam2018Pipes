@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
@@ -37,6 +38,9 @@ public class ItemBehaviour : MonoBehaviour
     private AudioClip audioClip;
 
     public ColoredMaterial material;
+    public AudioClip trashClip;
+    public AudioClip dropClip;
+
 
     // Use this for initialization
     void Start()
@@ -52,11 +56,11 @@ public class ItemBehaviour : MonoBehaviour
         meshRenderer.material.color = ConvertMaterialColor(material.Color);
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.2f;
-    }
+        audioSource.volume = 0.2f;        
+}
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
 
     }
@@ -68,7 +72,6 @@ public class ItemBehaviour : MonoBehaviour
             if (!isMoving)
             {
                 // we stop moving - stop playing sound
-                Debug.Log("stop sound");
                 audioSource.Pause();
             }
         }
@@ -77,7 +80,6 @@ public class ItemBehaviour : MonoBehaviour
             if (isMoving)
             {
                 // we start moving - start to play sound
-                Debug.Log("start sound");
                 audioSource.Play();
             }
         }
@@ -98,6 +100,7 @@ public class ItemBehaviour : MonoBehaviour
                 if (nextTile.pipe == null)
                 {
                     nextDirection = FlowDirection.Drop;
+                    SwitchSound(dropClip);
                 }
                 else
                 {
@@ -117,6 +120,16 @@ public class ItemBehaviour : MonoBehaviour
                             break;
                         default:
                             break;
+                    }
+                    if (nextDirection == FlowDirection.Trash)
+                    {
+                        Debug.Log("nextDirection is Trash");
+                        AudioSource audioSource = nextTile.pipe.gameObject.GetComponent<AudioSource>();
+                        audioSource.clip = trashClip;
+                        audioSource.volume = 0.8f;
+                        audioSource.Play();
+                        Debug.Log("nextDirection is Trash");
+                        // switchsound cannot be done later, because we destroy the gameobject then
                     }
                 }
             }
@@ -154,6 +167,8 @@ public class ItemBehaviour : MonoBehaviour
                     if (nextTile != null)
                     {
                         nextTile.Block(this);
+                        // SwitchSound(dropClip);
+                        // sound setting has been done when setting nextDirection = FlowDirection.Drop;
                     }
                     else
                     {
@@ -173,6 +188,16 @@ public class ItemBehaviour : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(floatSpeed);
         }
+    }
+
+    private void SwitchSound(AudioClip clip)
+    {
+        audioSource.loop = false;
+        audioSource.Stop();
+        Debug.Log("switch sound to " + clip.name);
+        audioSource.clip = clip;
+        audioSource.volume = 0.8f;
+        audioSource.Play();
     }
 
     public bool StepRight()

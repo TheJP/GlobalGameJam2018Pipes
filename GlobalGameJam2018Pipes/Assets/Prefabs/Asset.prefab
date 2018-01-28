@@ -180,6 +180,17 @@ MonoBehaviour:
   Column: 0
   tileSizeX: 8
   tileSizeZ: 8
+  pipeStraight: {fileID: 1224884062038194, guid: e8947d4a883f0e94d8167adaeee8063a,
+    type: 2}
+  pipeTurn: {fileID: 1459775235348368, guid: a92e1771f0a1aa5438249eb863be7b31, type: 2}
+  pipeLeftRight: {fileID: 1929987325725070, guid: b69947d30bd1f224983c2f4e0beb7a05,
+    type: 2}
+  pipeOverUnder: {fileID: 1272856773240770, guid: d87f9e78c0e7c6d46904c623672afb50,
+    type: 2}
+  pipeXIntersection: {fileID: 1076857146321048, guid: 83b8cb56d2edae444929e7434786fbfe,
+    type: 2}
+  pipeTIntersection: {fileID: 1073480752831910, guid: e80eb4e71d2950945b07f0c2214ca8ea,
+    type: 2}
   pipeCount: 5
 --- !u!114 &114777324681826710
 MonoBehaviour:

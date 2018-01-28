@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        SetBuildNext(PipeType.Straight);
+        SetBuildNext(PipeType.None);
 
         //tableScript.InitInventoryPlaces();
     }

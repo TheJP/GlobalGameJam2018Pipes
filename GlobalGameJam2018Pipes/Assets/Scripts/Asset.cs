@@ -24,7 +24,7 @@ public class Asset : MonoBehaviour
         
     /*[HideInInspector]*/
     public int pipeCount;  // number of assets stored here
-    public PipeType? pipeType;
+    public PipeType pipeType;
 
     private Text textObj;
 
@@ -39,7 +39,7 @@ public class Asset : MonoBehaviour
         inventory = GetComponentInParent<Inventory>();
 
         // TODO only display text if there is something on this field
-        if (pipeType != null)
+        if (pipeType != PipeType.None)
             UpdateText();
         
     }
@@ -67,7 +67,7 @@ public class Asset : MonoBehaviour
 
     private void UpdatePipeDisplay()
     {
-        if (this.pipeType != null)
+        if (this.pipeType != PipeType.None)
         {
             assetObj = CreatePipe(this.pipeType);
         }
@@ -88,7 +88,7 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
 public static Object Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent); 
  *      */
 
-    public GameObject CreatePipe(PipeType? pipeType)
+    public GameObject CreatePipe(PipeType pipeType)
     {
         var pipeRotation = Quaternion.AngleAxis(90, Vector3.up);
 

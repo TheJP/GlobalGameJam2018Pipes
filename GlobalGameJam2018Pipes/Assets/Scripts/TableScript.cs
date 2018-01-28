@@ -113,12 +113,12 @@ public class TableScript : MonoBehaviour
 
     private void OnInventoryUpdate ()
     {
-        Debug.Log("in OnInventoryUpdate: start");
+        //Debug.Log("in OnInventoryUpdate: start");
         if (assetLocations != null)
         {
             foreach (KeyValuePair<PipeType, Asset> item in assetLocations)
             {
-                Debug.Log(item.Key.ToString() + "   " + item.Value);
+                //Debug.Log(item.Key.ToString() + "   " + item.Value);
 
                 PipeType pipeType = item.Key;
                 Asset asset = item.Value;

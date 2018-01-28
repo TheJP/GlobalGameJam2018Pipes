@@ -48,7 +48,7 @@ public class Asset : MonoBehaviour
 
     public void SetPipeType(PipeType type)
     {
-        Debug.Log("setPipeType");
+        //Debug.Log("setPipeType");
         pipeType = type;
         UpdateItemDisplay();     // pipeDisplay is an instance of the pipe type, to display on asset-tile
     }
@@ -88,7 +88,7 @@ public class Asset : MonoBehaviour
         {
             assetObj = CreateGold();
         }
-        Debug.Log("in UpdateItemDisplay end");
+        //Debug.Log("in UpdateItemDisplay end");
     }
 
 
@@ -109,7 +109,7 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
     {
         var pipeRotation = Quaternion.AngleAxis(90, Vector3.up);
 
-        Debug.Log("in CreatePipe");
+        //Debug.Log("in CreatePipe");
 
         GameObject pipeGameObject;
         switch (pipeType)
@@ -149,7 +149,7 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
                 boxCollider.enabled = false;
             }
 
-            Debug.Log("in CreatePipe end, have pipeObj: " + pipeGameObject.name);
+            //Debug.Log("in CreatePipe end, have pipeObj: " + pipeGameObject.name);
         }
 
         return pipeGameObject;

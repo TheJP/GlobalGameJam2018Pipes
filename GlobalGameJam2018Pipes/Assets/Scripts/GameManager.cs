@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
 
                 if (target.tag == "ItemSource")
                 {
-                    Debug.Log("ItemSource clicked");
+                    //Debug.Log("ItemSource clicked");
                     itemSource.ReleasItem();
                 }
 

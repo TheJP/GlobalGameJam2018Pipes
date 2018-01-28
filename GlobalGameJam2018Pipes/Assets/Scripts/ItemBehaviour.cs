@@ -35,7 +35,6 @@ public class ItemBehaviour : MonoBehaviour
     private bool isMoving;
 
     private AudioSource audioSource;
-    private AudioClip audioClip;
 
     public ColoredMaterial material;
     public AudioClip trashClip;
@@ -52,15 +51,26 @@ public class ItemBehaviour : MonoBehaviour
 
         lastStep = LastStep.RIGHT;
 
-        var meshRenderer = GetComponentInChildren<MeshRenderer>();
-        meshRenderer.material.color = ConvertMaterialColor(material.Color);
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            var main = particleSystem.main;
+            main.startColor = ConvertMaterialColor(material.Color);
+        }
+        else
+        {
+            var meshRenderer = GetComponentInChildren<MeshRenderer>();
+            meshRenderer.material.color = ConvertMaterialColor(material.Color);
+        }
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.2f;        
-}
+        audioSource.volume = 0.2f;
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+    }
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
 
     }

@@ -1,4 +1,5 @@
 using GlobalGameJam2018Networking;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject itemSinkPrefab;
     public GameObject roomPrefab;
 
+
     [SerializeField] private PipeType buildNext;
 
     public int priceStraightPipe;
@@ -25,9 +27,11 @@ public class GameManager : MonoBehaviour
     public int priceMixerPipe;
     public int priceTrashPipe;
 
+
     private Inventory inventory;
     private Cursor cursor;
     private ItemSource itemSource;
+    private AudioSource audioSource;
     private bool deletingPipe = false;
     private float coolDownDeletingPipe = 0;
     private float thresholdDeletingPipe = 0;
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour
         GameObject itemSourceObject = Instantiate(itemSourcePrefab);
         itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25);
         itemSource = itemSourceObject.GetComponent<ItemSource>();
+        audioSource = GetComponent<AudioSource>();
 
         var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;
         var sinkX = playBoard.GetXPosition(playBoard.boardSize, tileSize);
@@ -195,11 +200,16 @@ public class GameManager : MonoBehaviour
                     thresholdDeletingPipe++;
                     if (thresholdDeletingPipe >= 50)
                     {
-                        deletingPipe = true;
+                        if (!deletingPipe)
+                        {
+                            deletingPipe = true;
+                            SoundStart();
+                        }
                     }
 
                     if (target.GetComponent<DestroyPipe>().ReduceLifetime())
                     {
+                        audioSource.Stop();
                         inventory.Increase(target.GetComponentInParent<Pipe>().Type);
                     }
                 }
@@ -226,6 +236,13 @@ public class GameManager : MonoBehaviour
         {
             GameManager.Multiplayer.DispatchEvents();
         }
+    }
+
+    private void SoundStart()
+    {
+        audioSource.loop = true;
+        audioSource.volume = 0.8f;
+        audioSource.Play();
     }
 
     private void BuyPipe(PipeType pipeType)

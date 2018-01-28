@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
 
                 if (target.name.Contains("Tile") && !deletingPipe)
                 {
-                    Debug.Log("Hit: " + hit.collider.gameObject.name);
+                    //Debug.Log("Hit: " + hit.collider.gameObject.name);
 
                     if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>().BuildPipe(buildNext, cursor.currentRotation))
                     {

@@ -27,45 +27,47 @@ public class TableScript : MonoBehaviour
     //    private Vector3 localTableDirection;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
 
         // table position from global space to local
-//        localTablePos = transform.InverseTransformVector (table.transform.position);
-//        Debug.Log ("localTablePos x=" + localTablePos.x + ", z=" + localTablePos.z + ", y=" + localTablePos.y);
+        //        localTablePos = transform.InverseTransformVector (table.transform.position);
+        //        Debug.Log ("localTablePos x=" + localTablePos.x + ", z=" + localTablePos.z + ", y=" + localTablePos.y);
 
         // my rotation like the table rotation 
-//        localTableDirection = new Vector3(transform.eulerAngles.x, table.transform.eulerAngles.y, transform.eulerAngles.z);
-//        transform.rotation = Quaternion.Euler(localTableDirection);
+        //        localTableDirection = new Vector3(transform.eulerAngles.x, table.transform.eulerAngles.y, transform.eulerAngles.z);
+        //        transform.rotation = Quaternion.Euler(localTableDirection);
 
         // init assets
-        float tableSizeX = table.GetComponent<Renderer> ().bounds.size.x;
-        float tableSizeZ = table.GetComponent<Renderer> ().bounds.size.z;
-        float tableHeight = table.GetComponent<Renderer> ().bounds.size.y;
-        Debug.Log ("table size: x=" + tableSizeX + ", z=" + tableSizeZ + ", h=" + tableHeight);
+        float tableSizeX = table.GetComponent<Renderer>().bounds.size.x;
+        float tableSizeZ = table.GetComponent<Renderer>().bounds.size.z;
+        float tableHeight = table.GetComponent<Renderer>().bounds.size.y;
+        Debug.Log("table size: x=" + tableSizeX + ", z=" + tableSizeZ + ", h=" + tableHeight);
 
         tileSizeX = tableSizeX / tableSizeRows;
         tileSizeZ = tableSizeZ / tableSizeCols;
-        Debug.Log ("tileW: " + tileSizeZ + ", tileH: " + tileSizeX);
+        Debug.Log("tileW: " + tileSizeZ + ", tileH: " + tileSizeX);
 
         tableCenter = table.GetComponent<Renderer>().bounds.center;
         Debug.Log("table center: " + tableCenter);
 
         assets = new GameObject[tableSizeCols, tableSizeRows];
 
-        for (int row = 0; row < tableSizeRows; row++) {
-            for (int column = 0; column < tableSizeCols; column++) {
-                GameObject newAsset = Instantiate (assetPrefab, this.transform);
+        for (int row = 0; row < tableSizeRows; row++)
+        {
+            for (int column = 0; column < tableSizeCols; column++)
+            {
+                GameObject newAsset = Instantiate(assetPrefab, this.transform);
                 newAsset.name = "Asset (" + column + ", " + row + ")";
 
-                newAsset.GetComponent<Asset> ().Row = row;
-                newAsset.GetComponent<Asset> ().Column = column;
+                newAsset.GetComponent<Asset>().Row = row;
+                newAsset.GetComponent<Asset>().Column = column;
 
-                float positionX = GetXPosition (row, tileSizeX, tableSizeX);
-                float positionZ = GetZPosition (column, tileSizeZ, tableSizeZ);
-                newAsset.transform.position = new Vector3 (positionX, tableThickness, positionZ);
+                float positionX = GetXPosition(row, tileSizeX, tableSizeX);
+                float positionZ = GetZPosition(column, tileSizeZ, tableSizeZ);
+                newAsset.transform.position = new Vector3(positionX, transform.position.y + tableThickness, positionZ);
 
-                assets [column, row] = newAsset;
+                assets[column, row] = newAsset;
             }
         }
         InitInventoryPlaces();
@@ -114,7 +116,7 @@ public class TableScript : MonoBehaviour
         OnInventoryUpdate();
     }
 
-    private void OnInventoryUpdate ()
+    private void OnInventoryUpdate()
     {
         //Debug.Log("in OnInventoryUpdate: start");
         if (assetLocations != null)
@@ -140,20 +142,20 @@ public class TableScript : MonoBehaviour
     }
 
 
-    private float GetXPosition (int column, float tileSizeX, float tableSizeX)
+    private float GetXPosition(int column, float tileSizeX, float tableSizeX)
     {
         return tileSizeX * column + tableCenter.x + tileSizeX / 2 - tableSizeX / 2;
     }
 
-    private float GetZPosition (int row, float tileSizeZ, float tableSizeZ)
+    private float GetZPosition(int row, float tileSizeZ, float tableSizeZ)
     {
         return tileSizeZ * row + tableCenter.z + tileSizeZ / 2 - tableSizeZ / 2;
     }
 
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        
+
     }
 }

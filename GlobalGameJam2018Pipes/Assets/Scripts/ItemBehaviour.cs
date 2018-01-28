@@ -35,7 +35,6 @@ public class ItemBehaviour : MonoBehaviour
     private bool isMoving;
 
     private AudioSource audioSource;
-    private AudioClip audioClip;
 
     public ColoredMaterial material;
     public AudioClip trashClip;
@@ -65,7 +64,9 @@ public class ItemBehaviour : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.2f;        
+        audioSource.volume = 0.2f;
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
     }
 
     // Update is called once per frame

@@ -84,6 +84,10 @@ public class Cursor
         {
             transform.position = ray.GetPoint(distance);
         }
+        if(currrentDisplay != null)
+        {
+            currrentDisplay.SetActive(false);
+        }
 
         RaycastHit hit;
         var range = 1000.0f;
@@ -92,6 +96,11 @@ public class Cursor
             GameObject target = hit.collider.gameObject;
             if(target.name.Contains("Tile"))
             {
+                if (currrentDisplay != null)
+                {
+                    currrentDisplay.SetActive(true);
+                }
+
                 var tile = target.GetComponentInParent<Tile>();
 
                 if (tile.pipe == null)

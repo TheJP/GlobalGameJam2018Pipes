@@ -1,6 +1,5 @@
 # TODO
 
-* Display gold
 * Trash
 * Mixing items seems kind of strange
 * Remove X Intersection

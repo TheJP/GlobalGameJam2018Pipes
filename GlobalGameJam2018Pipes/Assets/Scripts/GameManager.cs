@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int priceLeftRightPipe;
     public int priceOverUnderPipe;
     public int priceMixerPipe;
+    public int priceTrashPipe;
 
     private Inventory inventory;
     private Cursor cursor;
@@ -229,23 +230,26 @@ public class GameManager : MonoBehaviour
         int price;
         switch (pipeType)
         {
-            case PipeType.Straight:
-                price = priceStraightPipe;
-                break;
-            case PipeType.Turn:
-                price = priceTurnPipe;
-                break;
-            case PipeType.LeftRight:
-                price = priceLeftRightPipe;
-                break;
-            case PipeType.UnderOver:
-                price = priceOverUnderPipe;
-                break;
-            case PipeType.Mixer:
-                price = priceMixerPipe;
-                break;
-            default:
-                return;
+        case PipeType.Straight:
+            price = priceStraightPipe;
+            break;
+        case PipeType.Turn:
+            price = priceTurnPipe;
+            break;
+        case PipeType.LeftRight:
+            price = priceLeftRightPipe;
+            break;
+        case PipeType.UnderOver:
+            price = priceOverUnderPipe;
+            break;
+        case PipeType.Mixer:
+            price = priceMixerPipe;
+            break;
+        case PipeType.Trash:
+            price = priceTrashPipe;
+            break;
+        default:
+            return;
         }
 
         if (inventory.Gold >= price)

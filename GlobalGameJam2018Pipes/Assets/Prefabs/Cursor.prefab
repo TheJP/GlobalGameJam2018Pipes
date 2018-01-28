@@ -58,6 +58,6 @@ MonoBehaviour:
     type: 2}
   pipeOverUnder: {fileID: 1272856773240770, guid: d87f9e78c0e7c6d46904c623672afb50,
     type: 2}
-  pipeTIntersection: {fileID: 1366269202607948, guid: 9c2665f6696df6247aa27ba7a437dd6e,
-    type: 2}
+  pipeMixer: {fileID: 1366269202607948, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
+  pipeTrash: {fileID: 1705641041258858, guid: cacd893cc6db31e47bf529dc6bd18f3f, type: 2}
   currentRotation: 0

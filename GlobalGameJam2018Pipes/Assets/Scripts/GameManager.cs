@@ -172,7 +172,13 @@ public class GameManager : MonoBehaviour
 
                 if (target.tag == "Pipe")
                 {
-                    Debug.Log("Hit a Pipe");
+                    //Debug.Log("Hit a Pipe");
+                    var mixerPipe = target.GetComponentInParent<MixerPipe>();
+                    if (mixerPipe != null)
+                    {
+                        mixerPipe.ReleaseItem();
+                        return;
+                    }
 
                     thresholdDeletingPipe++;
                     if (thresholdDeletingPipe >= 50)

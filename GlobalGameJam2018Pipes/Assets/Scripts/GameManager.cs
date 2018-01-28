@@ -209,6 +209,11 @@ public class GameManager : MonoBehaviour
             deletingPipe = false;
             thresholdDeletingPipe = 0;
         }
+
+        if (GameManager.Multiplayer != null)
+        {
+            GameManager.Multiplayer.DispatchEvents();
+        }
     }
 
     private void OnAlchemistDisconnected()

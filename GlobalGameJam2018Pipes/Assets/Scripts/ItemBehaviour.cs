@@ -33,12 +33,15 @@ public class ItemBehaviour : MonoBehaviour
     private PlayBoard playBoard;
     private bool isMoving;
 
+    private AudioSource audioSource;
+    private AudioClip audioClip;
+
     public ColoredMaterial material;
 
     // Use this for initialization
     void Start()
     {
-        isMoving = false;
+        SetMoving(false);
 
         GameObject playBoardObject = GameObject.Find("PlayBoard(Clone)");
         playBoard = playBoardObject.GetComponent<PlayBoard>();
@@ -47,12 +50,38 @@ public class ItemBehaviour : MonoBehaviour
 
         var meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshRenderer.material.color = ConvertMaterialColor(material.Color);
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void SetMoving(bool isMoving)
+    {
+        if (this.isMoving)
+        {
+            if (!isMoving)
+            {
+                // we stop moving - stop playing sound
+                Debug.Log("stop sound");
+                audioSource.Pause();
+            }
+        }
+        else
+        {
+            if (isMoving)
+            {
+                // we start moving - start to play sound
+                Debug.Log("start sound");
+                audioSource.Play();
+            }
+        }
+        this.isMoving = isMoving;
     }
 
     private IEnumerator MoveItem()
@@ -114,7 +143,7 @@ public class ItemBehaviour : MonoBehaviour
                     if (mixerPipe != null)
                     {
                         mixerPipe.ProcessItem(this);
-                        isMoving = false;
+                        SetMoving(false);
                         yield break;
                     }
                     break;
@@ -138,7 +167,7 @@ public class ItemBehaviour : MonoBehaviour
 
             if (foundSink)
             {
-                isMoving = false;
+                SetMoving(false);
                 yield break;
             }
 
@@ -193,7 +222,7 @@ public class ItemBehaviour : MonoBehaviour
         {
             if (!isMoving)
             {
-                isMoving = true;
+                SetMoving(true);
                 StartCoroutine(MoveItem());
             }
 

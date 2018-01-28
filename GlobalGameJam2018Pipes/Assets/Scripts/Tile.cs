@@ -54,6 +54,14 @@ public class Tile : MonoBehaviour
         {
             pipe = pipeGameObject.GetComponent<Pipe>();
             pipe.Rotation = rotation;
+
+            var mixerPipe = pipeGameObject.GetComponent<MixerPipe>();
+            if (mixerPipe != null)
+            {
+                mixerPipe.row = Row;
+                mixerPipe.column = Column;
+            }
+
             return true;
         }
 

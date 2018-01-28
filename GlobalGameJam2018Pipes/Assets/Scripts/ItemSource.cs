@@ -73,16 +73,23 @@ public class ItemSource : MonoBehaviour
                 var material = availableMaterials[random.Next(0, availableMaterials.Count)];
                 var materialColor = availableColors[random.Next(0, availableColors.Count)];
 
+                newItem = CreateItem(new ColoredMaterial(material, materialColor), transform.position, Row, Column).gameObject;
+
                 spawnPositionFree = false;
-                newItem = CreateContainer(material);
                 itemReleased = false;
-                newItem.transform.position = transform.position;
-                var itemBehaviour = newItem.GetComponent<ItemBehaviour>();
-                itemBehaviour.Row = Row;
-                itemBehaviour.Column = Column;
-                itemBehaviour.material = new ColoredMaterial(material, materialColor);
             }
             yield return new WaitForSecondsRealtime(spawnTime);
         }
+    }
+
+    public ItemBehaviour CreateItem(ColoredMaterial coloredMaterial, Vector3 position, int row, int column)
+    {
+        var item = CreateContainer(coloredMaterial.Material);
+        item.transform.position = position;
+        var itemBehaviour = item.GetComponent<ItemBehaviour>();
+        itemBehaviour.Row = row;
+        itemBehaviour.Column = column;
+        itemBehaviour.material = coloredMaterial;
+        return itemBehaviour;
     }
 }

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MixerScript : MonoBehaviour {
+﻿public class MixerScript {
     
     public ColoredMaterial Mix (ColoredMaterial mat1, ColoredMaterial mat2) {
 

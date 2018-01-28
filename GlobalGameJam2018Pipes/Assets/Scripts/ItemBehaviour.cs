@@ -31,6 +31,7 @@ public class ItemBehaviour : MonoBehaviour
     [SerializeField] public int Column;
     private LastStep lastStep;
     private PlayBoard playBoard;
+    private bool isMoving;
 
     public ColoredMaterial material;
 
@@ -44,8 +45,6 @@ public class ItemBehaviour : MonoBehaviour
 
         var meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshRenderer.material.color = ConvertMaterialColor(material.Color);
-
-        StartCoroutine(MoveItem());
     }
 
     // Update is called once per frame
@@ -56,6 +55,8 @@ public class ItemBehaviour : MonoBehaviour
 
     private IEnumerator MoveItem()
     {
+        yield return new WaitForSecondsRealtime(floatSpeed);
+
         while (true)
         {
             FlowDirection nextDirection = FlowDirection.Stop;
@@ -109,6 +110,12 @@ public class ItemBehaviour : MonoBehaviour
                         break;
                     case FlowDirection.Stop:
                         //Debug.Log("Item stopping");
+                        var mixerPipe = nextTile?.GetComponentInChildren<MixerPipe>();
+                        if (mixerPipe != null)
+                        {
+                            mixerPipe.ProcessItem(this);
+                            yield break;
+                        }
                         break;
                     case FlowDirection.Trash:
                         //TODO
@@ -137,7 +144,14 @@ public class ItemBehaviour : MonoBehaviour
         transform.position = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z);
         Column++;
         lastStep = LastStep.RIGHT;
-        return FindSink();
+
+        if (isMoving)
+        {
+            return FindSink();
+        }
+
+        StartCoroutine(MoveItem());
+        return false;
     }
 
     public bool StepLeft()
@@ -145,7 +159,14 @@ public class ItemBehaviour : MonoBehaviour
         transform.position = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z);
         Column--;
         lastStep = LastStep.LEFT;
-        return FindSink();
+
+        if(isMoving)
+        {
+            return FindSink();
+        }
+
+        StartCoroutine(MoveItem());
+        return false;
     }
 
     public bool StepUp()
@@ -153,7 +174,14 @@ public class ItemBehaviour : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
         Row++;
         lastStep = LastStep.UP;
-        return FindSink();
+
+        if(isMoving)
+        {
+            return FindSink();
+        }
+
+        StartCoroutine(MoveItem());
+        return false;
     }
 
     public bool StepDown()
@@ -161,7 +189,14 @@ public class ItemBehaviour : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
         Row--;
         lastStep = LastStep.DOWN;
-        return FindSink();
+
+        if(isMoving)
+        {
+            return FindSink();
+        }
+
+        StartCoroutine(MoveItem());
+        return false;
     }
 
     private bool FindSink()

@@ -61,7 +61,7 @@ public class ItemBehaviour : MonoBehaviour
 
         while (true)
         {
-            FlowDirection nextDirection = FlowDirection.Stop;
+            FlowDirection nextDirection = FlowDirection.Drop;
             Tile nextTile = playBoard.GetTileForPosition(Column, Row);
             //Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
             if (nextTile != null)
@@ -93,50 +93,53 @@ public class ItemBehaviour : MonoBehaviour
             }
 
             //Debug.Log(this.name.ToString() + ": Next Direction " + nextDirection);
-            if (nextDirection != null)
+            var foundSink = false;
+            switch (nextDirection)
             {
-                var foundSink = false;
-                switch (nextDirection)
-                {
-                    case FlowDirection.ToTop:
-                        foundSink = StepUp();
-                        break;
-                    case FlowDirection.ToDown:
-                        foundSink = StepDown();
-                        break;
-                    case FlowDirection.ToLeft:
-                        foundSink = StepLeft();
-                        break;
-                    case FlowDirection.ToRight:
-                        foundSink = StepRight();
-                        break;
-                    case FlowDirection.Stop:
-                        //Debug.Log("Item stopping");
-                        var mixerPipe = nextTile?.GetComponentInChildren<MixerPipe>();
-                        if (mixerPipe != null)
-                        {
-                            mixerPipe.ProcessItem(this);
-                            isMoving = false;
-                            yield break;
-                        }
-                        break;
-                    case FlowDirection.Trash:
-                        Destroy(gameObject);
+                case FlowDirection.ToTop:
+                    foundSink = StepUp();
+                    break;
+                case FlowDirection.ToDown:
+                    foundSink = StepDown();
+                    break;
+                case FlowDirection.ToLeft:
+                    foundSink = StepLeft();
+                    break;
+                case FlowDirection.ToRight:
+                    foundSink = StepRight();
+                    break;
+                case FlowDirection.Stop:
+                    //Debug.Log("Item stopping");
+                    var mixerPipe = nextTile?.GetComponentInChildren<MixerPipe>();
+                    if (mixerPipe != null)
+                    {
+                        mixerPipe.ProcessItem(this);
+                        isMoving = false;
                         yield break;
-                    case FlowDirection.Drop:
-                        //TODO
-                        //Debug.Log("Item dropped");
-                        break;
-                    default:
-                        Debug.Log("No Direction to Move");
-                        break;
-                }
-
-                if (foundSink)
-                {
-                    isMoving = false;
+                    }
+                    break;
+                case FlowDirection.Trash:
+                    Destroy(gameObject);
                     yield break;
-                }
+                case FlowDirection.Drop:
+                    if (nextTile != null)
+                    {
+                        nextTile.Block(this);
+                    }
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
+                    yield break;
+                default:
+                    Debug.Log("No Direction to Move");
+                    break;
+            }
+
+            if (foundSink)
+            {
+                isMoving = false;
+                yield break;
             }
 
             yield return new WaitForSecondsRealtime(floatSpeed);

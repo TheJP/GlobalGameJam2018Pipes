@@ -13,11 +13,16 @@ public class Tile : MonoBehaviour
     public GameObject pipeMixer;
     public GameObject pipeTrash;
 
+    public float maxBlockTime;
+    private float blockTime;
+
     public Pipe pipe;
+
+    private ItemBehaviour blockingItem;
 
     public bool BuildPipe(PipeType pipeType, int rotation)
     {
-        if(pipe != null)
+        if(pipe != null || blockingItem != null)
         {
             return false;
         }
@@ -71,5 +76,38 @@ public class Tile : MonoBehaviour
     public void RemovePipe()
     {
         pipe = null;
+    }
+
+    public void Block(ItemBehaviour item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        if (pipe != null)
+        {
+            Destroy(pipe.gameObject);
+            pipe = null;
+        }
+
+        blockTime = maxBlockTime;
+        blockingItem = item;
+    }
+
+    private void Update()
+    {
+        if (blockingItem == null)
+        {
+            return;
+        }
+
+        blockTime -= Time.deltaTime;
+
+        if (blockTime <= 0)
+        {
+            Destroy(blockingItem.gameObject);
+            blockingItem = null;
+        }
     }
 }

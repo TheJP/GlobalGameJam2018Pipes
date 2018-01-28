@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,16 @@ public class TableScript : MonoBehaviour
     public float tableThickness;
 
     private GameObject[,] assets;
+    private Inventory inventory;
 
     private float tileSizeZ;    // row height - we think landscape format table as portrait
     private float tileSizeX;    // column width - we think landscape format table as portrait
 
     private Vector3 tableCenter;
-//    private Vector3 localTableDirection;
+
+    public Dictionary<PipeType, Asset> assetLocations;     // which asset stores which pipe type, hardcoded InitInventoryPlaces
+
+    //    private Vector3 localTableDirection;
 
     // Use this for initialization
     void Start ()
@@ -57,18 +62,65 @@ public class TableScript : MonoBehaviour
                 float positionX = GetXPosition (row, tileSizeX, tableSizeX);
                 float positionZ = GetZPosition (column, tileSizeZ, tableSizeZ);
                 newAsset.transform.position = new Vector3 (positionX, tableThickness, positionZ);
-                Debug.Log ("asset pos: " + positionX + "/" + positionZ);
 
                 assets [column, row] = newAsset;
             }
         }
-
+        InitInventoryPlaces();
 
     }
 
+    private void OnEnable()
+    {
+
+    }
+
+    public void SetInventory(Inventory inventory)
+    {
+        this.inventory = inventory;
+        inventory.InventoryChanged += OnInventoryUpdate;
+    }
+
+    // ------ hardcoded where is which pipe type
+    public void InitInventoryPlaces()
+    {
+        int fromTop = tableSizeCols - 1;
+        assetLocations = new Dictionary<PipeType, Asset>
+        {
+            [PipeType.Straight] = assets[fromTop - 0, 0].GetComponent<Asset>(),
+            [PipeType.Turn] = assets[fromTop - 0, 1].GetComponent<Asset>(),
+            [PipeType.TIntersection] = assets[fromTop - 1, 0].GetComponent<Asset>(),
+            [PipeType.LeftRight] = assets[fromTop - 2, 0].GetComponent<Asset>(),
+            [PipeType.UnderOver] = assets[fromTop - 2, 1].GetComponent<Asset>(),
+            [PipeType.XIntersection] = assets[fromTop - 3, 0].GetComponent<Asset>()
+        };
+        
+        OnInventoryUpdate();
+    }
+
+    private void OnInventoryUpdate ()
+    {
+        Debug.Log("in OnInventoryUpdate: start");
+        if (assetLocations != null)
+        {
+            foreach (KeyValuePair<PipeType, Asset> item in assetLocations)
+            {
+                Debug.Log(item.Key.ToString() + "   " + item.Value);
+
+                PipeType pipeType = item.Key;
+                Asset asset = item.Value;
+
+                asset.SetPipeType(pipeType);
+                asset.SetCount(inventory.getNumber(pipeType));
+
+            }
+        }
+
+    }
+
+
     private float GetXPosition (int column, float tileSizeX, float tableSizeX)
     {
-        Debug.Log ("getX: col=" + column + ", tileSizeX=" + tileSizeX);
         return tileSizeX * column + tableCenter.x + tileSizeX / 2 - tableSizeX / 2;
     }
 

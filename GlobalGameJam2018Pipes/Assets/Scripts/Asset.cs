@@ -11,8 +11,9 @@ public class Asset : MonoBehaviour
     public int tileSizeX;
     public int tileSizeZ;
     
-    private GameObject assetObj;
-    
+    //private GameObject assetObj;
+    private Inventory inventory;
+        
     /*[HideInInspector]*/
     public int pipeCount;  // number of assets stored here
     public PipeType? pipeType;
@@ -27,6 +28,8 @@ public class Asset : MonoBehaviour
 
         textObj = GetComponentInChildren<Text>();
 
+        inventory = GetComponentInParent<Inventory>();
+
         // TODO only display text if there is something on this field
         if (pipeType != null)
             UpdateText();
@@ -36,6 +39,7 @@ public class Asset : MonoBehaviour
     public void SetPipeType(PipeType type)
     {
         pipeType = type;
+        //TODO UpdatePipeDisplay();     // pipeDisplay is an instance of the pipe type, to display on asset-tile
     }
 
     public void SetCount (int count)
@@ -47,7 +51,10 @@ public class Asset : MonoBehaviour
 
     private void UpdateText()
     {
-        textObj.text =  pipeCount + "x";
+        if (textObj != null)
+        {
+            textObj.text = pipeCount + "x";
+        }
     }
 
     public void Test ()

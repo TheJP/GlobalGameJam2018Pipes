@@ -1,4 +1,5 @@
-﻿using GlobalGameJam2018Networking;
+using GlobalGameJam2018Networking;
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,12 @@ public class GameManager : MonoBehaviour
     private bool deletingPipe = false;
     private float coolDownDeletingPipe = 0;
     private float thresholdDeletingPipe = 0;
+
+    private TableScript tableScript;
+
+    public int numGold;
+    public int numPipeStraight;
+    public int numPipeCurves;
 
     // TODO previousBuildNext can be removed when we select pipes via the table
     private PipeType previousBuildNext;
@@ -57,12 +64,32 @@ public class GameManager : MonoBehaviour
 
             Multiplayer.Network.StartLevel(levelConfig);
         }
+
+        tableScript = table.GetComponent<TableScript>();
+        tableScript.SetInventory(inventory);
+
     }
 
     public void Start()
     {
         SetBuildNext(PipeType.Straight);
+        
+        //tableScript.InitInventoryPlaces();
     }
+
+
+    // TODO just for testing, needs different implementation
+    private void InitInventory()
+    {
+        Debug.Log("in initInventory");
+
+        //inventory.Gold = this.numGold;
+        //inventory.PipeStraightCount = this.numPipeStraight;
+        //inventory.PipeTurnCount = this.numPipeCurves;
+
+        // Zuteilung welcher Typ wo dargestellt wird, ist in TableScript.InitInventoryPlaces
+    }
+
 
     public bool SetBuildNext(PipeType pipeType)
     {

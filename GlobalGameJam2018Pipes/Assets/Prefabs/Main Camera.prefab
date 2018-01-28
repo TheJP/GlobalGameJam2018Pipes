@@ -97,6 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153b2065a5bbcff43b9ef34df7a3f4f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minX: -360
+  maxX: 360
+  minY: -45
+  maxY: 45
+  sensX: 100
+  sensY: 100
 --- !u!124 &124004173024667394
 Behaviour:
   m_ObjectHideFlags: 1

@@ -57,4 +57,4 @@ MonoBehaviour:
   pipeLeftRightCount: 10
   pipeOverUnderCount: 5
   pipeMixerCount: 5
-  pipeXIntersectionCount: 5
+  pipeTrashCount: 2

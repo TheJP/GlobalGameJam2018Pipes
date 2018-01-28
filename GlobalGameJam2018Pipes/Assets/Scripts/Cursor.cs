@@ -7,7 +7,8 @@ public class Cursor
     public GameObject pipeTurn;
     public GameObject pipeLeftRight;
     public GameObject pipeOverUnder;
-    public GameObject pipeTIntersection;
+    public GameObject pipeMixer;
+    public GameObject pipeTrash;
 
     private GameObject currrentDisplay;
     private PipeType currentPipeType;
@@ -38,7 +39,10 @@ public class Cursor
             currrentDisplay = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
             break;
         case PipeType.Mixer:
-            currrentDisplay = Instantiate(pipeTIntersection, transform.position, pipeRotation, transform);
+            currrentDisplay = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
+            break;
+        case PipeType.Trash:
+            currrentDisplay = Instantiate(pipeTrash, transform.position, pipeRotation, transform);
             break;
         default:
             currrentDisplay = null;

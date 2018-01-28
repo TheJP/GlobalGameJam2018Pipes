@@ -8,13 +8,13 @@ public class ItemBehaviour : MonoBehaviour
         switch (materialColor)
         {
         case MaterialColor.Red:
-            return new Color(1, 0, 0);
+            return Color.red;
         case MaterialColor.Yellow:
-            return new Color(0, 1, 1);
+            return Color.yellow;
         case MaterialColor.Blue:
-            return new Color(0, 0, 1);
+            return Color.blue;
         case MaterialColor.Green:
-            return new Color(0, 1, 0);
+            return Color.green;
         case MaterialColor.Orange:
             return new Color(1, 0xa0 / 255.0f, 0);
         case MaterialColor.Violet:

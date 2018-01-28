@@ -75,6 +75,16 @@ public class TableScript : MonoBehaviour
 
     }
 
+    public void ResetSelectionColors()
+    {
+        var defaultColor = assetPrefab.GetComponent<Renderer>().sharedMaterial.color;
+
+        foreach (var asset in assets)
+        {
+            asset.GetComponent<Renderer>().material.color = defaultColor;
+        }
+    }
+
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;

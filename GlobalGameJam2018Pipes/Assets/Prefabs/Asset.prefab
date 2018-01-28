@@ -187,11 +187,11 @@ MonoBehaviour:
     type: 2}
   pipeOverUnder: {fileID: 1272856773240770, guid: d87f9e78c0e7c6d46904c623672afb50,
     type: 2}
-  pipeXIntersection: {fileID: 1076857146321048, guid: 83b8cb56d2edae444929e7434786fbfe,
-    type: 2}
   pipeMixer: {fileID: 1632119735782784, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
-  pipeCount: 5
+  goldPrefab: {fileID: 1117541915114400, guid: 7deb8ea3690da764aae5e99a1b305396, type: 2}
+  itemCount: 0
   pipeType: 0
+  displaysGold: 0
 --- !u!114 &114777324681826710
 MonoBehaviour:
   m_ObjectHideFlags: 1

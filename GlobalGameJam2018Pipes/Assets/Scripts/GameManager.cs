@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private float coolDownDeletingPipe = 0;
     private float thresholdDeletingPipe = 0;
 
+    private bool holdsHammer;
+
     private TableScript tableScript;
 
     private void Awake()
@@ -153,13 +155,22 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);
                     tableScript.ResetSelectionColors();
-                    var pipeType = target.GetComponent<Asset>().pipeType;
-                    SetBuildNext(pipeType);
+                    var asset = target.GetComponent<Asset>();
+                    SetBuildNext(asset.pipeType);
                     target.GetComponent<Renderer>().material.color = Color.blue;
 
-                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    if (asset.displaysHammer)
                     {
-                        BuyPipe(pipeType);
+                        cursor.SetHammerDisplay();
+                        holdsHammer = true;
+                    }
+                    else
+                    {
+                        holdsHammer = false;
+                        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        {
+                            BuyPipe(asset.pipeType);
+                        }
                     }
                 }
 
@@ -192,15 +203,18 @@ public class GameManager : MonoBehaviour
                         mixerPipe.ReleaseItem();
                     }
 
-                    thresholdDeletingPipe++;
-                    if (thresholdDeletingPipe >= 50)
+                    if (holdsHammer)
                     {
-                        deletingPipe = true;
-                    }
+                        thresholdDeletingPipe++;
+                        if (thresholdDeletingPipe >= 50)
+                        {
+                            deletingPipe = true;
+                        }
 
-                    if (target.GetComponent<DestroyPipe>().ReduceLifetime())
-                    {
-                        inventory.Increase(target.GetComponentInParent<Pipe>().Type);
+                        if (target.GetComponent<DestroyPipe>().ReduceLifetime())
+                        {
+                            inventory.Increase(target.GetComponentInParent<Pipe>().Type);
+                        }
                     }
                 }
 

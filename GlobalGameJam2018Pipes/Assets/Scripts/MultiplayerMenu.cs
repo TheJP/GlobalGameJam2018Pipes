@@ -17,11 +17,14 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void OnBackButtonClicked()
     {
-        GameManager.Multiplayer.Network.Stop();
-        GameManager.Multiplayer.Network.AlchemistConnected -= OnAlchemistConnected;
-        GameManager.Multiplayer.Network.AlchemistDisconnected -= OnAlchemistDisconnected;
-        GameManager.Multiplayer.Network.ReceivedMessage -= OnChatMessageReceived;
-        GameManager.Multiplayer = null;
+        if (GameManager.Multiplayer != null)
+        {
+            GameManager.Multiplayer.Network.Stop();
+            GameManager.Multiplayer.Network.AlchemistConnected -= OnAlchemistConnected;
+            GameManager.Multiplayer.Network.AlchemistDisconnected -= OnAlchemistDisconnected;
+            GameManager.Multiplayer.Network.ReceivedMessage -= OnChatMessageReceived;
+            GameManager.Multiplayer = null;
+        }
 
         SceneManager.LoadScene("MainMenu");
     }

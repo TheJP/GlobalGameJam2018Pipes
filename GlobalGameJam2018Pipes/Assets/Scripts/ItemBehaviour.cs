@@ -100,7 +100,7 @@ public class ItemBehaviour : MonoBehaviour
                         StepRight();
                         break;
                     case FlowDirection.Stop:
-                        Debug.Log("Item stopping");
+                        //Debug.Log("Item stopping");
                         break;
                     case FlowDirection.Trash:
                         //TODO

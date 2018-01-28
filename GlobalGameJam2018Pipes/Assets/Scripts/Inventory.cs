@@ -141,6 +141,8 @@ public class Inventory : MonoBehaviour
             --pipeXIntersectionCount;
             break;
         }
+
+        InventoryChanged?.Invoke();
     }
 
     public void Increase(PipeType pipeType)
@@ -166,5 +168,7 @@ public class Inventory : MonoBehaviour
             ++pipeXIntersectionCount;
             break;
         }
+
+        InventoryChanged?.Invoke();
     }
 }

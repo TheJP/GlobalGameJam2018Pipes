@@ -18,6 +18,7 @@ public class Asset : MonoBehaviour
     public GameObject pipeMixer;
     public GameObject pipeTrash;
     public GameObject goldPrefab;
+    public GameObject hammerPrefab;
 
 
     private GameObject assetObj;
@@ -27,6 +28,7 @@ public class Asset : MonoBehaviour
     public int itemCount;  // number of assets stored here
     public PipeType pipeType;
     public bool displaysGold;
+    public bool displaysHammer;
 
     private Text textObj;
 
@@ -56,6 +58,14 @@ public class Asset : MonoBehaviour
     public void SetGoldDisplay()
     {
         displaysGold = true;
+        displaysHammer = false;
+        SetPipeType(PipeType.None);
+    }
+
+    public void SetHammerDisplay()
+    {
+        displaysGold = false;
+        displaysHammer = true;
         SetPipeType(PipeType.None);
     }
 
@@ -69,7 +79,14 @@ public class Asset : MonoBehaviour
     {
         if (textObj != null)
         {
-            textObj.text = itemCount + "x";
+            if (displaysHammer)
+            {
+                textObj.text = "";
+            }
+            else
+            {
+                textObj.text = itemCount + "x";
+            }
         }
     }
 
@@ -87,6 +104,10 @@ public class Asset : MonoBehaviour
         else if (displaysGold)
         {
             assetObj = CreateGold();
+        }
+        else if (displaysHammer)
+        {
+            assetObj = CreateHammer();
         }
         //Debug.Log("in UpdateItemDisplay end");
     }
@@ -170,6 +191,16 @@ public static Object Instantiate(Object original, Vector3 position, Quaternion r
         goldObject.transform.Translate(new Vector3(0.0f, 1.0f, 0.15f));
 
         return goldObject;
+    }
+
+    public GameObject CreateHammer()
+    {
+        var hammerObject = Instantiate(hammerPrefab, transform.position, Quaternion.identity, transform);
+
+        hammerObject.transform.localScale = new Vector3(0.05f, 0.3f, 0.05f);
+        hammerObject.transform.Translate(new Vector3(-0.05f, 0, 0));
+
+        return hammerObject;
     }
 
 

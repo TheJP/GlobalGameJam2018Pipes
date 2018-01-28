@@ -10,13 +10,19 @@ public class Cursor
     public GameObject pipeMixer;
     public GameObject pipeTrash;
 
+    public GameObject hammer;
+
     private GameObject currrentDisplay;
     private PipeType currentPipeType;
     private Plane cursorPlane;
     public int currentRotation;
 
+    private bool displaysHammer;
+
     public void SetPipeDisplay(PipeType pipeType)
     {
+        displaysHammer = false;
+
         if(currrentDisplay != null)
         {
             Destroy(currrentDisplay);
@@ -61,6 +67,14 @@ public class Cursor
         currentPipeType = pipeType;
     }
 
+    public void SetHammerDisplay()
+    {
+        SetPipeDisplay(PipeType.None);
+
+        displaysHammer = true;
+        currrentDisplay = Instantiate(hammer, transform);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -84,17 +98,17 @@ public class Cursor
         {
             transform.position = ray.GetPoint(distance);
         }
-        if(currrentDisplay != null)
+        if(currrentDisplay != null && !displaysHammer)
         {
             currrentDisplay.SetActive(false);
         }
-
+        
         RaycastHit hit;
         var range = 1000.0f;
         if (Physics.Raycast(ray, out hit, range))
         {
             GameObject target = hit.collider.gameObject;
-            if(target.name.Contains("Tile"))
+            if (target.name.Contains("Tile"))
             {
                 if (currrentDisplay != null)
                 {

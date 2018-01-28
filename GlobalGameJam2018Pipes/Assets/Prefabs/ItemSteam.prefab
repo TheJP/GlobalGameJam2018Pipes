@@ -81,7 +81,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 06309d2217c404d4dbd35e01535e8ab3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a9dd062d1a167ed4988df5397cf9bd30, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -169,8 +169,8 @@ MonoBehaviour:
   material:
     mat: 0
     col: 0
-  trashClip: {fileID: 8300000, guid: 86eaf72b745fa2149bb2eee520d30b30, type: 3}
-  dropClip: {fileID: 8300000, guid: f8eea45f7e67daa4ea30caf5e1f6074a, type: 3}
+  trashClip: {fileID: 8300000, guid: 6afcf21f9b7c2dc47a29c605037faeed, type: 3}
+  dropClip: {fileID: 8300000, guid: d7f6680996cf11e4cb6966ab2bd5f480, type: 3}
 --- !u!198 &198856752466132916
 ParticleSystem:
   m_ObjectHideFlags: 1

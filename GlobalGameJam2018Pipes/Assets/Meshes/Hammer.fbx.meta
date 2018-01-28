@@ -23,7 +23,12 @@ ModelImporter:
     4300000: Plane
     10800000: Lamp
     10800002: Lamp.001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Griff
+    second: {fileID: 2100002, guid: 6b57366aeee3999498607bca1b7b69dd, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

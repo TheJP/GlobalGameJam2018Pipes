@@ -60,4 +60,5 @@ MonoBehaviour:
     type: 2}
   pipeMixer: {fileID: 1366269202607948, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
   pipeTrash: {fileID: 1705641041258858, guid: cacd893cc6db31e47bf529dc6bd18f3f, type: 2}
+  hammer: {fileID: 1012751645957310, guid: 695431256b5a4ba4eaed6324c0f818a7, type: 2}
   currentRotation: 0

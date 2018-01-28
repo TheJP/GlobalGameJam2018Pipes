@@ -22,6 +22,7 @@ public class TableScript : MonoBehaviour
 
     public Dictionary<PipeType, Asset> assetLocations;     // which asset stores which pipe type, hardcoded InitInventoryPlaces
     public Asset goldLocation;
+    public Asset hammerLocation;
 
     //    private Vector3 localTableDirection;
 
@@ -109,7 +110,9 @@ public class TableScript : MonoBehaviour
         };
 
         goldLocation = assets[0, 1].GetComponent<Asset>();
-
+        hammerLocation = assets[2, 0].GetComponent<Asset>();
+        hammerLocation.SetHammerDisplay();
+        
         OnInventoryUpdate();
     }
 

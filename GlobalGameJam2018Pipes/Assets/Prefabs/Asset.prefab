@@ -190,9 +190,12 @@ MonoBehaviour:
   pipeMixer: {fileID: 1366269202607948, guid: 9c2665f6696df6247aa27ba7a437dd6e, type: 2}
   pipeTrash: {fileID: 1705641041258858, guid: cacd893cc6db31e47bf529dc6bd18f3f, type: 2}
   goldPrefab: {fileID: 1117541915114400, guid: 7deb8ea3690da764aae5e99a1b305396, type: 2}
+  hammerPrefab: {fileID: 1012751645957310, guid: 695431256b5a4ba4eaed6324c0f818a7,
+    type: 2}
   itemCount: 0
   pipeType: 0
   displaysGold: 0
+  displaysHammer: 0
 --- !u!114 &114777324681826710
 MonoBehaviour:
   m_ObjectHideFlags: 1

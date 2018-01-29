@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private Inventory inventory;
     private Cursor cursor;
-    private ItemSource itemSource;
+    public List<GameObject> itemSources = new List<GameObject>();
     private AudioSource audioSource;
     private bool deletingPipe = false;
     private float coolDownDeletingPipe = 0;
@@ -52,9 +52,16 @@ public class GameManager : MonoBehaviour
         table.transform.rotation = Quaternion.Euler(0, 90, 0);
         table.transform.position = new Vector3(50, 6, 0);
 
-        GameObject itemSourceObject = Instantiate(itemSourcePrefab);
-        itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25);
-        itemSource = itemSourceObject.GetComponent<ItemSource>();
+
+
+        for (int sourceCount = 0; sourceCount < 3; sourceCount++)
+        {
+            GameObject itemSourceObject = Instantiate(itemSourcePrefab);
+            itemSourceObject.transform.position = new Vector3(-45, 2.35F, 25 - sourceCount * 10);
+            itemSourceObject.GetComponent<ItemSource>().Row = 6 - sourceCount;
+            itemSources.Add(itemSourceObject);
+        }
+
         audioSource = GetComponent<AudioSource>();
 
         var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;
@@ -182,7 +189,7 @@ public class GameManager : MonoBehaviour
                 if (target.tag == "ItemSource")
                 {
                     //Debug.Log("ItemSource clicked");
-                    itemSource.ReleasItem();
+                    target.gameObject.GetComponentInParent<ItemSource>().ReleasItem();
                 }
 
             }
@@ -213,16 +220,16 @@ public class GameManager : MonoBehaviour
                         thresholdDeletingPipe++;
                         if (thresholdDeletingPipe >= 50)
                         {
-	                        if (!deletingPipe)
-	                        {
-	                            deletingPipe = true;
-	                            SoundStart();
-	                        }
+                            if (!deletingPipe)
+                            {
+                                deletingPipe = true;
+                                SoundStart();
+                            }
                         }
 
                         if (target.GetComponent<DestroyPipe>().ReduceLifetime())
                         {
-	                        audioSource.Stop();
+                            audioSource.Stop();
                             inventory.Increase(target.GetComponentInParent<Pipe>().Type);
                         }
                     }

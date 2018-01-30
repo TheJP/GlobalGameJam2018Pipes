@@ -9,8 +9,9 @@ public class GameCamera : MonoBehaviour
 
     private float xPosition = 0;
     private float zPosition = 0;
-
     private float yPosition = 60; //Zoom
+
+    private int[] yBounds = { 5, 70 };
 
     void Start()
     {
@@ -35,6 +36,14 @@ public class GameCamera : MonoBehaviour
         if (scroll != 0)
         {
             yPosition += scroll * -10;
+            if (yPosition < yBounds[0])
+            {
+                yPosition = yBounds[0];
+            }
+            if (yPosition > yBounds[1])
+            {
+                yPosition = yBounds[1];
+            }
         }
     }
 }

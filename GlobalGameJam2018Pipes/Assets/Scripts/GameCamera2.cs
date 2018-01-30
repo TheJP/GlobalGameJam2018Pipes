@@ -27,6 +27,10 @@ namespace Assets.Scripts
         private float totalRun = 1.0f;
         private float yPosition = 60; //Zoom
 
+        private int[] xBounds = { -50, 60 };
+        private int[] yBounds = { 5, 70 };
+        private int[] zBounds = { -50, 30 };
+
         void Update()
         {
 
@@ -34,6 +38,14 @@ namespace Assets.Scripts
             if (scroll != 0)
             {
                 yPosition += scroll * -10;
+                if (yPosition < yBounds[0])
+                {
+                    yPosition = yBounds[0];
+                }
+                if (yPosition > yBounds[1])
+                {
+                    yPosition = yBounds[1];
+                }
             }
             //lastMouse = Input.mousePosition - lastMouse;
             //lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
@@ -64,9 +76,28 @@ namespace Assets.Scripts
             //if (Input.GetKey(KeyCode.Space))
             //{ //If player wants to move on X and Z axis only
             transform.Translate(p);
+
             newPosition.x = transform.position.x;
+            if (newPosition.x < xBounds[0])
+            {
+                newPosition.x = xBounds[0];
+            }
+            if (newPosition.x > xBounds[1])
+            {
+                newPosition.x = xBounds[1];
+            }
             newPosition.z = transform.position.z;
+            if (newPosition.z < zBounds[0])
+            {
+                newPosition.z = zBounds[0];
+            }
+            if (newPosition.z > zBounds[1])
+            {
+                newPosition.z = zBounds[1];
+            }
+
             newPosition.y = yPosition;
+
             transform.position = newPosition;
             //}
             //else

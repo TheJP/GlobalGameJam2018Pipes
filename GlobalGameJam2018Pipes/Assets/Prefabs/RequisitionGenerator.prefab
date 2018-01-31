@@ -59,4 +59,5 @@ MonoBehaviour:
     type: 2}
   herbsContainerPrefab: {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97,
     type: 2}
-  pasteContainerPrefab: {fileID: 0}
+  pasteContainerPrefab: {fileID: 1928886631829884, guid: c636e59c09b437142a09e6186ab5afdf,
+    type: 2}

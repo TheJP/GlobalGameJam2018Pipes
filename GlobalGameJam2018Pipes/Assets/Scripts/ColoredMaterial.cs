@@ -25,4 +25,9 @@ public class ColoredMaterial
         get { return col; }
         set { col = value; }
     }
+
+    public override string ToString()
+    {
+        return $"ColoredMaterial: {col} {mat}.";
+    }
 }

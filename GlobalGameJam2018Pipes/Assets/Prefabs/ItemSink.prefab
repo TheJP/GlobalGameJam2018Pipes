@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1519788509197486}
   m_IsPrefabParent: 1
+--- !u!1 &1050400175530510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4328000033975714}
+  - component: {fileID: 114129309790634652}
+  m_Layer: 0
+  m_Name: RequisitionGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1204320412331398
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,8 +268,21 @@ Transform:
   m_Children:
   - {fileID: 4118598331060902}
   m_Father: {fileID: 4838744472650928}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!4 &4328000033975714
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050400175530510}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4838744472650928}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4400082530095706
 Transform:
   m_ObjectHideFlags: 1
@@ -266,7 +295,7 @@ Transform:
   m_Children:
   - {fileID: 4800710540038174}
   m_Father: {fileID: 4838744472650928}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4406426357544650
 Transform:
@@ -306,7 +335,7 @@ Transform:
   m_Children:
   - {fileID: 4415363574874624}
   m_Father: {fileID: 4838744472650928}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &4709567791561178
 Transform:
@@ -320,7 +349,7 @@ Transform:
   m_Children:
   - {fileID: 4818422483141274}
   m_Father: {fileID: 4838744472650928}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4800710540038174
 Transform:
@@ -359,6 +388,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224335786196472752}
+  - {fileID: 4328000033975714}
   - {fileID: 4612267479064798}
   - {fileID: 4709567791561178}
   - {fileID: 4400082530095706}
@@ -379,7 +409,7 @@ Transform:
   m_Children:
   - {fileID: 4406426357544650}
   m_Father: {fileID: 4838744472650928}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &23277503331767398
 MeshRenderer:
@@ -680,6 +710,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114129309790634652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050400175530510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4a8ac0ae592994283ea2048b59cf98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fluidContainerPrefab: {fileID: 1020772559892884, guid: 8c67e2f5d7a61104b9dbd86d536f913c,
+    type: 2}
+  vaporContainerPrefab: {fileID: 1928886631829884, guid: c636e59c09b437142a09e6186ab5afdf,
+    type: 2}
+  powderContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
+    type: 2}
+  herbsContainerPrefab: {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97,
+    type: 2}
+  pasteContainerPrefab: {fileID: 0}
 --- !u!114 &114160914167803490
 MonoBehaviour:
   m_ObjectHideFlags: 1

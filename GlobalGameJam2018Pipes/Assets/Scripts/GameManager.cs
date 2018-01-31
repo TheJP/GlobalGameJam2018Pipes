@@ -109,6 +109,13 @@ public class GameManager : MonoBehaviour
 
             Multiplayer.Network.StartLevel(levelConfig);
         }
+        else
+        {
+            foreach (ItemSink sink in playBoard.itemSinks)
+            {
+                sink.SinglePlayer = true;
+            }
+        }
 
         tableScript = table.GetComponent<TableScript>();
         tableScript.SetInventory(inventory);

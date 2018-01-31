@@ -21,34 +21,30 @@ public class Cursor
 
     public void SetPipeDisplay(PipeType pipeType)
     {
-        displaysHammer = false;
-
         if(currrentDisplay != null)
         {
-            Destroy(currrentDisplay);
+            currrentDisplay.SetActive(false);
         }
-
-        var pipeRotation = Quaternion.AngleAxis(90 * (currentRotation % 4), Vector3.up);
 
         switch(pipeType)
         {
         case PipeType.Straight:
-            currrentDisplay = Instantiate(pipeStraight, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeStraight;
             break;
         case PipeType.Turn:
-            currrentDisplay = Instantiate(pipeTurn, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeTurn;
             break;
         case PipeType.LeftRight:
-            currrentDisplay = Instantiate(pipeLeftRight, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeLeftRight;
             break;
         case PipeType.UnderOver:
-            currrentDisplay = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeOverUnder;
             break;
         case PipeType.Mixer:
-            currrentDisplay = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeMixer;
             break;
         case PipeType.Trash:
-            currrentDisplay = Instantiate(pipeTrash, transform.position, pipeRotation, transform);
+            currrentDisplay = pipeTrash;
             break;
         default:
             currrentDisplay = null;
@@ -57,11 +53,9 @@ public class Cursor
 
         if(currrentDisplay != null)
         {
-            var boxCollider = currrentDisplay.GetComponentInChildren<BoxCollider>();
-            if(boxCollider != null)
-            {
-                boxCollider.enabled = false;
-            }
+            var pipeRotation = Quaternion.AngleAxis(90 * (currentRotation % 4), Vector3.up);
+            currrentDisplay.transform.rotation = pipeRotation;
+            currrentDisplay.SetActive(true);
         }
 
         currentPipeType = pipeType;
@@ -72,19 +66,18 @@ public class Cursor
         SetPipeDisplay(PipeType.None);
 
         displaysHammer = true;
-        currrentDisplay = Instantiate(hammer, transform);
+        currrentDisplay = hammer;
+        currrentDisplay.SetActive(true);
     }
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        cursorPlane = new Plane(Vector3.up, transform.position);
+        cursorPlane = new Plane(Vector3.up, this.transform.position);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(Input.GetMouseButtonUp(1) && currrentDisplay != null)
+        if(Input.GetMouseButtonUp(1) && currrentDisplay != null && !displaysHammer)
         {
             currrentDisplay.transform.Rotate(Vector3.up, 90);
             ++currentRotation;
@@ -96,7 +89,7 @@ public class Cursor
         float distance;
         if(cursorPlane.Raycast(ray, out distance))
         {
-            transform.position = ray.GetPoint(distance);
+            this.transform.position = ray.GetPoint(distance);
         }
         if(currrentDisplay != null && !displaysHammer)
         {
@@ -107,7 +100,7 @@ public class Cursor
         var range = 1000.0f;
         if (Physics.Raycast(ray, out hit, range))
         {
-            GameObject target = hit.collider.gameObject;
+            var target = hit.collider.gameObject;
             if (target.name.Contains("Tile"))
             {
                 if (currrentDisplay != null)
@@ -120,7 +113,7 @@ public class Cursor
                 if (tile.pipe == null)
                 {
                     var targetPos = tile.transform.position;
-                    transform.position = targetPos;
+                    this.transform.position = targetPos;
                 }
             }
         }

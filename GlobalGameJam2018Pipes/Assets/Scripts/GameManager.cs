@@ -174,10 +174,10 @@ public class GameManager : MonoBehaviour
                 {
                     tableScript.ResetSelectionColors();
                     var asset = target.GetComponent<Asset>();
-                    SetBuildNext(asset.pipeType);
+                    SetBuildNext(asset.PipeType);
                     target.GetComponent<Renderer>().material.color = Color.blue;
 
-                    if (asset.displaysHammer)
+                    if (asset.DisplaysHammer)
                     {
                         cursor.ShowHammer();
                         holdsHammer = true;
@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
                         holdsHammer = false;
                         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                         {
-                            BuyPipe(asset.pipeType);
+                            BuyPipe(asset.PipeType);
                         }
                     }
                 }

@@ -128,7 +128,7 @@ public class TableScript : MonoBehaviour
                 PipeType pipeType = item.Key;
                 Asset asset = item.Value;
 
-                asset.SetPipeType(pipeType);
+                asset.SetPipeDisplay(pipeType);
                 asset.SetCount(inventory.getNumber(pipeType));
 
             }

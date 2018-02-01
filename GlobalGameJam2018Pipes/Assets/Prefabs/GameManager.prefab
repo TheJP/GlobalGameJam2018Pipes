@@ -140,7 +140,7 @@ MonoBehaviour:
     type: 2}
   playBoardPrefab: {fileID: 1112186620042806, guid: 6a7e01d3ee54e9b4e9a966c86cbf5847,
     type: 2}
-  assetTablePrefab: {fileID: 1941770448855794, guid: 071dab39863585f49a9ceba5ec9c3771,
+  assetTablePrefab: {fileID: 1902438421307526, guid: 071dab39863585f49a9ceba5ec9c3771,
     type: 2}
   itemSourcePrefab: {fileID: 1409807368658336, guid: be567aecaf474f644942cd8fb7e22bcf,
     type: 2}
@@ -154,3 +154,4 @@ MonoBehaviour:
   priceOverUnderPipe: 10
   priceMixerPipe: 20
   priceTrashPipe: 20
+  itemSources: []

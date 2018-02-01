@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     public bool SetBuildNext(PipeType pipeType)
     {
-        cursor.SetPipeDisplay(pipeType);
+        cursor.ShowPipe(pipeType);
 
         if (inventory.HasInventory(pipeType))
         {
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
 
                     if (asset.displaysHammer)
                     {
-                        cursor.SetHammerDisplay();
+                        cursor.ShowHammer();
                         holdsHammer = true;
                     }
                     else
@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Hit: " + hit.collider.gameObject.name);
 
                     if (inventory.HasInventory(buildNext) && target.GetComponentInParent<Tile>()
-                            .BuildPipe(buildNext, cursor.currentRotation))
+                            .BuildPipe(buildNext, cursor.PipeRotation))
                     {
                         inventory.Reduce(buildNext);
                     }

@@ -1272,11 +1272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a610f481727d74282ecec70bc60bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeStraight: {fileID: 1212820907463408}
-  pipeTurn: {fileID: 1322925380500300}
-  pipeLeftRight: {fileID: 1783720448845550}
-  pipeOverUnder: {fileID: 1071259384403556}
-  pipeMixer: {fileID: 1436261758323728}
-  pipeTrash: {fileID: 1348280416199028}
+  pipeDisplay:
+    pipeStraight: {fileID: 1212820907463408}
+    pipeTurn: {fileID: 1322925380500300}
+    pipeLeftRight: {fileID: 1783720448845550}
+    pipeOverUnder: {fileID: 1071259384403556}
+    pipeMixer: {fileID: 1436261758323728}
+    pipeTrash: {fileID: 1348280416199028}
   hammer: {fileID: 1268611136104904}
-  currentRotation: 0

@@ -1,73 +1,29 @@
 ﻿using UnityEngine;
 
+
 public class Cursor
     : MonoBehaviour
 {
-    public GameObject pipeStraight;
-    public GameObject pipeTurn;
-    public GameObject pipeLeftRight;
-    public GameObject pipeOverUnder;
-    public GameObject pipeMixer;
-    public GameObject pipeTrash;
+    [SerializeField]
+    private PipeDisplay pipeDisplay;
+    
+    [SerializeField]
+    private GameObject hammer;
 
-    public GameObject hammer;
-
-    private GameObject currrentDisplay;
-    private PipeType currentPipeType;
     private Plane cursorPlane;
-    public int currentRotation;
 
-    private bool displaysHammer;
+    public int PipeRotation => pipeDisplay.Rotation;
 
-    public void SetPipeDisplay(PipeType pipeType)
+    public void ShowPipe(PipeType pipeType)
     {
-        if(currrentDisplay != null)
-        {
-            currrentDisplay.SetActive(false);
-        }
-
-        switch(pipeType)
-        {
-        case PipeType.Straight:
-            currrentDisplay = pipeStraight;
-            break;
-        case PipeType.Turn:
-            currrentDisplay = pipeTurn;
-            break;
-        case PipeType.LeftRight:
-            currrentDisplay = pipeLeftRight;
-            break;
-        case PipeType.UnderOver:
-            currrentDisplay = pipeOverUnder;
-            break;
-        case PipeType.Mixer:
-            currrentDisplay = pipeMixer;
-            break;
-        case PipeType.Trash:
-            currrentDisplay = pipeTrash;
-            break;
-        default:
-            currrentDisplay = null;
-            break;
-        }
-
-        if(currrentDisplay != null)
-        {
-            var pipeRotation = Quaternion.AngleAxis(90 * (currentRotation % 4), Vector3.up);
-            currrentDisplay.transform.rotation = pipeRotation;
-            currrentDisplay.SetActive(true);
-        }
-
-        currentPipeType = pipeType;
+        pipeDisplay.ShowPipe(pipeType);
+        hammer.SetActive(false);
     }
 
-    public void SetHammerDisplay()
+    public void ShowHammer()
     {
-        SetPipeDisplay(PipeType.None);
-
-        displaysHammer = true;
-        currrentDisplay = hammer;
-        currrentDisplay.SetActive(true);
+        pipeDisplay.ShowPipe(PipeType.None);
+        hammer.SetActive(true);
     }
 
     private void Start()
@@ -77,11 +33,9 @@ public class Cursor
 
     private void Update()
     {
-        if(Input.GetMouseButtonUp(1) && currrentDisplay != null && !displaysHammer)
+        if(Input.GetMouseButtonUp(1))
         {
-            currrentDisplay.transform.Rotate(Vector3.up, 90);
-            ++currentRotation;
-            currentRotation %= 4;
+            ++pipeDisplay.Rotation;
         }
 
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,29 +45,26 @@ public class Cursor
         {
             this.transform.position = ray.GetPoint(distance);
         }
-        if(currrentDisplay != null && !displaysHammer)
+
+        if(!hammer.activeSelf)
         {
-            currrentDisplay.SetActive(false);
-        }
-        
-        RaycastHit hit;
-        var range = 1000.0f;
-        if (Physics.Raycast(ray, out hit, range))
-        {
-            var target = hit.collider.gameObject;
-            if (target.name.Contains("Tile"))
+            pipeDisplay.Hide();
+
+            RaycastHit hit;
+            var range = 1000.0f;
+            if(Physics.Raycast(ray, out hit, range))
             {
-                if (currrentDisplay != null)
+                var target = hit.collider.gameObject;
+                if(target.name.Contains("Tile"))
                 {
-                    currrentDisplay.SetActive(true);
-                }
+                    var tile = target.GetComponentInParent<Tile>();
 
-                var tile = target.GetComponentInParent<Tile>();
-
-                if (tile.pipe == null)
-                {
-                    var targetPos = tile.transform.position;
-                    this.transform.position = targetPos;
+                    if(tile.pipe == null)
+                    {
+                        pipeDisplay.Show();
+                        var targetPos = tile.transform.position;
+                        this.transform.position = targetPos;
+                    }
                 }
             }
         }

@@ -172,7 +172,6 @@ public class GameManager : MonoBehaviour
 
                 if (target.name.Contains("Asset"))
                 {
-                    Debug.Log("Hit: " + hit.collider.gameObject.name);
                     tableScript.ResetSelectionColors();
                     var asset = target.GetComponent<Asset>();
                     SetBuildNext(asset.pipeType);

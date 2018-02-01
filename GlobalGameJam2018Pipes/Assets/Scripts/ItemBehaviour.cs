@@ -133,12 +133,10 @@ public class ItemBehaviour : MonoBehaviour
                     }
                     if (nextDirection == FlowDirection.Trash)
                     {
-                        Debug.Log("nextDirection is Trash");
                         AudioSource audioSource = nextTile.pipe.gameObject.GetComponent<AudioSource>();
                         audioSource.clip = trashClip;
                         audioSource.volume = 0.8f;
                         audioSource.Play();
-                        Debug.Log("nextDirection is Trash");
                         // switchsound cannot be done later, because we destroy the gameobject then
                     }
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class ItemSource : MonoBehaviour
@@ -11,8 +12,7 @@ public class ItemSource : MonoBehaviour
     public GameObject vaporContainerPrefab;
     public GameObject powderContainerPrefab;
     public GameObject herbsContainerPrefab;
-    public GameObject pasteContainerPrefab;
-    
+
     public int Column = -1;
     public int Row;
 
@@ -50,17 +50,17 @@ public class ItemSource : MonoBehaviour
     {
         switch (material)
         {
-        case Material.Fluid:
-            return Instantiate(fluidContainerPrefab);
-        case Material.Herbs:
-            return Instantiate(herbsContainerPrefab);
-        default:
-        case Material.Paste:
-            return Instantiate(pasteContainerPrefab);
-        case Material.Powder:
-            return Instantiate(powderContainerPrefab);
-        case Material.Vapor:
-            return Instantiate(vaporContainerPrefab);
+            case Material.Fluid:
+                return Instantiate(fluidContainerPrefab);
+            case Material.Herbs:
+                return Instantiate(herbsContainerPrefab);
+            case Material.Powder:
+                return Instantiate(powderContainerPrefab);
+            case Material.Vapor:
+                return Instantiate(vaporContainerPrefab);
+            default:
+                Debug.Log("Can't Create Container. Unknown Material: " + material);
+                return null;
         }
     }
 

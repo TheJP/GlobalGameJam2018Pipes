@@ -206,11 +206,9 @@ MonoBehaviour:
     type: 2}
   vaporContainerPrefab: {fileID: 1928886631829884, guid: c636e59c09b437142a09e6186ab5afdf,
     type: 2}
-  powderContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
+  powderContainerPrefab: {fileID: 1375007637707886, guid: 0db29e036ecd65f4eb1fcbc4ede269b0,
     type: 2}
   herbsContainerPrefab: {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97,
-    type: 2}
-  pasteContainerPrefab: {fileID: 1652779453712004, guid: 67f91b2777759b04e992eb56d29452ea,
     type: 2}
   Column: -1
   Row: 6

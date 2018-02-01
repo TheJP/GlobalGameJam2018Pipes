@@ -167,7 +167,7 @@ MonoBehaviour:
   Row: 0
   Column: 0
   material:
-    mat: 0
+    mat: 1
     col: 0
   trashClip: {fileID: 8300000, guid: 6afcf21f9b7c2dc47a29c605037faeed, type: 3}
   dropClip: {fileID: 8300000, guid: d7f6680996cf11e4cb6966ab2bd5f480, type: 3}

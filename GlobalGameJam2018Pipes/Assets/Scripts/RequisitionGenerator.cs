@@ -13,10 +13,12 @@ namespace Assets.Scripts
         public GameObject herbsContainerPrefab;
         public GameObject pasteContainerPrefab;
 
-        private System.Random random = new System.Random();
-        private Array colors = Enum.GetValues(typeof(MaterialColor));
-        private Array materials = Enum.GetValues(typeof(Material));
+        private readonly System.Random random = new System.Random();
+        private readonly Array colors = Enum.GetValues(typeof(MaterialColor));
+        private readonly Array materials = Enum.GetValues(typeof(Material));
         private int scoreForTask; //Not needed yet. Just an idea.
+
+        private GameObject displayingItem;
 
         private ColoredMaterial currentTask;
         public ColoredMaterial CurrentTask { get { return currentTask; } }
@@ -38,44 +40,65 @@ namespace Assets.Scripts
 
         public void ClearCurrentTask()
         {
+            Destroy(displayingItem);
             currentTask = null;
         }
 
         private IEnumerator GeneratingTasks()
         {
-            if (currentTask == null)
+            while (true)
             {
-                currentTask = GenerateTask();
-                DisplayMeshRepresenation();
+                if (currentTask == null)
+                {
+                    currentTask = GenerateTask();
+                    DisplayMeshRepresenation();
+                }
+                yield return null;
             }
-            yield return null;
         }
 
         private void DisplayMeshRepresenation()
         {
-            GameObject item = null;
+            GameObject displayingItem = null;
             switch (currentTask.Material)
             {
                 case Material.Fluid:
-                    item = Instantiate(fluidContainerPrefab, transform);
+                    displayingItem = Instantiate(fluidContainerPrefab, transform);
+                    Debug.Log(("Item Fluid: " + displayingItem));
                     break;
                 case Material.Herbs:
-                    item = Instantiate(herbsContainerPrefab, transform);
+                    displayingItem = Instantiate(herbsContainerPrefab, transform);
+                    Debug.Log(("Item Herbs: " + displayingItem));
                     break;
                 case Material.Paste:
-                    item = Instantiate(pasteContainerPrefab, transform);
+                    Debug.Log(pasteContainerPrefab);
+                    displayingItem = Instantiate(pasteContainerPrefab, transform);
+                    Debug.Log(("Item Paste: " + displayingItem));
                     break;
                 case Material.Powder:
-                    item = Instantiate(powderContainerPrefab, transform);
+                    displayingItem = Instantiate(powderContainerPrefab, transform);
+                    Debug.Log(("Item Powder: " + displayingItem));
                     break;
                 case Material.Vapor:
-                    item = Instantiate(vaporContainerPrefab, transform);
+                    displayingItem = Instantiate(vaporContainerPrefab, transform);
+                    Debug.Log(("Item Vapor: " + displayingItem));
                     break;
             }
-            if (item != null)
+            if (displayingItem != null)
             {
-                item.GetComponent<ItemBehaviour>().enabled = false;
-                item.GetComponentInChildren<MeshRenderer>().material.color = ConvertMaterialColor(currentTask.Color);
+                displayingItem.GetComponent<ItemBehaviour>().enabled = false;
+
+                var particleSystem = GetComponentInChildren<ParticleSystem>();
+                if (particleSystem != null)
+                {
+                    var main = particleSystem.main;
+                    main.startColor = ConvertMaterialColor(currentTask.Color);
+                }
+                else
+                {
+                    var meshRenderer = GetComponentInChildren<MeshRenderer>();
+                    meshRenderer.material.color = ConvertMaterialColor(currentTask.Color);
+                }
             }
         }
 

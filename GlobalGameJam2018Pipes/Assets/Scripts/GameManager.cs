@@ -64,10 +64,9 @@ public class GameManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        var tileSize = playBoard.tilePrefab.GetComponentInChildren<TileDisplay>().tileSize;
-        var sinkX = playBoard.GetXPosition(playBoard.boardSize, tileSize);
-        var sinkTopZ = playBoard.GetZPosition(0, tileSize);
-        var sinkBottomZ = playBoard.GetZPosition(playBoard.boardSize - 1, tileSize);
+        var sinkX = playBoard.GetXPosition(playBoard.boardSize);
+        var sinkTopZ = playBoard.GetZPosition(0);
+        var sinkBottomZ = playBoard.GetZPosition(playBoard.boardSize - 1);
 
         playBoard.itemSinks = new List<ItemSink>()
         {

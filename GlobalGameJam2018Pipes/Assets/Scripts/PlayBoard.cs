@@ -42,15 +42,12 @@ public class PlayBoard : MonoBehaviour
 
     public Tile GetTileForPosition(int column, int row)
     {
-        try
+        if(column < 0 || column >= boardSize || row < 0 || row >= boardSize)
         {
-            return tiles[column, row].GetComponent<Tile>();
-        }
-        catch (IndexOutOfRangeException/* ioofException*/)
-        {
-            //Debug.Log(ioofException.ToString());
             return null;
         }
+        
+        return tiles[column, row].GetComponent<Tile>();
     }
 
     public float GetXPosition(int column, int tileSize)

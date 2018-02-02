@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MixerPipe : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MixerPipe : MonoBehaviour
 
     private MixerScript mixer;
     private Pipe pipe;
+    private ParticleSystem steam;
 
     private ItemBehaviour storedItem;
 
@@ -21,6 +23,7 @@ public class MixerPipe : MonoBehaviour
     void Start()
     {
         pipe = GetComponent<Pipe>();
+        steam = GetComponentInChildren<ParticleSystem>();
     }
 	
     public void ProcessItem(ItemBehaviour itemBehaviour)
@@ -30,11 +33,17 @@ public class MixerPipe : MonoBehaviour
             storedItem = itemBehaviour;
             return;
         }
+        steam.Play();
+        StartCoroutine(DelayedDisplayMix(0.7f, itemBehaviour));
+    }
 
-        var newMaterial = mixer.Mix(storedItem.material, itemBehaviour.material);
+    private IEnumerator DelayedDisplayMix(float delay, ItemBehaviour behaviour)
+    {
+        yield return new WaitForSeconds(delay);
+
+        var newMaterial = mixer.Mix(storedItem.material, behaviour.material);
         Destroy(storedItem.gameObject);
-        Destroy(itemBehaviour.gameObject);
-
+        Destroy(behaviour.gameObject);
         storedItem = itemSourcePrefab.CreateItem(newMaterial, transform.position, row, column);
     }
 

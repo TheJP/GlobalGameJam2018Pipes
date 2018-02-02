@@ -109,9 +109,13 @@ public class MixerScript {
     public ColoredMaterial Mix (ColoredMaterial mat1, ColoredMaterial mat2) {
 
         // if one of the materials is herbs, the other color is ignored
+        // if both materials are herbs, the colors are mixed
         MaterialColor newColor = MaterialColor.Black;
         if (mat1.Material == Material.Herbs) {
-            newColor = mat1.Color; 
+            if (mat2.Material == Material.Herbs)
+                newColor = MixColor (mat1.Color, mat2.Color);
+            else
+                newColor = mat1.Color; 
         }
         else if (mat2.Material == Material.Herbs) {
             newColor = mat2.Color;

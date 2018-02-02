@@ -208,9 +208,24 @@ public class ItemBehaviour : MonoBehaviour
         audioSource.Play();
     }
 
+    private IEnumerator MoveTo(Vector3 target)
+    {
+        float timePassed = 0;
+        var origin = transform.position;
+
+        do
+        {
+            timePassed += Time.deltaTime;
+            transform.position = Vector3.Lerp(origin, target, timePassed / floatSpeed);
+            
+            yield return null;
+        }
+        while(timePassed < floatSpeed);
+    }
+
     public bool StepRight()
     {
-        transform.position = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z);
+        StartCoroutine(MoveTo(new Vector3(transform.position.x + 10, transform.position.y, transform.position.z)));
         Column++;
         lastStep = LastStep.RIGHT;
 
@@ -219,7 +234,7 @@ public class ItemBehaviour : MonoBehaviour
 
     public bool StepLeft()
     {
-        transform.position = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z);
+        StartCoroutine(MoveTo(new Vector3(transform.position.x - 10, transform.position.y, transform.position.z)));
         Column--;
         lastStep = LastStep.LEFT;
 
@@ -228,7 +243,7 @@ public class ItemBehaviour : MonoBehaviour
 
     public bool StepUp()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+        StartCoroutine(MoveTo(new Vector3(transform.position.x, transform.position.y, transform.position.z + 10)));
         Row++;
         lastStep = LastStep.UP;
         
@@ -237,7 +252,7 @@ public class ItemBehaviour : MonoBehaviour
 
     public bool StepDown()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
+        StartCoroutine(MoveTo(new Vector3(transform.position.x, transform.position.y, transform.position.z - 10)));
         Row--;
         lastStep = LastStep.DOWN;
 

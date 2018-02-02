@@ -210,6 +210,8 @@ MonoBehaviour:
     type: 2}
   herbsContainerPrefab: {fileID: 1637431606078478, guid: a008c8d875ee08247bea4f627e976a97,
     type: 2}
+  pasteContainerPrefab: {fileID: 1744729747168176, guid: 89ee74ef2a0520045b9eb14d0c33ef0f,
+    type: 2}
   Column: -1
   Row: 6
   spawnPositionFree: 1

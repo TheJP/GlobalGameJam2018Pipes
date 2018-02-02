@@ -12,6 +12,7 @@ public class ItemSource : MonoBehaviour
     public GameObject vaporContainerPrefab;
     public GameObject powderContainerPrefab;
     public GameObject herbsContainerPrefab;
+    public GameObject pasteContainerPrefab;
 
     public int Column = -1;
     public int Row;
@@ -58,6 +59,8 @@ public class ItemSource : MonoBehaviour
                 return Instantiate(powderContainerPrefab);
             case Material.Vapor:
                 return Instantiate(vaporContainerPrefab);
+            case Material.Paste:
+                return Instantiate(pasteContainerPrefab);
             default:
                 Debug.Log("Can't Create Container. Unknown Material: " + material);
                 return null;

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
 {
-    public int floatSpeed;
+    public float floatSpeed;
     [SerializeField] public int Row;
     [SerializeField] public int Column;
     private LastStep lastStep;
@@ -28,7 +27,7 @@ public class ItemBehaviour : MonoBehaviour
         GameObject playBoardObject = GameObject.Find("PlayBoard(Clone)");
         playBoard = playBoardObject.GetComponent<PlayBoard>();
 
-        lastStep = LastStep.RIGHT;
+        lastStep = LastStep.Right;
 
         var particleSystem = GetComponentInChildren<ParticleSystem>();
         if (particleSystem != null)
@@ -50,10 +49,22 @@ public class ItemBehaviour : MonoBehaviour
         audioSource.pitch = UnityEngine.Random.Range(originalPitch - pitchRange, originalPitch + pitchRange);
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator MoveItem(FlowDirection direction)
     {
+        SetMoving(true);
+        
+        while(CanContinueMoving(direction))
+        {
+            UpdateCurrentTile(direction);
+            
+            yield return MoveToCurrentTile();
 
+            direction = DetermineNextFlowDirection();
+        }
+        
+        SetMoving(false);
+        
+        yield return ApplyFinalAction(direction);
     }
 
     private void SetMoving(bool isMoving)
@@ -77,105 +88,116 @@ public class ItemBehaviour : MonoBehaviour
         this.isMoving = isMoving;
     }
 
-    private IEnumerator MoveItem()
+    private void UpdateCurrentTile(FlowDirection nextDirection)
     {
-        yield return new WaitForSecondsRealtime(floatSpeed);
-
-        while (true)
+        switch(nextDirection)
         {
-            FlowDirection nextDirection = FlowDirection.Drop;
-            Tile nextTile = playBoard.GetTileForPosition(Column, Row);
-            //Debug.Log(this.name.ToString() + ": Next Tile " + nextTile + ", Row/Column " + Row + "/" + Column);
-            if (nextTile != null)
-            {
-                if (nextTile.pipe == null)
-                {
-                    nextDirection = FlowDirection.Drop;
-                    SwitchSound(dropClip);
-                }
-                else
-                {
-                    switch (lastStep)
-                    {
-                        case LastStep.DOWN:
-                            nextDirection = nextTile.pipe.FromTop;
-                            break;
-                        case LastStep.LEFT:
-                            nextDirection = nextTile.pipe.FromRight;
-                            break;
-                        case LastStep.RIGHT:
-                            nextDirection = nextTile.pipe.FromLeft;
-                            break;
-                        case LastStep.UP:
-                            nextDirection = nextTile.pipe.FromBottom;
-                            break;
-                        default:
-                            break;
-                    }
-                    if (nextDirection == FlowDirection.Trash)
-                    {
-                        AudioSource audioSource = nextTile.pipe.gameObject.GetComponent<AudioSource>();
-                        audioSource.clip = trashClip;
-                        audioSource.volume = 0.8f;
-                        audioSource.Play();
-                        // switchsound cannot be done later, because we destroy the gameobject then
-                    }
-                }
-            }
+        case FlowDirection.ToLeft:
+            --Column;
+            lastStep = LastStep.Left;
+            break;
+        case FlowDirection.ToTop:
+            ++Row;
+            lastStep = LastStep.Up;
+            break;
+        case FlowDirection.ToRight:
+            ++Column;
+            lastStep = LastStep.Right;
+            break;
+        case FlowDirection.ToDown:
+            --Row;
+            lastStep = LastStep.Down;
+            break;
+        }
+    }
 
-            //Debug.Log(this.name.ToString() + ": Next Direction " + nextDirection);
-            var foundSink = false;
-            switch (nextDirection)
-            {
-                case FlowDirection.ToTop:
-                    foundSink = StepUp();
-                    break;
-                case FlowDirection.ToDown:
-                    foundSink = StepDown();
-                    break;
-                case FlowDirection.ToLeft:
-                    foundSink = StepLeft();
-                    break;
-                case FlowDirection.ToRight:
-                    foundSink = StepRight();
-                    break;
-                case FlowDirection.Stop:
-                    //Debug.Log("Item stopping");
-                    var mixerPipe = nextTile?.GetComponentInChildren<MixerPipe>();
-                    if (mixerPipe != null)
-                    {
-                        mixerPipe.ProcessItem(this);
-                        SetMoving(false);
-                        yield break;
-                    }
-                    break;
-                case FlowDirection.Trash:
-                    Destroy(gameObject);
-                    yield break;
-                case FlowDirection.Drop:
-                    if (nextTile != null)
-                    {
-                        nextTile.Block(this);
-                        // SwitchSound(dropClip);
-                        // sound setting has been done when setting nextDirection = FlowDirection.Drop;
-                    }
-                    else
-                    {
-                        Destroy(gameObject);
-                    }
-                    yield break;
-                default:
-                    Debug.Log("No Direction to Move");
-                    break;
-            }
+    private IEnumerator MoveToCurrentTile()
+    {
+        var originPosition = this.transform.position;
+        var targetPosition = new Vector3(
+            playBoard.GetXPosition(Column),
+            originPosition.y,
+            playBoard.GetZPosition(Row));
 
-            if (foundSink)
-            {
-                SetMoving(false);
-                yield break;
-            }
+        var timePassed = 0.0f;
+        var requiredTime = 1 / floatSpeed;
 
-            yield return new WaitForSecondsRealtime(floatSpeed);
+        do
+        {
+            timePassed += Time.deltaTime;
+            this.transform.position = Vector3.Lerp(originPosition, targetPosition, timePassed / requiredTime);
+            yield return null;
+        }
+        while(timePassed < requiredTime);
+    }
+
+    private FlowDirection DetermineNextFlowDirection()
+    {
+        var currentTile = playBoard.GetTileForPosition(Column, Row);
+
+        if(currentTile == null)
+        {
+            return FlowDirection.Drop;
+        }
+
+        if (currentTile.pipe == null)
+        {
+            return FlowDirection.Drop;
+        }
+
+        switch (lastStep)
+        {
+        case LastStep.Down:
+            return currentTile.pipe.FromTop;
+        case LastStep.Left:
+            return currentTile.pipe.FromRight;
+        case LastStep.Right:
+            return currentTile.pipe.FromLeft;
+        case LastStep.Up:
+            return currentTile.pipe.FromBottom;
+        default:
+            return FlowDirection.Drop;
+        }
+    }
+
+    private bool CanContinueMoving(FlowDirection direction)
+    {
+        if(direction == FlowDirection.Stop || direction == FlowDirection.Drop || direction == FlowDirection.Trash)
+        {
+            return false;
+        }
+
+        return !FindSink();
+    }
+
+    private IEnumerator ApplyFinalAction(FlowDirection nextDirection)
+    {
+        var currentTile = playBoard.GetTileForPosition(Column, Row);
+        
+        switch(nextDirection)
+        {
+        case FlowDirection.Drop:
+            SwitchSound(dropClip);
+            if(currentTile != null)
+            {
+                currentTile.Block(this);
+            }
+            else
+            {
+                yield return DelayedDestroy(dropClip.length);
+            }
+            break;
+        case FlowDirection.Stop:
+            var mixerPipe = currentTile?.GetComponentInChildren<MixerPipe>();
+            if(mixerPipe != null)
+            {
+                mixerPipe.ProcessItem(this);
+            }
+            break;
+        case FlowDirection.Trash:
+            SwitchSound(trashClip);
+            yield return DelayedDestroy(trashClip.length);
+            break;
         }
     }
 
@@ -188,77 +210,28 @@ public class ItemBehaviour : MonoBehaviour
         audioSource.volume = 0.8f;
         audioSource.Play();
     }
-
-    private IEnumerator MoveTo(Vector3 target)
+    
+    private IEnumerator DelayedDestroy(float delay)
     {
-        float timePassed = 0;
-        var origin = transform.position;
-
-        do
+        foreach(var meshRenderer in GetComponentsInChildren<MeshRenderer>())
         {
-            timePassed += Time.deltaTime;
-            transform.position = Vector3.Lerp(origin, target, timePassed / floatSpeed);
-            
-            yield return null;
+            meshRenderer.enabled = false;
         }
-        while(timePassed < floatSpeed);
-    }
 
-    public bool StepRight()
-    {
-        StartCoroutine(MoveTo(new Vector3(transform.position.x + 10, transform.position.y, transform.position.z)));
-        Column++;
-        lastStep = LastStep.RIGHT;
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        if(particleSystem != null)
+        {
+            particleSystem.Stop();
+        }
 
-        return ContinueMoving();
-    }
-
-    public bool StepLeft()
-    {
-        StartCoroutine(MoveTo(new Vector3(transform.position.x - 10, transform.position.y, transform.position.z)));
-        Column--;
-        lastStep = LastStep.LEFT;
-
-        return ContinueMoving();
-    }
-
-    public bool StepUp()
-    {
-        StartCoroutine(MoveTo(new Vector3(transform.position.x, transform.position.y, transform.position.z + 10)));
-        Row++;
-        lastStep = LastStep.UP;
+        yield return new WaitForSeconds(delay);
         
-        return ContinueMoving();
+        Destroy(this.gameObject);
     }
 
-    public bool StepDown()
+    public void StartMoving(FlowDirection direction)
     {
-        StartCoroutine(MoveTo(new Vector3(transform.position.x, transform.position.y, transform.position.z - 10)));
-        Row--;
-        lastStep = LastStep.DOWN;
-
-        return ContinueMoving();
-    }
-
-    private bool ContinueMoving()
-    {
-        if (isMoving)
-        {
-            return FindSink();
-        }
-
-        if (!FindSink())
-        {
-            if (!isMoving)
-            {
-                SetMoving(true);
-                StartCoroutine(MoveItem());
-            }
-
-            return false;
-        }
-
-        return true;
+        StartCoroutine(MoveItem(direction));
     }
 
     private bool FindSink()
@@ -275,5 +248,5 @@ public class ItemBehaviour : MonoBehaviour
         return false;
     }
 
-    private enum LastStep { LEFT, RIGHT, UP, DOWN }
+    private enum LastStep { Left, Right, Up, Down }
 }

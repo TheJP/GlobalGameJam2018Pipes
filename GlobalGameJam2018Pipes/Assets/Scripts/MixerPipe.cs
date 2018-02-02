@@ -23,11 +23,6 @@ public class MixerPipe : MonoBehaviour
         pipe = GetComponent<Pipe>();
     }
 	
-	// Update is called once per frame
-	void Update ()
-	{
-	}
-
     public void ProcessItem(ItemBehaviour itemBehaviour)
     {
         if (storedItem == null)
@@ -53,16 +48,16 @@ public class MixerPipe : MonoBehaviour
         switch (pipe.Rotation)
         {
         case 0:
-            storedItem.StepRight();
+            storedItem.StartMoving(FlowDirection.ToRight);
             break;
         case 1:
-            storedItem.StepDown();
+            storedItem.StartMoving(FlowDirection.ToDown);
             break;
         case 2:
-            storedItem.StepLeft();
+            storedItem.StartMoving(FlowDirection.ToLeft);
             break;
         case 3:
-            storedItem.StepUp();
+            storedItem.StartMoving(FlowDirection.ToTop);
             break;
         default:
             return;

@@ -42,7 +42,7 @@ public class ItemSource : MonoBehaviour
         {
             itemReleased = true;
             spawnPositionFree = true;
-            newItem.GetComponent<ItemBehaviour>().StepRight();
+            newItem.GetComponent<ItemBehaviour>().StartMoving(FlowDirection.ToRight);
         }
     }
 

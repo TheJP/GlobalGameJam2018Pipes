@@ -40,11 +40,11 @@ public class PlayBoard : MonoBehaviour
         return tiles[0, 0].GetComponent<Tile>().tileSize;
     }
 
-    public Tile GetTileForPosition(int row, int column)
+    public Tile GetTileForPosition(int column, int row)
     {
         try
         {
-            return tiles[row, column].GetComponent<Tile>();
+            return tiles[column, row].GetComponent<Tile>();
         }
         catch (IndexOutOfRangeException/* ioofException*/)
         {

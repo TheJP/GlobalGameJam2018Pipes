@@ -230,3 +230,4 @@ MonoBehaviour:
     col: 0
   trashClip: {fileID: 8300000, guid: 5e4b45738c5c695448cc8b561cee3c74, type: 3}
   dropClip: {fileID: 8300000, guid: f8eea45f7e67daa4ea30caf5e1f6074a, type: 3}
+  pitchRange: 0.2

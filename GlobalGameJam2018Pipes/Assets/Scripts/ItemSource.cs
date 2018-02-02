@@ -18,7 +18,6 @@ public class ItemSource : MonoBehaviour
     public int Row;
 
     private GameObject newItem;
-    private System.Random random;
     [SerializeField] private bool spawnPositionFree = true;
     private bool itemReleased = false;
 
@@ -28,7 +27,7 @@ public class ItemSource : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        random = new System.Random();
+        //random = new System.Random();
         StartCoroutine(SpawnItem());
     }
 
@@ -73,8 +72,8 @@ public class ItemSource : MonoBehaviour
         {
             if (spawnPositionFree)
             {
-                var material = availableMaterials[random.Next(0, availableMaterials.Count)];
-                var materialColor = availableColors[random.Next(0, availableColors.Count)];
+                var material = availableMaterials[UnityEngine.Random.Range(0, availableMaterials.Count)];
+                var materialColor = availableColors[UnityEngine.Random.Range(0, availableColors.Count)];
 
                 newItem = CreateItem(new ColoredMaterial(material, materialColor), transform.position, Row, Column).gameObject;
 

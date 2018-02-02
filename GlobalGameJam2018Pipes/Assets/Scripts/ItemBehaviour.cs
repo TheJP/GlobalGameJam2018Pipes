@@ -10,12 +10,14 @@ public class ItemBehaviour : MonoBehaviour
     private LastStep lastStep;
     private PlayBoard playBoard;
     private bool isMoving;
+    private float originalPitch;
 
     private AudioSource audioSource;
 
     public ColoredMaterial material;
     public AudioClip trashClip;
     public AudioClip dropClip;
+    public float pitchRange;
 
 
     // Use this for initialization
@@ -44,6 +46,8 @@ public class ItemBehaviour : MonoBehaviour
         audioSource.volume = 0.2f;
         audioSource.loop = true;
         audioSource.playOnAwake = false;
+        originalPitch = audioSource.pitch;
+        audioSource.pitch = UnityEngine.Random.Range(originalPitch - pitchRange, originalPitch + pitchRange);
     }
 
     // Update is called once per frame

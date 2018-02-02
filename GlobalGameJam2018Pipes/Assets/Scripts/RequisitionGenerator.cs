@@ -13,7 +13,7 @@ namespace Assets.Scripts
         public GameObject herbsContainerPrefab;
         public GameObject pasteContainerPrefab;
 
-        private readonly System.Random random = new System.Random();
+        //private readonly System.Random random = new System.Random(System.DateTime.Today.DayOfYear);
         private readonly Array colors = Enum.GetValues(typeof(MaterialColor));
         private readonly Array materials = Enum.GetValues(typeof(Material));
         private int scoreForTask; //Not needed yet. Just an idea.
@@ -104,8 +104,8 @@ namespace Assets.Scripts
 
         private ColoredMaterial GenerateTask()
         {
-            MaterialColor materialColor = (MaterialColor)colors.GetValue(random.Next(colors.Length));
-            Material material = (Material)materials.GetValue(random.Next(materials.Length));
+            MaterialColor materialColor = (MaterialColor)colors.GetValue(UnityEngine.Random.Range(0, colors.Length));
+            Material material = (Material)materials.GetValue(UnityEngine.Random.Range(0, materials.Length));
 
             ColoredMaterial nextTask = new ColoredMaterial(material, materialColor);
 

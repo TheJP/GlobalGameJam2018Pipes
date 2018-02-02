@@ -171,6 +171,7 @@ MonoBehaviour:
     col: 0
   trashClip: {fileID: 8300000, guid: 6afcf21f9b7c2dc47a29c605037faeed, type: 3}
   dropClip: {fileID: 8300000, guid: d7f6680996cf11e4cb6966ab2bd5f480, type: 3}
+  pitchRange: 0.2
 --- !u!198 &198856752466132916
 ParticleSystem:
   m_ObjectHideFlags: 1

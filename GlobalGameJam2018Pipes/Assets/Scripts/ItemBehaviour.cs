@@ -4,29 +4,6 @@ using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
 {
-    private static Color ConvertMaterialColor(MaterialColor materialColor)
-    {
-        switch (materialColor)
-        {
-        case MaterialColor.Red:
-            return Color.red;
-        case MaterialColor.Yellow:
-            return Color.yellow;
-        case MaterialColor.Blue:
-            return Color.blue;
-        case MaterialColor.Green:
-            return Color.green;
-        case MaterialColor.Orange:
-            return new Color(1, 0xa0 / 255.0f, 0);
-        case MaterialColor.Violet:
-            return new Color(1, 0, 1);
-        case MaterialColor.Black:
-            return Color.black;
-        default:
-            return Color.magenta;
-        }
-    }
-
     public int floatSpeed;
     [SerializeField] public int Row;
     [SerializeField] public int Column;
@@ -55,12 +32,12 @@ public class ItemBehaviour : MonoBehaviour
         if (particleSystem != null)
         {
             var main = particleSystem.main;
-            main.startColor = ConvertMaterialColor(material.Color);
+            main.startColor = MixerScript.ConvertMaterialColor(material.Color);
         }
         else
         {
             var meshRenderer = GetComponentInChildren<MeshRenderer>();
-            meshRenderer.material.color = ConvertMaterialColor(material.Color);
+            meshRenderer.material.color = MixerScript.ConvertMaterialColor(material.Color);
         }
 
         audioSource = GetComponent<AudioSource>();

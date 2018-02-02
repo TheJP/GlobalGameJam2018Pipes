@@ -92,12 +92,12 @@ namespace Assets.Scripts
                 if (particleSystem != null)
                 {
                     var main = particleSystem.main;
-                    main.startColor = ConvertMaterialColor(currentTask.Color);
+                    main.startColor = MixerScript.ConvertMaterialColor(currentTask.Color);
                 }
                 else
                 {
                     var meshRenderer = GetComponentInChildren<MeshRenderer>();
-                    meshRenderer.material.color = ConvertMaterialColor(currentTask.Color);
+                    meshRenderer.material.color = MixerScript.ConvertMaterialColor(currentTask.Color);
                 }
             }
         }
@@ -112,27 +112,5 @@ namespace Assets.Scripts
             return nextTask;
         }
 
-        private static Color ConvertMaterialColor(MaterialColor materialColor)
-        {
-            switch (materialColor)
-            {
-                case MaterialColor.Red:
-                    return Color.red;
-                case MaterialColor.Yellow:
-                    return Color.yellow;
-                case MaterialColor.Blue:
-                    return Color.blue;
-                case MaterialColor.Green:
-                    return Color.green;
-                case MaterialColor.Orange:
-                    return new Color(1, 0xa0 / 255.0f, 0);
-                case MaterialColor.Violet:
-                    return new Color(1, 0, 1);
-                case MaterialColor.Black:
-                    return Color.black;
-                default:
-                    return Color.magenta;
-            }
-        }
     }
 }

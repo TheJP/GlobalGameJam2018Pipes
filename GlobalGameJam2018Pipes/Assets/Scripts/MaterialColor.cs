@@ -8,3 +8,5 @@
     Violet, 
     Black
 }
+
+// for conversion into rgb-values use MixerScript.ConvertMaterialColor

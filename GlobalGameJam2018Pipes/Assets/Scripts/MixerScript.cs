@@ -1,5 +1,111 @@
-﻿public class MixerScript {
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public class MixerScript {
     
+    private Dictionary<MaterialColor, Dictionary<MaterialColor, MaterialColor>> mixTable;
+
+    public MixerScript ()
+    {
+        mixTable = new Dictionary<MaterialColor, Dictionary<MaterialColor, MaterialColor>>();
+        // Stores all mix possibilities. Rules:
+        // - primary colors (red, yellow, blue) mix as usual (e.g. red + yellow = orange)
+        // - secondary color (orange, green, violet) with primary color which is already in the mix: primary color wins
+        // - secondary color with primary color which is not yet in the mix: black
+        // - black and other color: black
+
+        // mix with red
+        var mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Red },
+            { MaterialColor.Orange, MaterialColor.Red },
+            { MaterialColor.Yellow, MaterialColor.Orange },
+            { MaterialColor.Green,  MaterialColor.Black },
+            { MaterialColor.Blue,   MaterialColor.Violet },
+            { MaterialColor.Violet, MaterialColor.Red },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Red, mix);
+
+        // mix with orange
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Red },
+            { MaterialColor.Orange, MaterialColor.Orange },
+            { MaterialColor.Yellow, MaterialColor.Yellow },
+            { MaterialColor.Green,  MaterialColor.Black },
+            { MaterialColor.Blue,   MaterialColor.Black },
+            { MaterialColor.Violet, MaterialColor.Black },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Orange, mix);
+
+        // mix with yellow
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Orange },
+            { MaterialColor.Orange, MaterialColor.Yellow },
+            { MaterialColor.Yellow, MaterialColor.Yellow },
+            { MaterialColor.Green,  MaterialColor.Yellow },
+            { MaterialColor.Blue,   MaterialColor.Green },
+            { MaterialColor.Violet, MaterialColor.Black },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Yellow, mix);
+
+        // mix with green
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Black },
+            { MaterialColor.Orange, MaterialColor.Black },
+            { MaterialColor.Yellow, MaterialColor.Yellow },
+            { MaterialColor.Green,  MaterialColor.Green },
+            { MaterialColor.Blue,   MaterialColor.Blue },
+            { MaterialColor.Violet, MaterialColor.Black },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Green, mix);
+
+        // mix with blue
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Violet },
+            { MaterialColor.Orange, MaterialColor.Black },
+            { MaterialColor.Yellow, MaterialColor.Green },
+            { MaterialColor.Green,  MaterialColor.Blue },
+            { MaterialColor.Blue,   MaterialColor.Blue },
+            { MaterialColor.Violet, MaterialColor.Blue },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Blue, mix);
+
+        // mix with violet
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Red },
+            { MaterialColor.Orange, MaterialColor.Black },
+            { MaterialColor.Yellow, MaterialColor.Black },
+            { MaterialColor.Green,  MaterialColor.Black },
+            { MaterialColor.Blue,   MaterialColor.Blue },
+            { MaterialColor.Violet, MaterialColor.Violet },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Violet, mix);
+
+        // mix with black
+        mix = new Dictionary<MaterialColor, MaterialColor>
+        {
+            { MaterialColor.Red,    MaterialColor.Black },
+            { MaterialColor.Orange, MaterialColor.Black },
+            { MaterialColor.Yellow, MaterialColor.Black },
+            { MaterialColor.Green,  MaterialColor.Black },
+            { MaterialColor.Blue,   MaterialColor.Black },
+            { MaterialColor.Violet, MaterialColor.Black },
+            { MaterialColor.Black,  MaterialColor.Black }
+        };
+        mixTable.Add(MaterialColor.Black, mix);
+    }
+
     public ColoredMaterial Mix (ColoredMaterial mat1, ColoredMaterial mat2) {
 
         // if one of the materials is herbs, the other color is ignored
@@ -28,47 +134,7 @@
         if (color1 == color2)  
             return color1;
 
-        // otherwise depends if primary color or not
-
-        bool isPrimaryColor1 = IsPrimaryColor (color1);
-        bool isPrimaryColor2 = IsPrimaryColor (color2);
-
-        // if both colors are not primary (but not same), we get the magic color
-        if (!isPrimaryColor1 && !isPrimaryColor2)
-            return MaterialColor.Black;
-
-        // if both colors are primary colors, mix them
-        // could be done via Lookuptable
-        if (isPrimaryColor1 && isPrimaryColor2) {
-            switch (color1) {
-            case MaterialColor.Red: 
-                if (color2 == MaterialColor.Yellow)
-                    return MaterialColor.Orange;
-                if (color2 == MaterialColor.Blue)
-                    return MaterialColor.Violet;
-                return MaterialColor.Black; 
-            case MaterialColor.Yellow:
-                if (color2 == MaterialColor.Red)
-                    return MaterialColor.Orange;
-                if (color2 == MaterialColor.Blue)
-                    return MaterialColor.Green;
-                return MaterialColor.Black; 
-            case MaterialColor.Blue:
-                if (color2 == MaterialColor.Red)
-                    return MaterialColor.Violet;
-                if (color2 == MaterialColor.Yellow)
-                    return MaterialColor.Green;
-                return MaterialColor.Black; 
-            default:
-                return MaterialColor.Black;
-            }
-        }
-
-        // if only one color is primary, the primary color wins
-        if (isPrimaryColor1) {
-            return color1;
-        } else
-            return color2;
+        return mixTable[color1][color2];
     }
 
 
@@ -111,17 +177,26 @@
         }
     }
 
-
-    private bool IsPrimaryColor(MaterialColor color) {
-
-        if (color == MaterialColor.Red)
-            return true;
-        if (color == MaterialColor.Blue)
-            return true;
-        if (color == MaterialColor.Yellow)
-            return true;
-        return false;
+    public static Color ConvertMaterialColor(MaterialColor materialColor)
+    {
+        switch (materialColor)
+        {
+            case MaterialColor.Red:
+                return Color.red;
+            case MaterialColor.Yellow:
+                return Color.yellow;
+            case MaterialColor.Blue:
+                return Color.blue;
+            case MaterialColor.Green:
+                return Color.green;
+            case MaterialColor.Orange:
+                return new Color(1, 0xa0 / 255.0f, 0);
+            case MaterialColor.Violet:
+                return new Color(0x88 / 255.0f, 0, 1);
+            case MaterialColor.Black:
+                return Color.black;
+            default:
+                return Color.magenta;
+        }
     }
-
-
 }

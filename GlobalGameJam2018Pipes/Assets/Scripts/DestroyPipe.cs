@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 public class DestroyPipe : MonoBehaviour
 {
@@ -15,11 +14,6 @@ public class DestroyPipe : MonoBehaviour
         tile = GetComponentInParent<Tile>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public bool ReduceLifetime()
     {
         //Debug.Log("Reduce Lifetime called");
@@ -27,8 +21,8 @@ public class DestroyPipe : MonoBehaviour
 
         if (timeSpentToDestroy >= timeToDestroy)
         {
+            timeSpentToDestroy = 0;
             tile.RemovePipe();
-            Destroy(GetComponentInParent<Pipe>().gameObject);
             return true;
         }
 

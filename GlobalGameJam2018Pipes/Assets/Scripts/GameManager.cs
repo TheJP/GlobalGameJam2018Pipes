@@ -233,10 +233,11 @@ public class GameManager : MonoBehaviour
                             }
                         }
 
+                        var pipe = target.GetComponentInParent<Pipe>();
                         if (target.GetComponent<DestroyPipe>().ReduceLifetime())
                         {
                             audioSource.Stop();
-                            inventory.Increase(target.GetComponentInParent<Pipe>().Type);
+                            inventory.Increase(pipe.Type);
                         }
                     }
                 }

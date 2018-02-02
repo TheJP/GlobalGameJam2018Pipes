@@ -6,61 +6,28 @@ public class Tile : MonoBehaviour
     public int Column;
     public int tileSize;
 
-    public GameObject pipeStraight;
-    public GameObject pipeTurn;
-    public GameObject pipeLeftRight;
-    public GameObject pipeOverUnder;
-    public GameObject pipeMixer;
-    public GameObject pipeTrash;
+    [SerializeField]
+    private PipeDisplay pipeDisplay;
 
     public float maxBlockTime;
     private float blockTime;
 
+    [HideInInspector]
     public Pipe pipe;
 
     private ItemBehaviour blockingItem;
 
     public bool BuildPipe(PipeType pipeType, int rotation)
     {
-        if(pipe != null || blockingItem != null)
-        {
-            return false;
-        }
+        pipeDisplay.ShowPipe(pipeType);
+        pipeDisplay.Rotation = rotation;
 
-        var pipeRotation = Quaternion.AngleAxis(90 * (rotation % 4), Vector3.up);
-
-        GameObject pipeGameObject;
-        switch(pipeType)
+        if (pipeDisplay.ActivePipe != null)
         {
-        case PipeType.Straight:
-            pipeGameObject = Instantiate(pipeStraight, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.Turn:
-            pipeGameObject = Instantiate(pipeTurn, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.LeftRight:
-            pipeGameObject = Instantiate(pipeLeftRight, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.UnderOver:
-            pipeGameObject = Instantiate(pipeOverUnder, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.Mixer:
-            pipeGameObject = Instantiate(pipeMixer, transform.position, pipeRotation, transform);
-            break;
-        case PipeType.Trash:
-            pipeGameObject = Instantiate(pipeTrash, transform.position, pipeRotation, transform);
-            break;
-        default:
-            pipeGameObject = null;
-            break;
-        }
-
-        if (pipeGameObject != null)
-        {
-            pipe = pipeGameObject.GetComponent<Pipe>();
+            pipe = pipeDisplay.ActivePipe.GetComponent<Pipe>();
             pipe.Rotation = rotation;
 
-            var mixerPipe = pipeGameObject.GetComponent<MixerPipe>();
+            var mixerPipe = pipeDisplay.ActivePipe.GetComponent<MixerPipe>();
             if (mixerPipe != null)
             {
                 mixerPipe.row = Row;
@@ -70,12 +37,14 @@ public class Tile : MonoBehaviour
             return true;
         }
 
+        pipe = null;
         return false;
     }
 
     public void RemovePipe()
     {
         pipe = null;
+        pipeDisplay.ShowPipe(PipeType.None);
     }
 
     public void Block(ItemBehaviour item)
@@ -85,11 +54,7 @@ public class Tile : MonoBehaviour
             return;
         }
 
-        if (pipe != null)
-        {
-            Destroy(pipe.gameObject);
-            pipe = null;
-        }
+        RemovePipe();
 
         blockTime = maxBlockTime;
         blockingItem = item;

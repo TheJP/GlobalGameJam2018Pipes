@@ -24,7 +24,8 @@ public class PipeDisplay
     private GameObject pipeTrash;
 
     private int rotation;
-    private GameObject activePipe;
+    
+    public GameObject ActivePipe { get; private set; }
 
     public int Rotation
     {
@@ -38,65 +39,65 @@ public class PipeDisplay
 
     public void ShowPipe(PipeType pipeType)
     {
-        if(activePipe != null)
+        if(this.ActivePipe != null)
         {
-            activePipe.SetActive(false);
+            this.ActivePipe.SetActive(false);
         }
 
         switch(pipeType)
         {
         case PipeType.Straight:
-            activePipe = pipeStraight;
+            this.ActivePipe = pipeStraight;
             break;
         case PipeType.Turn:
-            activePipe = pipeTurn;
+            this.ActivePipe = pipeTurn;
             break;
         case PipeType.LeftRight:
-            activePipe = pipeLeftRight;
+            this.ActivePipe = pipeLeftRight;
             break;
         case PipeType.UnderOver:
-            activePipe = pipeOverUnder;
+            this.ActivePipe = pipeOverUnder;
             break;
         case PipeType.Mixer:
-            activePipe = pipeMixer;
+            this.ActivePipe = pipeMixer;
             break;
         case PipeType.Trash:
-            activePipe = pipeTrash;
+            this.ActivePipe = pipeTrash;
             break;
         default:
-            activePipe = null;
+            this.ActivePipe = null;
             break;
         }
 
-        if(activePipe != null)
+        if(this.ActivePipe != null)
         {
             UpdateRotation();
-            activePipe.SetActive(true);
+            this.ActivePipe.SetActive(true);
         }
     }
 
     public void Hide()
     {
-        if(activePipe != null)
+        if(this.ActivePipe != null)
         {
-            activePipe.SetActive(false);
+            this.ActivePipe.SetActive(false);
         }
     }
 
     public void Show()
     {
-        if(activePipe != null)
+        if(this.ActivePipe != null)
         {
-            activePipe.SetActive(true);
+            this.ActivePipe.SetActive(true);
         }
     }
 
     private void UpdateRotation()
     {
-        if(activePipe != null)
+        if(this.ActivePipe != null)
         {
             var pipeRotation = Quaternion.AngleAxis(90 * (rotation % 4), Vector3.up);
-            activePipe.transform.rotation = pipeRotation;
+            this.ActivePipe.transform.rotation = pipeRotation;
         }
     }
 }

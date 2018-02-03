@@ -70,7 +70,6 @@ namespace Assets.Scripts
                     displayingItem = Instantiate(herbsContainerPrefab, transform);
                     break;
                 case Material.Paste:
-                    Debug.Log(pasteContainerPrefab);
                     displayingItem = Instantiate(pasteContainerPrefab, transform);
                     break;
                 case Material.Powder:

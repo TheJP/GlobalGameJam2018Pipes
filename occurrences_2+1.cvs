@@ -1,0 +1,23 @@
+total: 1728,Fluid,Vapor,Powder,Herbs,Paste,
+Red,176,41,91,5,25,
+Orange,98,20,46,2,16,
+Yellow,176,41,91,5,25,
+Green,98,20,46,2,16,
+Blue,176,41,91,5,25,
+Violet,98,20,46,2,16,
+Black,96,6,48,6,12,
+
+Red,338
+Orange,182
+Yellow,338
+Green,182
+Blue,338
+Violet,182
+Black,168
+
+
+Fluid,918
+Vapor,189
+Powder,459
+Herbs,27
+Paste,135

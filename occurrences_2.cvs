@@ -1,0 +1,23 @@
+total: 144,Fluid,Vapor,Powder,Herbs,Paste,
+Red,11,7,8,1,1,
+Orange,10,2,4,2,2,
+Yellow,11,7,8,1,1,
+Green,10,2,4,2,2,
+Blue,11,7,8,1,1,
+Violet,10,2,4,2,2,
+Black,0,0,0,0,0,
+
+Red,28
+Orange,20
+Yellow,28
+Green,20
+Blue,28
+Violet,20
+Black,0
+
+
+Fluid,63
+Vapor,27
+Powder,36
+Herbs,9
+Paste,9

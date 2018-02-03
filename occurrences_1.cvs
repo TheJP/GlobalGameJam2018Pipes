@@ -1,0 +1,23 @@
+total: 12,Fluid,Vapor,Powder,Herbs,Paste,
+Red,1,1,1,1,0,
+Orange,0,0,0,0,0,
+Yellow,1,1,1,1,0,
+Green,0,0,0,0,0,
+Blue,1,1,1,1,0,
+Violet,0,0,0,0,0,
+Black,0,0,0,0,0,
+
+Red,4
+Orange,0
+Yellow,4
+Green,0
+Blue,4
+Violet,0
+Black,0
+
+
+Fluid,3
+Vapor,3
+Powder,3
+Herbs,3
+Paste,0

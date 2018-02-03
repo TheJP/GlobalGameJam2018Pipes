@@ -125,6 +125,9 @@ public class GameManager : MonoBehaviour
     {
         SetBuildNext(PipeType.None);
 
+        // uncomment this to create files about probabilites of mixed materials
+        // MixCounter.WriteMixOccurrenceTables();
+
         //tableScript.InitInventoryPlaces();
     }
 

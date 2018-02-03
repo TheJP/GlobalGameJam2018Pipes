@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class ColoredMaterial
+public class ColoredMaterial : IEquatable<ColoredMaterial>
 {
     [SerializeField] private Material mat;
 
@@ -28,6 +28,27 @@ public class ColoredMaterial
 
     public override string ToString()
     {
-        return $"ColoredMaterial: {col} {mat}.";
+        return $"ColoredMaterial: {col} {mat}";
     }
+
+    
+    public bool Equals(ColoredMaterial other)
+    {
+        if (other == null) return false;
+        return mat == other.mat && col == other.col;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals(obj as ColoredMaterial);
+    }
+
+    public override int GetHashCode()
+    {
+        return 100 * mat.GetHashCode() + col.GetHashCode();
+    }
+
 }

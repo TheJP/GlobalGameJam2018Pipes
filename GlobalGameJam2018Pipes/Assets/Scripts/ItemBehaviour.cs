@@ -52,18 +52,18 @@ public class ItemBehaviour : MonoBehaviour
     private IEnumerator MoveItem(FlowDirection direction)
     {
         SetMoving(true);
-        
-        while(CanContinueMoving(direction))
+
+        while (CanContinueMoving(direction))
         {
             UpdateCurrentTile(direction);
-            
+
             yield return MoveToCurrentTile();
 
             direction = DetermineNextFlowDirection();
         }
-        
+
         SetMoving(false);
-        
+
         yield return ApplyFinalAction(direction);
     }
 
@@ -90,24 +90,24 @@ public class ItemBehaviour : MonoBehaviour
 
     private void UpdateCurrentTile(FlowDirection nextDirection)
     {
-        switch(nextDirection)
+        switch (nextDirection)
         {
-        case FlowDirection.ToLeft:
-            --Column;
-            lastStep = LastStep.Left;
-            break;
-        case FlowDirection.ToTop:
-            ++Row;
-            lastStep = LastStep.Up;
-            break;
-        case FlowDirection.ToRight:
-            ++Column;
-            lastStep = LastStep.Right;
-            break;
-        case FlowDirection.ToDown:
-            --Row;
-            lastStep = LastStep.Down;
-            break;
+            case FlowDirection.ToLeft:
+                --Column;
+                lastStep = LastStep.Left;
+                break;
+            case FlowDirection.ToTop:
+                ++Row;
+                lastStep = LastStep.Up;
+                break;
+            case FlowDirection.ToRight:
+                ++Column;
+                lastStep = LastStep.Right;
+                break;
+            case FlowDirection.ToDown:
+                --Row;
+                lastStep = LastStep.Down;
+                break;
         }
     }
 
@@ -128,16 +128,24 @@ public class ItemBehaviour : MonoBehaviour
             this.transform.position = Vector3.Lerp(originPosition, targetPosition, timePassed / requiredTime);
             yield return null;
         }
-        while(timePassed < requiredTime);
+        while (timePassed < requiredTime);
     }
 
     private FlowDirection DetermineNextFlowDirection()
     {
         var currentTile = playBoard.GetTileForPosition(Column, Row);
 
-        if(currentTile == null)
+        if (currentTile == null)
         {
-            return FlowDirection.Drop;
+            if (!FindSink())
+            {
+                return FlowDirection.Drop;
+            }
+            else
+            {
+                return FlowDirection.Stop;
+            }
+
         }
 
         if (currentTile.pipe == null)
@@ -147,22 +155,22 @@ public class ItemBehaviour : MonoBehaviour
 
         switch (lastStep)
         {
-        case LastStep.Down:
-            return currentTile.pipe.FromTop;
-        case LastStep.Left:
-            return currentTile.pipe.FromRight;
-        case LastStep.Right:
-            return currentTile.pipe.FromLeft;
-        case LastStep.Up:
-            return currentTile.pipe.FromBottom;
-        default:
-            return FlowDirection.Drop;
+            case LastStep.Down:
+                return currentTile.pipe.FromTop;
+            case LastStep.Left:
+                return currentTile.pipe.FromRight;
+            case LastStep.Right:
+                return currentTile.pipe.FromLeft;
+            case LastStep.Up:
+                return currentTile.pipe.FromBottom;
+            default:
+                return FlowDirection.Drop;
         }
     }
 
     private bool CanContinueMoving(FlowDirection direction)
     {
-        if(direction == FlowDirection.Stop || direction == FlowDirection.Drop || direction == FlowDirection.Trash)
+        if (direction == FlowDirection.Stop || direction == FlowDirection.Drop || direction == FlowDirection.Trash)
         {
             return false;
         }
@@ -173,31 +181,34 @@ public class ItemBehaviour : MonoBehaviour
     private IEnumerator ApplyFinalAction(FlowDirection nextDirection)
     {
         var currentTile = playBoard.GetTileForPosition(Column, Row);
-        
-        switch(nextDirection)
+
+        switch (nextDirection)
         {
-        case FlowDirection.Drop:
-            SwitchSound(dropClip);
-            if(currentTile != null)
-            {
-                currentTile.Block(this);
-            }
-            else
-            {
-                yield return DelayedDestroy(dropClip.length);
-            }
-            break;
-        case FlowDirection.Stop:
-            var mixerPipe = currentTile?.GetComponentInChildren<MixerPipe>();
-            if(mixerPipe != null)
-            {
-                mixerPipe.ProcessItem(this);
-            }
-            break;
-        case FlowDirection.Trash:
-            SwitchSound(trashClip);
-            yield return DelayedDestroy(trashClip.length);
-            break;
+            case FlowDirection.Drop:
+                SwitchSound(dropClip);
+                if (currentTile != null)
+                {
+                    currentTile.Block(this);
+                }
+                else
+                {
+                    yield return DelayedDestroy(dropClip.length);
+                }
+                break;
+            case FlowDirection.Stop:
+                var mixerPipe = currentTile?.GetComponentInChildren<MixerPipe>();
+                if (mixerPipe != null)
+                {
+                    mixerPipe.ProcessItem(this);
+                }
+                break;
+            case FlowDirection.Trash:
+                SwitchSound(trashClip);
+                yield return DelayedDestroy(trashClip.length);
+                break;
+            default:
+                Debug.Log("Unknown PipeType");
+                break;
         }
     }
 
@@ -205,27 +216,26 @@ public class ItemBehaviour : MonoBehaviour
     {
         audioSource.loop = false;
         audioSource.Stop();
-        Debug.Log("switch sound to " + clip.name);
         audioSource.clip = clip;
         audioSource.volume = 0.8f;
         audioSource.Play();
     }
-    
+
     private IEnumerator DelayedDestroy(float delay)
     {
-        foreach(var meshRenderer in GetComponentsInChildren<MeshRenderer>())
+        foreach (var meshRenderer in GetComponentsInChildren<MeshRenderer>())
         {
             meshRenderer.enabled = false;
         }
 
         var particleSystem = GetComponentInChildren<ParticleSystem>();
-        if(particleSystem != null)
+        if (particleSystem != null)
         {
             particleSystem.Stop();
         }
 
         yield return new WaitForSeconds(delay);
-        
+
         Destroy(this.gameObject);
     }
 

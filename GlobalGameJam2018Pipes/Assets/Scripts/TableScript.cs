@@ -42,14 +42,11 @@ public class TableScript : MonoBehaviour
         float tableSizeX = table.GetComponent<Renderer>().bounds.size.x;
         float tableSizeZ = table.GetComponent<Renderer>().bounds.size.z;
         float tableHeight = table.GetComponent<Renderer>().bounds.size.y;
-        Debug.Log("table size: x=" + tableSizeX + ", z=" + tableSizeZ + ", h=" + tableHeight);
 
         tileSizeX = tableSizeX / tableSizeRows;
         tileSizeZ = tableSizeZ / tableSizeCols;
-        Debug.Log("tileW: " + tileSizeZ + ", tileH: " + tileSizeX);
 
         tableCenter = table.GetComponent<Renderer>().bounds.center;
-        Debug.Log("table center: " + tableCenter);
 
         assets = new GameObject[tableSizeCols, tableSizeRows];
 

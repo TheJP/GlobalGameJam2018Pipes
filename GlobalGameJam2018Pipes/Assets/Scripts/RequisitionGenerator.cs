@@ -40,6 +40,7 @@ namespace Assets.Scripts
 
         public void ClearCurrentTask()
         {
+            Debug.Log("Clear current Task" + currentTask.ToString());
             Destroy(displayingItem);
             currentTask = null;
         }
@@ -59,29 +60,27 @@ namespace Assets.Scripts
 
         private void DisplayMeshRepresenation()
         {
-            GameObject displayingItem = null;
+            displayingItem = null;
             switch (currentTask.Material)
             {
                 case Material.Fluid:
                     displayingItem = Instantiate(fluidContainerPrefab, transform);
-                    Debug.Log(("Item Fluid: " + displayingItem));
                     break;
                 case Material.Herbs:
                     displayingItem = Instantiate(herbsContainerPrefab, transform);
-                    Debug.Log(("Item Herbs: " + displayingItem));
                     break;
                 case Material.Paste:
                     Debug.Log(pasteContainerPrefab);
                     displayingItem = Instantiate(pasteContainerPrefab, transform);
-                    Debug.Log(("Item Paste: " + displayingItem));
                     break;
                 case Material.Powder:
                     displayingItem = Instantiate(powderContainerPrefab, transform);
-                    Debug.Log(("Item Powder: " + displayingItem));
                     break;
                 case Material.Vapor:
                     displayingItem = Instantiate(vaporContainerPrefab, transform);
-                    Debug.Log(("Item Vapor: " + displayingItem));
+                    break;
+                default:
+                    Debug.Log("Item of current Task is unknown: " + currentTask.ToString());
                     break;
             }
             if (displayingItem != null)

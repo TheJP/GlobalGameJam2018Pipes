@@ -35,6 +35,7 @@ public class ItemSink : MonoBehaviour
             ColoredMaterial currentTask = requisitionGenerator.CurrentTask;
             if (item.material.Color == currentTask.Color && item.material.Material == currentTask.Material) //TODO: Implement Equials in ColoredMaterial
             {
+                Debug.Log("Item delivered!");
                 requisitionGenerator.ClearCurrentTask();
                 //TODO: Add Money and/or Points. Maybe depending on the difficulti of the Item/Task
             }

@@ -96,7 +96,6 @@ namespace Assets.Scripts
                 else
                 {
                     var meshRenderer = GetComponentInChildren<MeshRenderer>();
-                    Debug.Log("MeshRenderer: " + meshRenderer);
                     meshRenderer.material.color = MixerScript.ConvertMaterialColor(currentTask.Color);
                     foreach (var r in GetComponentsInChildren<MeshRenderer>())
                         r.shadowCastingMode = ShadowCastingMode.Off;

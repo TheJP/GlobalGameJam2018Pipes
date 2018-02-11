@@ -16,16 +16,16 @@ using UnityEngine;
  */ 
 public class MixCounter {
 
-    private List<ColoredMaterial> primaryIngred;
-    private List<ColoredMaterial> allIngred;
-    private string docPath;
+    private readonly List<ColoredMaterial> primaryIngred;
+    private readonly List<ColoredMaterial> allIngred;
+    private readonly string docPath;
 
-    readonly MaterialColor[] primaryColors = { MaterialColor.Red, MaterialColor.Yellow, MaterialColor.Blue };    // start with primary colors
-    readonly Material[] primaryMaterials = { Material.Fluid, Material.Herbs, Material.Powder, Material.Vapor };  // start without paste
+    private readonly MaterialColor[] primaryColors = { MaterialColor.Red, MaterialColor.Yellow, MaterialColor.Blue };    // start with primary colors
+    private readonly Material[] primaryMaterials = { Material.Fluid, Material.Herbs, Material.Powder, Material.Vapor };  // start without paste
 
-    MixerScript mixerScript;
-    Dictionary<ColoredMaterial, int> mixDict;
-    int total;
+    private MixerScript mixerScript;
+    private Dictionary<ColoredMaterial, int> mixDict;
+    private int total;
 
     /**
      * param name="docPath" path for the output files
@@ -44,8 +44,6 @@ public class MixCounter {
         foreach (MaterialColor color in Enum.GetValues(typeof(MaterialColor)))
             foreach (Material mat in Enum.GetValues(typeof(Material)))
                 allIngred.Add(new ColoredMaterial(mat, color));
-
-        Debug.Log("MixCounter initialized");
     }
 
     public List<ColoredMaterial> PrimaryIngredients
@@ -66,9 +64,9 @@ public class MixCounter {
      */
     public void Mix(List<ColoredMaterial> matList)
     {
-        Debug.Log("MixCounter: Mix " + matList.Count);
+        Debug.Log($"MixCounter: Mix with {matList.Count} materials");
 
-        if (this.mixDict == null)
+        if (mixDict == null)
         {
             // if this is the first material list added to the counter, just add them all with occurrence 1
             mixDict = InitCounter(allIngred);
@@ -88,8 +86,7 @@ public class MixCounter {
                 int newOccur = MixIntoTable(mat, 1, mixDict, newMixDict);
                 newTotal += newOccur;
             }
-            Debug.Log("newMixDict now is:");
-            ListToDebug(newMixDict);
+            ListToDebug(newMixDict, "after mixing with a material list");
 
             // forget the old dict and keep the new one, same for total
             mixDict = newMixDict;
@@ -97,6 +94,39 @@ public class MixCounter {
             Debug.Log("MixCounter: Mix finished - " + total);
 
         }
+    }
+
+    /**
+     * Mix each occurrence in this instance with the occurrences in the given MixCountermaterial list
+     * and store the new occurrences.
+     * Note that this cannot be done when this MixCounter is empty. 
+     * 
+     * param name="matList"   materials to mix into this MixCounter 
+     */
+    public void Mix(MixCounter counter)
+    {
+        Debug.Log("MixCounter: Mix " + counter.mixDict.Count);
+
+        if (mixDict == null)
+        {
+            throw new System.InvalidOperationException("MixCounter must not be empty when mixing with an other MixCounter");            
+        }
+
+        // temporarily store the result in a separate dict
+        Dictionary<ColoredMaterial, int> newMixDict = InitCounter(allIngred);
+        int newTotal = 0;
+
+        foreach (KeyValuePair<ColoredMaterial, int> entry in counter.mixDict)
+        {
+            int newOccur = MixIntoTable(entry.Key, entry.Value, mixDict, newMixDict);
+            newTotal += newOccur;                
+        }
+        ListToDebug(newMixDict, "after mixing with a second MixCounter");
+
+        // forget the old dict and keep the new one, same for total
+        mixDict = newMixDict;
+        total = newTotal;
+        Debug.Log("MixCounter: Mix finished - " + total);
     }
 
     /**
@@ -129,9 +159,9 @@ public class MixCounter {
         return dict;
     }
 
-    private void ListToDebug (Dictionary<ColoredMaterial, int> dict)
+    private void ListToDebug (Dictionary<ColoredMaterial, int> dict, String logTitle)
     {
-        Debug.Log("ListToDebug:");
+        Debug.Log("mixDict " + logTitle + ":");
         foreach (KeyValuePair<ColoredMaterial, int> entry in dict)
             Debug.Log($"- key {entry.Key}, value {entry.Value}");
     }
@@ -234,6 +264,21 @@ public class MixCounter {
         mixCounter.Mix(mixCounter.PrimaryIngredients);
         mixCounter.WriteToFile("occurrences_2+1+1.cvs");
 
+        
+        // To calculate the statistics when mixing 2+2 ingredients, we could clone
+        // the mixCounter above at a status when it has 2 ingredients in it. But I'm
+        // too lazy to implement cloning, so I do the same mixing again, twice.
+        
+        mixCounter = new MixCounter(path + @"\..");
+        mixCounter.Mix(mixCounter.PrimaryIngredients);
+        mixCounter.Mix(mixCounter.PrimaryIngredients);
+
+        MixCounter mixCounter2 = new MixCounter(path + @"\..");
+        mixCounter2.Mix(mixCounter2.PrimaryIngredients);
+        mixCounter2.Mix(mixCounter2.PrimaryIngredients);
+        
+        mixCounter.Mix(mixCounter2);
+        mixCounter.WriteToFile("occurrences_2+2.cvs");
     }
 
 }

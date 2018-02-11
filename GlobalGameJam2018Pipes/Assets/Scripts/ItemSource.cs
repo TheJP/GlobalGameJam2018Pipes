@@ -73,7 +73,8 @@ public class ItemSource : MonoBehaviour
             if (spawnPositionFree)
             {
                 var material = availableMaterials[UnityEngine.Random.Range(0, availableMaterials.Count)];
-                var materialColor = availableColors[UnityEngine.Random.Range(0, availableColors.Count)];
+                //var materialColor = availableColors[UnityEngine.Random.Range(0, availableColors.Count)];
+                var materialColor = GameManager.options.GetSourceColorForRandom(UnityEngine.Random.value);
 
                 newItem = CreateItem(new ColoredMaterial(material, materialColor), transform.position, Row, Column).gameObject;
 

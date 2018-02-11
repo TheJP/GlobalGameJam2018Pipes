@@ -1,5 +1,6 @@
 using GlobalGameJam2018Networking;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static Multiplayer Multiplayer;
+    public static Options options;
 
     public GameObject inventoryPrefab;
     public GameObject cursorPrefab;
@@ -39,9 +41,13 @@ public class GameManager : MonoBehaviour
     private bool holdsHammer;
 
     private TableScript tableScript;
+   
 
     private void Awake()
     {
+        if (options == null)
+            options = new Options();
+        
         Instantiate(roomPrefab);
 
         inventory = Instantiate(inventoryPrefab).GetComponent<Inventory>();
@@ -51,8 +57,6 @@ public class GameManager : MonoBehaviour
         GameObject table = Instantiate(assetTablePrefab);
         table.transform.rotation = Quaternion.Euler(0, 90, 0);
         table.transform.position = new Vector3(50, 6, 0);
-
-
 
         for (int sourceCount = 0; sourceCount < 3; sourceCount++)
         {
@@ -129,19 +133,6 @@ public class GameManager : MonoBehaviour
         // MixCounter.WriteMixOccurrenceTables();
 
         //tableScript.InitInventoryPlaces();
-    }
-
-
-    // TODO just for testing, needs different implementation
-    private void InitInventory()
-    {
-        Debug.Log("in initInventory");
-
-        //inventory.Gold = this.numGold;
-        //inventory.PipeStraightCount = this.numPipeStraight;
-        //inventory.PipeTurnCount = this.numPipeCurves;
-
-        // Zuteilung welcher Typ wo dargestellt wird, ist in TableScript.InitInventoryPlaces
     }
 
 
@@ -261,6 +252,22 @@ public class GameManager : MonoBehaviour
             deletingPipe = false;
             thresholdDeletingPipe = 0;
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("space pressed");
+            string sceneName = "Options";
+            Scene scene = SceneManager.GetSceneByName(sceneName);
+            if (scene.IsValid())
+            {
+                Debug.Log($"will set scene active ({sceneName})");
+                SceneManager.SetActiveScene(scene);
+            }                
+            else
+            {
+                Debug.Log($"will load scene in coroutine ({sceneName})");
+                StartCoroutine(LoadScene(sceneName));
+            }
+        }
 
         if (GameManager.Multiplayer != null)
         {
@@ -268,6 +275,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
+    private IEnumerator LoadScene(string sceneName)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        //Wait until the last operation fully loads to return anything
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        Debug.Log($"scene {sceneName} is loaded");
+    }
+
+    
     private void SoundStart()
     {
         audioSource.loop = true;

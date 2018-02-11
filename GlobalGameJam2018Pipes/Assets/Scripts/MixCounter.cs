@@ -108,9 +108,7 @@ public class MixCounter {
         Debug.Log("MixCounter: Mix " + counter.mixDict.Count);
 
         if (mixDict == null)
-        {
             throw new System.InvalidOperationException("MixCounter must not be empty when mixing with an other MixCounter");            
-        }
 
         // temporarily store the result in a separate dict
         Dictionary<ColoredMaterial, int> newMixDict = InitCounter(allIngred);

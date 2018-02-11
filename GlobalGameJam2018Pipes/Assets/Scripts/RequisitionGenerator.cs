@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts
 {
@@ -13,7 +15,6 @@ namespace Assets.Scripts
         public GameObject herbsContainerPrefab;
         public GameObject pasteContainerPrefab;
 
-        //private readonly System.Random random = new System.Random(System.DateTime.Today.DayOfYear);
         private readonly Array colors = Enum.GetValues(typeof(MaterialColor));
         private readonly Array materials = Enum.GetValues(typeof(Material));
         private int scoreForTask; //Not needed yet. Just an idea.
@@ -95,8 +96,12 @@ namespace Assets.Scripts
                 else
                 {
                     var meshRenderer = GetComponentInChildren<MeshRenderer>();
+                    Debug.Log("MeshRenderer: " + meshRenderer);
                     meshRenderer.material.color = MixerScript.ConvertMaterialColor(currentTask.Color);
+                    foreach (var r in GetComponentsInChildren<MeshRenderer>())
+                        r.shadowCastingMode = ShadowCastingMode.Off;
                 }
+                
             }
         }
 

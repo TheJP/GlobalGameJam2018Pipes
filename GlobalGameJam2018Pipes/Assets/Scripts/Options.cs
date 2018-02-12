@@ -11,6 +11,8 @@ public class Options
 {
     [SerializeField] private ProbabilityOptions<MaterialColor> sourceColorProbab;
     [SerializeField] private ProbabilityOptions<MaterialColor> sinkColorProbab;
+    [SerializeField] private ProbabilityOptions<Material> sourceMaterialProbab;
+    [SerializeField] private ProbabilityOptions<Material> sinkMaterialProbab;
     
     public Options()
     {
@@ -38,50 +40,74 @@ public class Options
 
     }
 
-    public void SetSourceProbability(MaterialColor col, int rawProbability)
+    public void SetProbability(MaterialColor col, int rawProbability, bool forSource)
     {
-        sourceColorProbab.SetProbability(col, rawProbability);
+        if (forSource)
+            sourceColorProbab.SetProbability(col, rawProbability);
+        else
+            sinkColorProbab.SetProbability(col, rawProbability);
     }
 
-    public void SetSinkProbability(MaterialColor col, int rawProbability)
+    public void SetProbability(Material mat, int rawProbability, bool forSource)
     {
-        sinkColorProbab.SetProbability(col, rawProbability);
+        if (forSource)
+            sourceMaterialProbab.SetProbability(mat, rawProbability);
+        else
+            sinkMaterialProbab.SetProbability(mat, rawProbability);
     }
 
     /**
      * Get the raw probability number (for displaying in options dialog).
+     * @param forSource true to get for source, false to get for sink
      */
-    public int GetSourceProbabilityRaw(MaterialColor col)
+    public int GetProbabilityRaw(MaterialColor col, bool forSource)
     {
-        int value = sourceColorProbab.GetProbabilityRaw(col);
-        Debug.Log($"options requested: source raw probab for {col}, returns {value}.");
+        int value = 0;
+        if (forSource)
+            value = sourceColorProbab.GetProbabilityRaw(col);
+        else
+            value = sinkColorProbab.GetProbabilityRaw(col);
+        Debug.Log($"options requested (for source? {forSource}): raw probab for {col}, returns {value}.");
         return value;
     }
 
     /**
      * Get the raw probability number (for displaying in options dialog).
+     * @param forSource true to get for source, false to get for sink
      */
-    public int GetSinkProbabilityRaw(MaterialColor col)
+    public int GetProbabilityRaw(Material mat, bool forSource)
     {
-        int value = sinkColorProbab.GetProbabilityRaw(col);
-        Debug.Log($"options requested: source raw probab for {col}, returns {value}.");
+        int value = 0;
+        if (forSource) 
+            value = sourceMaterialProbab.GetProbabilityRaw(mat);
+        else
+            value = sinkMaterialProbab.GetProbabilityRaw(mat);
+        Debug.Log($"options requested (for source? {forSource}): raw probab for {mat}, returns {value}.");
         return value;
     }
 
     /**
-     * Get the correct color for the source for a random number between [0, 1].
+     * Get the correct color for a random number between [0, 1].
+     * @param forSource true to get for source, false to get for sink
      */
-    public MaterialColor GetSourceColorForRandom (float randValue)
+    public MaterialColor GetColorForRandom (float randValue, bool forSource)
     {
-        return sourceColorProbab.GetForRandom(randValue);
+        if (forSource)
+            return sourceColorProbab.GetForRandom(randValue);
+        else
+            return sinkColorProbab.GetForRandom(randValue);
     }
 
     /**
-     * Get the correct color for the sink for a random number between [0, 1].
+     * Get the correct material for a random number between [0, 1].
+     * @param forSource true to get for source, false to get for sink
      */
-    public MaterialColor GetSinkColorForRandom (float randValue)
+    public Material GetMaterialForRandom (float randValue, bool forSource)
     {
-        return sinkColorProbab.GetForRandom(randValue);
+        if (forSource)
+            return sourceMaterialProbab.GetForRandom(randValue);
+        else
+            return sinkMaterialProbab.GetForRandom(randValue);
     }
  
 }

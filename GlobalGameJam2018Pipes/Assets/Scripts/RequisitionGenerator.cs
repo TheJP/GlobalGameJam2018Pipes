@@ -106,9 +106,8 @@ namespace Assets.Scripts
 
         private ColoredMaterial GenerateTask()
         {
-            MaterialColor materialColor = GameManager.options.GetSinkColorForRandom(UnityEngine.Random.value);
-            Material material = (Material)materials.GetValue(UnityEngine.Random.Range(0, materials.Length));
-
+            MaterialColor materialColor = GameManager.options.GetColorForRandom(UnityEngine.Random.value, false);
+            Material material = GameManager.options.GetMaterialForRandom(UnityEngine.Random.value, false);
             ColoredMaterial nextTask = new ColoredMaterial(material, materialColor);
 
             return nextTask;

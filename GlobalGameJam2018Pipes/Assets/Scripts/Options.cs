@@ -38,6 +38,22 @@ public class Options
         sinkColorProbab.SetProbability(MaterialColor.Black, 1);
         sinkColorProbab.AutoRecalc = true;
 
+        sourceMaterialProbab = new ProbabilityOptions<Material>();
+        sourceMaterialProbab.SetProbability(Material.Fluid, 10);
+        sourceMaterialProbab.SetProbability(Material.Vapor, 10);
+        sourceMaterialProbab.SetProbability(Material.Powder, 10);
+        sourceMaterialProbab.SetProbability(Material.Herbs, 10);
+        sourceMaterialProbab.SetProbability(Material.Paste, 0);
+        sourceMaterialProbab.AutoRecalc = true;
+
+        sinkMaterialProbab = new ProbabilityOptions<Material>();
+        sinkMaterialProbab.SetProbability(Material.Fluid, 10);
+        sinkMaterialProbab.SetProbability(Material.Vapor, 10);
+        sinkMaterialProbab.SetProbability(Material.Powder, 10);
+        sinkMaterialProbab.SetProbability(Material.Herbs, 2);
+        sinkMaterialProbab.SetProbability(Material.Paste, 2);
+        sinkMaterialProbab.AutoRecalc = true;
+
     }
 
     public void SetProbability(MaterialColor col, int rawProbability, bool forSource)
@@ -62,13 +78,9 @@ public class Options
      */
     public int GetProbabilityRaw(MaterialColor col, bool forSource)
     {
-        int value = 0;
         if (forSource)
-            value = sourceColorProbab.GetProbabilityRaw(col);
-        else
-            value = sinkColorProbab.GetProbabilityRaw(col);
-        Debug.Log($"options requested (for source? {forSource}): raw probab for {col}, returns {value}.");
-        return value;
+            return sourceColorProbab.GetProbabilityRaw(col);
+        return sinkColorProbab.GetProbabilityRaw(col);
     }
 
     /**
@@ -77,13 +89,10 @@ public class Options
      */
     public int GetProbabilityRaw(Material mat, bool forSource)
     {
-        int value = 0;
         if (forSource) 
-            value = sourceMaterialProbab.GetProbabilityRaw(mat);
+            return sourceMaterialProbab.GetProbabilityRaw(mat);
         else
-            value = sinkMaterialProbab.GetProbabilityRaw(mat);
-        Debug.Log($"options requested (for source? {forSource}): raw probab for {mat}, returns {value}.");
-        return value;
+            return sinkMaterialProbab.GetProbabilityRaw(mat);
     }
 
     /**

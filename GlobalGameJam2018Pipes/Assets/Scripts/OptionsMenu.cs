@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -94,6 +93,8 @@ public class OptionsMenu : MonoBehaviour
 	void OnEnable()
 	{
 		if (sinkColorFields == null) Init();
+		
+		// TODO careful - are we sure that GameManager.options is initialized? 
 		
 		// load values from Options
 		foreach (KeyValuePair<MaterialColor, InputField> entry in sourceColorFields)
@@ -189,7 +190,7 @@ public class OptionsMenu : MonoBehaviour
 		}                
 		else
 		{
-			Debug.Log($"will load scene in coroutine ({sceneName})");
+			//Debug.Log($"will load scene in coroutine ({sceneName})");
 			StartCoroutine(LoadScene(sceneName));
 		}
 
@@ -204,7 +205,6 @@ public class OptionsMenu : MonoBehaviour
 		{
 			yield return null;
 		}
-		Debug.Log($"scene {sceneName} is loaded");
 	}
 
 

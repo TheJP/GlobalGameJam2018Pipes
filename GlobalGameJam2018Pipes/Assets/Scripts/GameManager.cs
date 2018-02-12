@@ -254,7 +254,6 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("space pressed");
             string sceneName = "Options";
             Scene scene = SceneManager.GetSceneByName(sceneName);
             if (scene.IsValid())
@@ -264,7 +263,7 @@ public class GameManager : MonoBehaviour
             }                
             else
             {
-                Debug.Log($"will load scene in coroutine ({sceneName})");
+                //Debug.Log($"will load scene in coroutine ({sceneName})");
                 StartCoroutine(LoadScene(sceneName));
             }
         }
@@ -284,7 +283,6 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log($"scene {sceneName} is loaded");
     }
 
     

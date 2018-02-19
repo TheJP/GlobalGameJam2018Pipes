@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
             deletingPipe = false;
             thresholdDeletingPipe = 0;
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             string sceneName = "Options";
             Scene scene = SceneManager.GetSceneByName(sceneName);

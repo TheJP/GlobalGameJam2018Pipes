@@ -21,8 +21,9 @@ public class TableScript : MonoBehaviour
     private Vector3 tableCenter;
 
     public Dictionary<PipeType, Asset> assetLocations;     // which asset stores which pipe type, hardcoded InitInventoryPlaces
-    public Asset goldLocation;
-    public Asset hammerLocation;
+    
+    private Asset goldLocation;
+    private Asset hammerLocation;
 
     //    private Vector3 localTableDirection;
 

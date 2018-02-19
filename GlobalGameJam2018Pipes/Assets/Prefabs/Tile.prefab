@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114724867893182580}
   - component: {fileID: 82628664901293698}
   m_Layer: 0
-  m_Name: TrashPipe
+  m_Name: PipeTrash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758937494953428}
   m_Layer: 0
-  m_Name: TrashPipe
+  m_Name: PipeTrash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,7 +438,7 @@ Transform:
   m_Children:
   - {fileID: 4740494271082654}
   m_Father: {fileID: 4207981985444214}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4145183478171596
 Transform:
@@ -496,8 +496,8 @@ Transform:
   - {fileID: 4611273424775832}
   - {fileID: 4925324014691368}
   - {fileID: 4205549101770066}
-  - {fileID: 4047601738448362}
   - {fileID: 4758937494953428}
+  - {fileID: 4047601738448362}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -733,7 +733,7 @@ Transform:
   - {fileID: 4755860676333058}
   - {fileID: 4347121943011788}
   m_Father: {fileID: 4207981985444214}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4759626629846280
 Transform:

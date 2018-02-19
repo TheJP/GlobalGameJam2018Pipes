@@ -19,11 +19,11 @@ public class Tile : MonoBehaviour
 
     public bool BuildPipe(PipeType pipeType, int rotation)
     {
-        pipeDisplay.ShowPipe(pipeType);
-        pipeDisplay.Rotation = rotation;
-
-        if (pipeDisplay.ActivePipe != null)
+        if (pipeDisplay.ActivePipe == null)
         {
+            pipeDisplay.ShowPipe(pipeType);
+            pipeDisplay.Rotation = rotation;
+
             pipe = pipeDisplay.ActivePipe.GetComponent<Pipe>();
             pipe.Rotation = rotation;
 

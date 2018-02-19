@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> itemSources = new List<GameObject>();
     private AudioSource audioSource;
     private bool deletingPipe = false;
-    private float coolDownDeletingPipe = 0;
     private float thresholdDeletingPipe = 0;
 
     private bool holdsHammer;
@@ -134,8 +133,7 @@ public class GameManager : MonoBehaviour
 
         //tableScript.InitInventoryPlaces();
     }
-
-
+    
     public void SetBuildNext(PipeType pipeType)
     {
         cursor.ShowPipe(pipeType);

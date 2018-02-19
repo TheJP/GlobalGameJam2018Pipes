@@ -41,7 +41,6 @@ public class TableScript : MonoBehaviour
         // init assets
         float tableSizeX = table.GetComponent<Renderer>().bounds.size.x;
         float tableSizeZ = table.GetComponent<Renderer>().bounds.size.z;
-        float tableHeight = table.GetComponent<Renderer>().bounds.size.y;
 
         tileSizeX = tableSizeX / tableSizeRows;
         tileSizeZ = tableSizeZ / tableSizeCols;

@@ -8,15 +8,12 @@ namespace Assets.Scripts
 {
     class RequisitionGenerator : MonoBehaviour
     {
-
         public GameObject fluidContainerPrefab;
         public GameObject vaporContainerPrefab;
         public GameObject powderContainerPrefab;
         public GameObject herbsContainerPrefab;
         public GameObject pasteContainerPrefab;
-
-        private readonly Array colors = Enum.GetValues(typeof(MaterialColor));
-        private readonly Array materials = Enum.GetValues(typeof(Material));
+        
         private int scoreForTask; //Not needed yet. Just an idea.
 
         private GameObject displayingItem;

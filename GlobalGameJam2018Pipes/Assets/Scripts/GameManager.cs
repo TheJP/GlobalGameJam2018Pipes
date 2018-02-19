@@ -136,17 +136,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public bool SetBuildNext(PipeType pipeType)
+    public void SetBuildNext(PipeType pipeType)
     {
         cursor.ShowPipe(pipeType);
-
-        if (inventory.HasInventory(pipeType))
-        {
-            buildNext = pipeType;
-            return true;
-        }
-
-        return false;
+        buildNext = pipeType;
     }
 
     void Update()

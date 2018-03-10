@@ -244,24 +244,30 @@ public class GameManager : MonoBehaviour
             thresholdDeletingPipe = 0;
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            string sceneName = "Options";
-            Scene scene = SceneManager.GetSceneByName(sceneName);
-            if (scene.IsValid())
-            {
-                Debug.Log($"will set scene active ({sceneName})");
-                SceneManager.SetActiveScene(scene);
-            }                
-            else
-            {
-                //Debug.Log($"will load scene in coroutine ({sceneName})");
-                StartCoroutine(LoadScene(sceneName));
-            }
-        }
+            SwitchToScene("Options");
+        
+        else if (Input.GetKeyDown(KeyCode.F1))
+            SwitchToScene("HelpScene");
 
         if (GameManager.Multiplayer != null)
         {
             GameManager.Multiplayer.DispatchEvents();
+        }
+    }
+
+
+    private void SwitchToScene(string sceneName)
+    {
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        if (scene.IsValid())
+        {
+            Debug.Log($"will set scene active ({sceneName})");
+            SceneManager.SetActiveScene(scene);
+        }                
+        else
+        {
+            //Debug.Log($"will load scene in coroutine ({sceneName})");
+            StartCoroutine(LoadScene(sceneName));
         }
     }
 

@@ -133,7 +133,7 @@ public class MixerScript {
     }
 
 
-    private MaterialColor MixColor (MaterialColor color1, MaterialColor color2) {
+    public MaterialColor MixColor (MaterialColor color1, MaterialColor color2) {
 
         // if the two colors are same, the mix stays same
         if (color1 == color2)  
@@ -193,9 +193,10 @@ public class MixerScript {
             case MaterialColor.Blue:
                 return Color.blue;
             case MaterialColor.Green:
-                return Color.green;
+                return new Color(0, 0.6f, 0f);
             case MaterialColor.Orange:
                 return new Color(1, 0xa0 / 255.0f, 0);
+//                return new Color(1, 0.5f, 0);
             case MaterialColor.Violet:
                 return new Color(0x88 / 255.0f, 0, 1);
             case MaterialColor.Black:

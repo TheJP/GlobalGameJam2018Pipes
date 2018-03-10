@@ -13,9 +13,6 @@ public class HelpScreenGenerator : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		
-		Debug.Log($"in start help screen");
-		Debug.Log($"this component is {this.name}");
-
 		GameObject parent = GameObject.Find("ColorMixContainer");
 
 		CreateColormixDisplay(parent, -100, 130, MaterialColor.Red, MaterialColor.Yellow);
